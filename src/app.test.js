@@ -1,4 +1,6 @@
-const { Ship, Gameboard } = require("./index")
+const Ship = require("./Ship")
+const Gameboard = require("./Gameboard")
+const Player = require("./Player")
 
 //Testing the Ship initialization
 test("ship initializes correctly", function () {
@@ -94,4 +96,65 @@ test("reports all ships sunk correctly", () => {
   gameboard.receiveAttack(1, 3)
   expect(ship2.isSunk()).toBe(true)
   expect(gameboard.allShipSunk()).toBe(true)
+})
+
+//Testing the Player Class
+
+test("player initializes correctly", () => {
+  const player = new Player()
+
+  expect(player.type).toBe("human")
+  expect(player.gameboard).toBeDefined()
+  expect(player.gameboard.ships.length).toBe(0)
+})
+
+test("Computer initializes correctly", () => {
+  const player = new Player("computer")
+
+  expect(player.type).toBe("computer")
+  expect(player.gameboard).toBeDefined()
+  expect(player.gameboard.ships.length).toBe(0)
+})
+
+//Test the Attack Method for Human Player
+
+test("human player attacks correctly", () => {
+  const player1 = new Player()
+  const compPlayer = new Player("computer")
+
+  const ship = new Ship(3)
+  compPlayer.gameboard.placeShip(ship, 0, 0, "horizontal")
+
+  player1.attack(compPlayer, 0, 0)
+  player1.attack(compPlayer, 0, 5)
+
+  expect(ship.hits).toBe(1)
+
+  expect(compPlayer.gameboard.missedShots.length).toBe(1)
+  expect(compPlayer.gameboard.missedShots).toContainEqual([0, 5])
+})
+
+//Testing the Attack Method for Computer Player
+
+test("computer Player attacks correctly", () => {
+  const comPlayer = new Player("computer")
+  const player1 = new Player()
+  const ship = new Ship(3)
+
+  player1.gameboard.placeShip(ship, 1, 1, "vertical")
+  comPlayer.attack(player1, 1, 1)
+
+  // Since the attack is random, we just check if either hits or missed shots increased
+  expect(ship.hits + player1.gameboard.missedShots.length).toBe(1)
+})
+
+//Testing the Random Co-ordinate method
+test("computer player generates random co-ordinates correctly", () => {
+  const comPlayer = new Player("computer")
+  let [x, y] = comPlayer.getRandomCoordinates()
+
+  expect(x).toBeGreaterThanOrEqual(0)
+  expect(x).toBeLessThanOrEqual(10)
+  expect(y).toBeGreaterThanOrEqual(0)
+  expect(y).toBeLessThanOrEqual(10)
 })
