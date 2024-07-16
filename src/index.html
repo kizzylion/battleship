@@ -3,15 +3,58 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Kiz BattleShip</title>
 </head>
-<body>
-    <div class="bg-gray-500">
-        <h1>Hello World</h1>
-        <p>Start editing to see some magic happen :)</p>
-        <div>
-            <p class="">can we begin now</p>
+<body class="flex flex-col w-screen  h-dvh">
+    <Header class="flex items-center max-w-7xl  w-full mx-auto mt-10 mb-4" >
+        <h1 id="Logo" class="text-2xl mr-5">Kiz BattleShip </h1>
+        <div class="screen flex px-4 py-3 bg-gray-200 text-sm max-w-xl w-full rounded-md">
+            <p>Start editing to see some magic happen </p>
         </div>
-    </div> 
+    </Header>
+    
+    <div id="body-container" class=" flex max-xl mx-auto max-w-7xl w-full h-full mt-12">
+        <div id="battlefield" class="board w-1/2">
+            <div id="port" class="  inline-flex flex-col float-left flex-wrap w-52 gap-x-5 gap-y-10 mr-6">
+                <div class="carrier-port pack placeable relative h-9 ">
+                    <div data-name="carrier" data-direction="horizontal" data-length="4" draggable="true" class="carrier token"></div>
+                </div>
+                <div class="battleship-port pack placeable relative h-9 ">
+                    <div data-name="battleship" data-direction="horizontal" data-length="3" draggable="true" class="battleship token"></div>
+                </div>
+                <div class="destroyer-port pack placeable relative h-9">
+                    <div data-name="destroyer" data-direction="horizontal" data-length="2" draggable="true" class="destroyer token"></div>
+                </div>
+                <div class="submarine-port pack placeable relative h-9 ">
+                    
+                    <div data-name="submarine" data-direction="horizontal" data-length="2" draggable="true" class="submarine token"></div>
+                </div>
+                <div class="submarine-port pack placeable relative h-9 ">
+                    
+                    <div data-name="patrol" data-direction="horizontal" data-length="1" draggable="true" class="patrol token"></div>
+                    
+                </div>
+                
+            </div>
+            <div id="strategyscreen" class="placeable relative flex w-fit">
+                <canvas id="playerboard" class=" " width="360" height="360"></canvas>
+            </div>
+
+        </div>
+        <div id="battlefield-2" class="hidden board w-1/2">
+            <canvas id="computerboard" class="" width="360" height="360"></canvas>
+        </div>
+
+    </div>
+
+
+    <footer class=" max-w-7xl w-full mx-auto py-1">
+        <p class="text-center text-sm">
+           
+            <a href="#"><i class="fa-brands fa-github"></i> Kizzylion</a>
+        </p>
+    </footer>
+    
+
 </body>
 </html>

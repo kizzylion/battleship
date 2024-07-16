@@ -4,7 +4,7 @@ const Player = require("./Player")
 
 //Testing the Ship initialization
 test("ship initializes correctly", function () {
-  const ship = new Ship(5)
+  const ship = new Ship("cruiser", 5)
   expect(ship.length).toBe(5)
   expect(ship.hits).toBe(0)
   expect(ship.sunk).toBe(false)
@@ -12,7 +12,7 @@ test("ship initializes correctly", function () {
 
 //Testing the 'hit' method
 test("ship registers the hit correctly", () => {
-  const ship = new Ship(5)
+  const ship = new Ship("cruiser", 5)
   ship.hit()
   expect(ship.hits).toBe(1)
   ship.hit()
@@ -21,7 +21,7 @@ test("ship registers the hit correctly", () => {
 
 //Testing the 'isSunk' method
 test("ship registers the isSunk correctly", () => {
-  const ship = new Ship(3)
+  const ship = new Ship("cruiser", 3)
   expect(ship.isSunk()).toBe(false)
   ship.hit()
   ship.hit()
@@ -32,7 +32,7 @@ test("ship registers the isSunk correctly", () => {
 
 //Testing the sunk state after hit
 test("ship updates sunk state", () => {
-  const ship = new Ship(2)
+  const ship = new Ship("cruiser", 2)
   ship.hit()
   expect(ship.isSunk()).toBe(false)
   ship.hit()
@@ -53,7 +53,7 @@ test("gameboard initializes completely", () => {
 //testing 'placeShip' Method
 test("places ship correctly", () => {
   const gameboard = new Gameboard()
-  const ship = new Ship(3)
+  const ship = new Ship("submarine", 3)
 
   gameboard.placeShip(ship, 0, 0, "horizontal")
 
@@ -65,7 +65,7 @@ test("places ship correctly", () => {
 //testing the 'receiveAttack' Method
 test("receive attack correctly", () => {
   const gameboard = new Gameboard()
-  const ship = new Ship(3)
+  const ship = new Ship("submarine", 3)
 
   gameboard.placeShip(ship, 0, 0, "vertical")
   gameboard.receiveAttack(0, 0)
@@ -78,8 +78,8 @@ test("receive attack correctly", () => {
 //testing the 'allShipSunk' Method
 test("reports all ships sunk correctly", () => {
   const gameboard = new Gameboard()
-  const ship1 = new Ship(2)
-  const ship2 = new Ship(3)
+  const ship1 = new Ship("patrol", 2)
+  const ship2 = new Ship("destroyer", 3)
 
   gameboard.placeShip(ship1, 0, 0, "horizontal")
   gameboard.placeShip(ship2, 1, 1, "vertical")
@@ -122,7 +122,7 @@ test("human player attacks correctly", () => {
   const player1 = new Player()
   const compPlayer = new Player("computer")
 
-  const ship = new Ship(3)
+  const ship = new Ship("destroyer", 3)
   compPlayer.gameboard.placeShip(ship, 0, 0, "horizontal")
 
   player1.attack(compPlayer, 0, 0)
