@@ -3,9 +3,9 @@ const HtmlWebpackPlugin = require("html-webpack-plugin")
 const { Chunk } = require("webpack")
 
 module.exports = {
-  entry: "./src/index.js",
+  entry: "./src/modules/index.js",
   mode: "development",
-  devtool: "inline-source-map",
+  devtool: "source-map",
   devServer: {
     static: "./dist",
     port: 3000,

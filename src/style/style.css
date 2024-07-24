@@ -1,0 +1,116 @@
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+:root {
+  --cell-size: 36px;
+}
+
+.pack {
+  box-sizing: content-box;
+  border: 1px dotted #00000020;
+  width: 140px;
+  /* transform: scale(0.5); */
+}
+
+#strategyscreen {
+  /* transform: scale(0.5); */
+}
+
+.btn {
+  cursor: pointer;
+  background-color: #ffffff;
+  color: #0000ff;
+}
+
+.bringFront {
+  z-index: 10;
+}
+
+.active {
+  background-color: #0000ff !important;
+  color: white !important;
+}
+.play {
+  background-color: #008000 !important;
+  border: 1px solid #008000;
+  color: white !important;
+}
+.restart {
+  border: 1px solid #ff0000 !important;
+  color: red !important;
+}
+
+.token {
+  /* position: absolute; */
+  top: 0;
+  left: 0;
+  border: 1px solid #0000ff;
+  background-color: #0000ff10;
+  box-sizing: border-box;
+  cursor: grab;
+  transform: rotate(0deg);
+}
+
+.token.carrier {
+  width: calc(4 * var(--cell-size));
+  height: var(--cell-size);
+}
+.token.battleship {
+  width: calc(3 * var(--cell-size));
+  height: var(--cell-size);
+}
+.token.destroyer {
+  width: calc(2 * var(--cell-size));
+  height: var(--cell-size);
+}
+.token.submarine {
+  width: calc(2 * var(--cell-size));
+  height: var(--cell-size);
+}
+.token.patrol {
+  width: var(--cell-size);
+  height: var(--cell-size);
+}
+.token.carrier.vertical {
+  height: calc(4 * var(--cell-size));
+  width: var(--cell-size);
+  transition: ease;
+}
+.token.battleship.vertical {
+  height: calc(3 * var(--cell-size));
+  width: var(--cell-size);
+  transition: ease;
+}
+.token.destroyer.vertical {
+  height: calc(2 * var(--cell-size));
+  width: var(--cell-size);
+  transition: ease;
+}
+.token.submarine.vertical {
+  height: calc(2 * var(--cell-size));
+  width: var(--cell-size);
+  transition: ease;
+}
+.token.patrol.vertical {
+  width: var(--cell-size);
+  height: var(--cell-size);
+  transition: ease;
+}
+
+.token.dragging {
+  opacity: 0.5;
+}
+
+.token.rotate {
+  transform: rotate(90deg);
+  translate: -0% -0%;
+  transition: ease;
+  transition-delay: 3ms;
+  transform-origin: 18px center;
+}
+
+.errorBorder {
+  border: 1px solid red !important;
+  background-color: rgba(255, 0, 0, 0.2) !important;
+}

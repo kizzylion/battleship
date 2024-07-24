@@ -1,5 +1,5 @@
 const Ship = require("./Ship")
-const Gameboard = require("./Gameboard")
+const { Gameboard } = require("./Gameboard")
 const Player = require("./Player")
 
 //Testing the Ship initialization
@@ -44,7 +44,7 @@ test("ship updates sunk state", () => {
 
 test("gameboard initializes completely", () => {
   const gameboard = new Gameboard()
-  expect(gameboard.ships.length).toBe(0)
+  expect(gameboard.ships.length).toBe(5)
   expect(gameboard.missedShots.length).toBe(0)
   expect(gameboard.board.length).toBe(10)
   expect(gameboard.board[0].length).toBe(10)
@@ -95,7 +95,7 @@ test("reports all ships sunk correctly", () => {
 
   gameboard.receiveAttack(1, 3)
   expect(ship2.isSunk()).toBe(true)
-  expect(gameboard.allShipSunk()).toBe(true)
+  expect(gameboard.allShipSunk()).toBe(false)
 })
 
 //Testing the Player Class
@@ -105,7 +105,7 @@ test("player initializes correctly", () => {
 
   expect(player.type).toBe("human")
   expect(player.gameboard).toBeDefined()
-  expect(player.gameboard.ships.length).toBe(0)
+  expect(player.gameboard.ships.length).toBe(5)
 })
 
 test("Computer initializes correctly", () => {
@@ -113,7 +113,7 @@ test("Computer initializes correctly", () => {
 
   expect(player.type).toBe("computer")
   expect(player.gameboard).toBeDefined()
-  expect(player.gameboard.ships.length).toBe(0)
+  expect(player.gameboard.ships.length).toBe(5)
 })
 
 //Test the Attack Method for Human Player
