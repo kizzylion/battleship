@@ -57,14 +57,48 @@ module.exports = {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   canPlaceShip: () => (/* binding */ canPlaceShip),
+/* harmony export */   getRandomDirection: () => (/* binding */ getRandomDirection),
+/* harmony export */   getRandomNumber: () => (/* binding */ getRandomNumber),
 /* harmony export */   htmlStructure: () => (/* binding */ htmlStructure)
 /* harmony export */ });
-var _require = __webpack_require__(/*! ../modules/playerDom */ "./src/modules/playerDom.js"),
-  playerFieldUi = _require.playerFieldUi;
-var _require2 = __webpack_require__(/*! ./domevents */ "./src/bin2/domevents.js"),
-  drawCanvas = _require2.drawCanvas;
 function htmlStructure() {
   return document.body.innerHTML = "\n\n    <Header class=\"flex items-center max-w-7xl  w-full mx-auto mt-10 mb-4\" >\n        <h1 id=\"Logo\" class=\"text-2xl mr-5\">Kiz BattleShip </h1>\n        <div class=\"screen flex px-4 py-3 bg-gray-200 text-sm max-w-xl w-full rounded-md\">\n            <p>Start editing to see some magic happen </p>\n        </div>\n    </Header>\n    \n    <main id=\"body-container\" class=\" flex max-xl mx-auto max-w-7xl w-full h-full mt-12\">\n        \n        <div id=\"battlefield-2\" class=\"hidden board w-1/2\">\n            <canvas id=\"computerboard\" class=\"\" width=\"360\" height=\"360\"></canvas>\n        </div>\n\n    </main>\n\n\n    <footer class=\" max-w-7xl w-full mx-auto py-1\">\n        <p class=\"text-center text-sm\">\n           \n            <a href=\"#\"><i class=\"fa-brands fa-github\"></i> Kizzylion</a>\n        </p>\n    </footer>\n\n    ";
+}
+function getRandomDirection() {
+  return Math.random() < 0.5 ? "horizontal" : "vertical";
+}
+function getRandomNumber() {
+  return Math.floor(Math.random() * 10);
+}
+function canPlaceShip(board, xPosition, yPosition, shipLength, direction, cellSize) {
+  var xCord = xPosition / cellSize;
+  var yCord = yPosition / cellSize;
+  if (direction === "horizontal") {
+    //check if ship can fit horizontal
+    if (xCord % 10 <= 10 - shipLength) {
+      for (var i = 0; i < shipLength; i++) {
+        var space = board[yCord][xCord + i];
+        if (space) {
+          return false;
+        }
+      }
+      return true;
+    }
+    return false;
+  } else if (direction === "vertical") {
+    //check if ship can fit vertical
+    if (yCord % 10 <= 10 - shipLength) {
+      for (var _i = 0; _i < shipLength; _i++) {
+        var _space = board[yCord + _i][xCord];
+        if (_space) {
+          return false;
+        }
+      }
+      return true;
+    }
+    return false;
+  }
 }
 
 /***/ }),
@@ -78,12 +112,18 @@ function htmlStructure() {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   computerShoot: () => (/* binding */ computerShoot),
 /* harmony export */   createElement: () => (/* binding */ createElement),
 /* harmony export */   flexElement: () => (/* binding */ flexElement),
 /* harmony export */   getElementById: () => (/* binding */ getElementById),
 /* harmony export */   hideElement: () => (/* binding */ hideElement),
+/* harmony export */   playerShoot: () => (/* binding */ playerShoot),
 /* harmony export */   querySelectorAll: () => (/* binding */ querySelectorAll)
 /* harmony export */ });
+/* harmony import */ var _bin2_domevents__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../bin2/domevents */ "./src/bin2/domevents.js");
+/* harmony import */ var _bin2_domevents__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_bin2_domevents__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _asset_images_X_png__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../asset/images/X.png */ "./src/asset/images/X.png");
+/* harmony import */ var _asset_images_dot_png__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../asset/images/dot.png */ "./src/asset/images/dot.png");
 function _readOnlyError(r) { throw new TypeError('"' + r + '" is read-only'); }
 function _toConsumableArray(r) { return _arrayWithoutHoles(r) || _iterableToArray(r) || _unsupportedIterableToArray(r) || _nonIterableSpread(); }
 function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -91,6 +131,16 @@ function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) 
 function _iterableToArray(r) { if ("undefined" != typeof Symbol && null != r[Symbol.iterator] || null != r["@@iterator"]) return Array.from(r); }
 function _arrayWithoutHoles(r) { if (Array.isArray(r)) return _arrayLikeToArray(r); }
 function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length); for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e]; return n; }
+
+
+
+
+//load x and dot images for canvas
+var xImage = new Image();
+xImage.src = _asset_images_X_png__WEBPACK_IMPORTED_MODULE_1__;
+var dotImage = new Image();
+dotImage.src = _asset_images_dot_png__WEBPACK_IMPORTED_MODULE_2__;
+
 // function that returns an element by id from the dom
 function getElementById(id) {
   return document.getElementById(id);
@@ -120,6 +170,32 @@ function resetMain() {
 function createElement(string) {
   return document.createElement(string);
 }
+function playerShoot(event, canvas, ctx, cellSize, board) {
+  //   if (game_over) return
+  //X & Y position of the mouse click relative to the canvas
+  //event.client show the click position relative to the viewport
+  //cvs.getBoundaringClientRec show the position of the canvas in the view port
+  var X = event.clientX - canvas.getBoundingClientRect().x;
+  var Y = event.clientY - canvas.getBoundingClientRect().y;
+
+  //we calculated i & j of the clicked canvas
+  var top = Math.floor(Y / cellSize);
+  var left = Math.floor(X / cellSize);
+  console.log("top= ".concat(top, " , left = ").concat(left, ", id = ").concat(id));
+  var id = board[top][left];
+  drawOnBoard(id, ctx, left, top);
+}
+function computerShoot(board, canvas, position) {
+  var top = position.y;
+  var left = position.x;
+  var id = board[top][left];
+  console.log("top= ".concat(top, " , left = ").concat(left, ", id = ").concat(id));
+  drawOnBoard(id, canvas, left, top);
+}
+function drawOnBoard(result, ctx, i, j) {
+  var img = result ? xImage : dotImage;
+  ctx.drawImage(img, i * _bin2_domevents__WEBPACK_IMPORTED_MODULE_0__.cellSize, j * _bin2_domevents__WEBPACK_IMPORTED_MODULE_0__.cellSize, _bin2_domevents__WEBPACK_IMPORTED_MODULE_0__.cellSize, _bin2_domevents__WEBPACK_IMPORTED_MODULE_0__.cellSize);
+}
 
 /***/ }),
 
@@ -137,15 +213,34 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _DOM_utilities__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./DOM/utilities */ "./src/modules/DOM/utilities.js");
 /* harmony import */ var _bin2_domevents__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../bin2/domevents */ "./src/bin2/domevents.js");
 /* harmony import */ var _bin2_domevents__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_bin2_domevents__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _playerDom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./playerDom */ "./src/modules/playerDom.js");
+/* harmony import */ var _bin2_game__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../bin2/game */ "./src/bin2/game.js");
+
+var _require = __webpack_require__(/*! ./factories/Gameboard */ "./src/modules/factories/Gameboard.js"),
+  Gameboard = _require.Gameboard;
+
 
 
 function initializeComputer() {
   (0,_DOM_utilities__WEBPACK_IMPORTED_MODULE_0__.getElementById)("field").classList.replace("flex-col", "flex-row");
   (0,_DOM_utilities__WEBPACK_IMPORTED_MODULE_0__.getElementById)("field").classList.add("gap-6");
   generateComputerBoardUi();
-  var computerCvs = document.getElementById("computerboard");
+  var computerCvs = (0,_DOM_utilities__WEBPACK_IMPORTED_MODULE_0__.getElementById)("computerboard");
   var computerCtx = computerCvs.getContext("2d");
+  var playerCvs = (0,_DOM_utilities__WEBPACK_IMPORTED_MODULE_0__.getElementById)("playerboard");
+  var playerCtx = playerCvs.getContext("2d");
   (0,_bin2_domevents__WEBPACK_IMPORTED_MODULE_1__.drawCanvas)(computerCtx, "#d4b4b4");
+  placeShipsRandomly(_playerDom__WEBPACK_IMPORTED_MODULE_2__.computerBoard.ships);
+  computerCvs.addEventListener("click", function (e) {
+    (0,_DOM_utilities__WEBPACK_IMPORTED_MODULE_0__.playerShoot)(e, computerCvs, computerCtx, _bin2_domevents__WEBPACK_IMPORTED_MODULE_1__.cellSize, _playerDom__WEBPACK_IMPORTED_MODULE_2__.computerBoard.getBoard());
+    var randomPosition = randomCell();
+    var opponentBoard = _playerDom__WEBPACK_IMPORTED_MODULE_2__.playerboard.getBoard();
+    while (checkIfPositionHasBeenHit(_playerDom__WEBPACK_IMPORTED_MODULE_2__.playerboard.positionShot, randomPosition)) {
+      console.log("position has been shot");
+      randomPosition = randomCell;
+    }
+    (0,_DOM_utilities__WEBPACK_IMPORTED_MODULE_0__.computerShoot)(opponentBoard, playerCtx, randomPosition);
+  });
 }
 function generateComputerBoardUi() {
   var field = (0,_DOM_utilities__WEBPACK_IMPORTED_MODULE_0__.getElementById)("field");
@@ -159,6 +254,42 @@ function attackScreen() {
   div.setAttribute("class", "attackScreen");
   div.classList.add("relative", "flex", "w-fit");
   return div;
+}
+function randomCell() {
+  var randomX = Math.floor(Math.random() * 10);
+  var randomY = Math.floor(Math.random() * 10);
+  return {
+    x: randomX,
+    y: randomY
+  };
+}
+
+//function that  check if position has been shoot previously
+function checkIfPositionHasBeenHit(set, position) {
+  return set.has(position.toString());
+}
+function placeShipsRandomly(ships) {
+  ships.forEach(function (ship) {
+    var length = ship.length;
+    var orientation = (0,_bin2_game__WEBPACK_IMPORTED_MODULE_3__.getRandomDirection)();
+    ship.direction = orientation;
+    console.log(ship, length, orientation);
+    var newPosition = {
+      x: (0,_bin2_game__WEBPACK_IMPORTED_MODULE_3__.getRandomNumber)(),
+      y: (0,_bin2_game__WEBPACK_IMPORTED_MODULE_3__.getRandomNumber)()
+    };
+    var wellPlaced = (0,_bin2_game__WEBPACK_IMPORTED_MODULE_3__.canPlaceShip)(_playerDom__WEBPACK_IMPORTED_MODULE_2__.computerBoard.board, newPosition.x * _bin2_domevents__WEBPACK_IMPORTED_MODULE_1__.cellSize, newPosition.y * _bin2_domevents__WEBPACK_IMPORTED_MODULE_1__.cellSize, length, orientation, _bin2_domevents__WEBPACK_IMPORTED_MODULE_1__.cellSize);
+    console.log(ship, length, newPosition, orientation);
+    while (!wellPlaced) {
+      newPosition = {
+        x: (0,_bin2_game__WEBPACK_IMPORTED_MODULE_3__.getRandomNumber)(),
+        y: (0,_bin2_game__WEBPACK_IMPORTED_MODULE_3__.getRandomNumber)()
+      };
+      wellPlaced = (0,_bin2_game__WEBPACK_IMPORTED_MODULE_3__.canPlaceShip)(_playerDom__WEBPACK_IMPORTED_MODULE_2__.computerBoard.board, newPosition.x * _bin2_domevents__WEBPACK_IMPORTED_MODULE_1__.cellSize, newPosition.y * _bin2_domevents__WEBPACK_IMPORTED_MODULE_1__.cellSize, length, orientation, _bin2_domevents__WEBPACK_IMPORTED_MODULE_1__.cellSize);
+    }
+    _playerDom__WEBPACK_IMPORTED_MODULE_2__.computerBoard.placeShip(ship, newPosition.x, newPosition.y, orientation);
+  });
+  console.log(_playerDom__WEBPACK_IMPORTED_MODULE_2__.computerBoard.board);
 }
 
 /***/ }),
@@ -186,7 +317,8 @@ var Gameboard = /*#__PURE__*/function () {
   function Gameboard() {
     _classCallCheck(this, Gameboard);
     this.ships = [new Ship("carrier", 4), new Ship("battleship", 3), new Ship("destroyer", 2), new Ship("submarine", 2), new Ship("patrol", 1)];
-    this.missedShots = [];
+    this.missedShots = new Set();
+    this.positionShot = new Set();
     this.board = Array(10).fill(null).map(function () {
       return Array(10).fill(null);
     });
@@ -208,17 +340,17 @@ var Gameboard = /*#__PURE__*/function () {
 
       // Check if the ship placement is within bounds
       if (direction === "horizontal") {
-        if (startX + shipLength > this.board[0].length || startY >= this.board.length) return;
+        if (startX + shipLength > this.board[0].length || startY >= this.board.length) return false;
       } else if (direction === "vertical") {
-        if (startY + shipLength > this.board.length || startX >= this.board[0].length) return;
+        if (startY + shipLength > this.board.length || startX >= this.board[0].length) return false;
       }
 
       // Check if the placement is not colliding with another ship
       for (var i = 0; i < shipLength; i++) {
         if (direction === "horizontal") {
-          if (this.board[startY][startX + i]) return;
+          if (this.board[startY][startX + i]) return false;
         } else if (direction === "vertical") {
-          if (this.board[startY + i][startX]) return;
+          if (this.board[startY + i][startX]) return false;
         }
       }
       if (direction === "horizontal") {
@@ -237,9 +369,11 @@ var Gameboard = /*#__PURE__*/function () {
     value: function receiveAttack(x, y) {
       var target = this.board[y][x];
       if (target) {
+        this.positionShot.add([x, y].toString());
         target.hit();
       } else {
-        this.missedShots.push([x, y]);
+        this.missedShots.add([x, y].toString);
+        this.positionShot.add([x, y].toString());
       }
     }
   }, {
@@ -288,6 +422,11 @@ var Gameboard = /*#__PURE__*/function () {
       this.board = Array(10).fill(null).map(function () {
         return Array(10).fill(null);
       });
+    }
+  }, {
+    key: "getBoard",
+    value: function getBoard() {
+      return this.board;
     }
   }]);
 }();
@@ -378,6 +517,10 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+var xImage = new Image();
+xImage.src = "../asset/images/X.png";
+var dotImage = new Image();
+dotImage.src = "dot.png";
 
 /***/ }),
 
@@ -389,11 +532,18 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   computerBoard: () => (/* binding */ computerBoard),
+/* harmony export */   playerboard: () => (/* binding */ playerboard)
+/* harmony export */ });
 /* harmony import */ var typed_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! typed.js */ "./node_modules/typed.js/dist/typed.module.js");
 /* harmony import */ var _DOM_utilities__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./DOM/utilities */ "./src/modules/DOM/utilities.js");
 /* harmony import */ var _comDom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./comDom */ "./src/modules/comDom.js");
 var _require = __webpack_require__(/*! ../bin2/game */ "./src/bin2/game.js"),
-  htmlStructure = _require.htmlStructure;
+  htmlStructure = _require.htmlStructure,
+  getRandomDirection = _require.getRandomDirection,
+  getRandomNumber = _require.getRandomNumber,
+  canPlaceShip = _require.canPlaceShip;
 var _require2 = __webpack_require__(/*! ../bin2/domevents */ "./src/bin2/domevents.js"),
   drawCanvas = _require2.drawCanvas,
   cellSize = _require2.cellSize;
@@ -402,12 +552,13 @@ var _require3 = __webpack_require__(/*! ./factories/Gameboard */ "./src/modules/
 
 
 
+var playerboard = new Gameboard();
+var computerBoard = new Gameboard();
 (function () {
   htmlStructure();
   setupPlayerField();
   var playerCvs = document.getElementById("playerboard");
   var playerCtx = playerCvs.getContext("2d");
-  var playerboard = new Gameboard();
   var message = document.querySelector(".screen p");
   var typed = new typed_js__WEBPACK_IMPORTED_MODULE_0__["default"](message, {
     strings: ["Begin by setting up a formation", "Drag and Drop your ships in your country water", "You can arrange your ships in a vertical or horizontal position by using the X axis or Y axis Button", "All the best with your formation"],
@@ -475,15 +626,13 @@ var _require3 = __webpack_require__(/*! ./factories/Gameboard */ "./src/modules/
         x: getRandomNumber() * cellSize,
         y: getRandomNumber() * cellSize
       };
-      wellPlaced = canPlaceShip(newPosition.x, newPosition.y, length, orientation);
+      wellPlaced = canPlaceShip(playerboard.board, newPosition.x, newPosition.y, length, orientation, cellSize);
       while (!wellPlaced) {
         newPosition = {
           x: getRandomNumber() * cellSize,
           y: getRandomNumber() * cellSize
         };
-
-        // this allows the dragged token to move while isOverlap is true
-        wellPlaced = canPlaceShip(newPosition.x, newPosition.y, length, orientation);
+        wellPlaced = canPlaceShip(playerboard.board, newPosition.x, newPosition.y, length, orientation, cellSize);
       }
       token.style.top = "".concat(newPosition.y, "px");
       token.style.left = "".concat(newPosition.x, "px");
@@ -555,7 +704,7 @@ var _require3 = __webpack_require__(/*! ./factories/Gameboard */ "./src/modules/
 
     //check if canPlace ship
     //if it not return to previous state
-    if (!canPlaceShip(newPosition.x, newPosition.y, length, orientation)) {
+    if (!canPlaceShip(playerboard.board, newPosition.x, newPosition.y, length, orientation, cellSize)) {
       draggedToken.classList.add("errorBorder");
       var draggedShip = playerboard.getShip(draggedToken.getAttribute("data-name"));
       draggedToken.setAttribute("data-direction", direction);
@@ -577,7 +726,7 @@ var _require3 = __webpack_require__(/*! ./factories/Gameboard */ "./src/modules/
     var draggedToken = document.querySelector(".dragging");
     var length = parseInt(draggedToken.getAttribute("data-length"));
     var newPosition = playerboard.calculateNewPosition(e, playerCvs, draggedToken);
-    if (canPlaceShip(newPosition.x, newPosition.y, length, orientation)) {
+    if (canPlaceShip(playerboard.board, newPosition.x, newPosition.y, length, orientation, cellSize)) {
       console.log(draggedToken);
       draggedToken.classList.remove("errorBorder");
       draggedToken.style.top = "".concat(newPosition.y, "px");
@@ -617,41 +766,6 @@ var _require3 = __webpack_require__(/*! ./factories/Gameboard */ "./src/modules/
     draggedShip.left = 0;
     draggedShip.top = 0;
     draggedShip.direction = "horizontal";
-  }
-  function canPlaceShip(xPosition, yPosition, shipLength, direction) {
-    var xCord = xPosition / cellSize;
-    var yCord = yPosition / cellSize;
-    if (direction === "horizontal") {
-      //check if ship can fit horizontal
-      if (xCord % 10 <= 10 - shipLength) {
-        for (var i = 0; i < shipLength; i++) {
-          var space = playerboard.board[yCord][xCord + i];
-          if (space) {
-            return false;
-          }
-        }
-        return true;
-      }
-      return false;
-    } else if (direction === "vertical") {
-      //check if ship can fit vertical
-      if (yCord % 10 <= 10 - shipLength) {
-        for (var _i = 0; _i < shipLength; _i++) {
-          var _space = playerboard.board[yCord + _i][xCord];
-          if (_space) {
-            return false;
-          }
-        }
-        return true;
-      }
-      return false;
-    }
-  }
-  function getRandomDirection() {
-    return Math.random() < 0.5 ? "horizontal" : "vertical";
-  }
-  function getRandomNumber() {
-    return Math.floor(Math.random() * 10);
   }
 
   //switch buttons
@@ -1546,6 +1660,28 @@ var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js
 
 /***/ }),
 
+/***/ "./src/asset/images/X.png":
+/*!********************************!*\
+  !*** ./src/asset/images/X.png ***!
+  \********************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+module.exports = __webpack_require__.p + "images/X.png";
+
+/***/ }),
+
+/***/ "./src/asset/images/dot.png":
+/*!**********************************!*\
+  !*** ./src/asset/images/dot.png ***!
+  \**********************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+module.exports = __webpack_require__.p + "images/dot.png";
+
+/***/ }),
+
 /***/ "?3465":
 /*!**********************!*\
   !*** path (ignored) ***!
@@ -1692,6 +1828,18 @@ var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js
 /******/ 		};
 /******/ 	})();
 /******/ 	
+/******/ 	/* webpack/runtime/global */
+/******/ 	(() => {
+/******/ 		__webpack_require__.g = (function() {
+/******/ 			if (typeof globalThis === 'object') return globalThis;
+/******/ 			try {
+/******/ 				return this || new Function('return this')();
+/******/ 			} catch (e) {
+/******/ 				if (typeof window === 'object') return window;
+/******/ 			}
+/******/ 		})();
+/******/ 	})();
+/******/ 	
 /******/ 	/* webpack/runtime/hasOwnProperty shorthand */
 /******/ 	(() => {
 /******/ 		__webpack_require__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop))
@@ -1706,6 +1854,29 @@ var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js
 /******/ 			}
 /******/ 			Object.defineProperty(exports, '__esModule', { value: true });
 /******/ 		};
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/publicPath */
+/******/ 	(() => {
+/******/ 		var scriptUrl;
+/******/ 		if (__webpack_require__.g.importScripts) scriptUrl = __webpack_require__.g.location + "";
+/******/ 		var document = __webpack_require__.g.document;
+/******/ 		if (!scriptUrl && document) {
+/******/ 			if (document.currentScript)
+/******/ 				scriptUrl = document.currentScript.src;
+/******/ 			if (!scriptUrl) {
+/******/ 				var scripts = document.getElementsByTagName("script");
+/******/ 				if(scripts.length) {
+/******/ 					var i = scripts.length - 1;
+/******/ 					while (i > -1 && (!scriptUrl || !/^http(s?):/.test(scriptUrl))) scriptUrl = scripts[i--].src;
+/******/ 				}
+/******/ 			}
+/******/ 		}
+/******/ 		// When supporting browsers where an automatic publicPath is not supported you must specify an output.publicPath manually via configuration
+/******/ 		// or pass an empty string ("") and set the __webpack_public_path__ variable from your code to use your own logic.
+/******/ 		if (!scriptUrl) throw new Error("Automatic publicPath is not supported in this browser");
+/******/ 		scriptUrl = scriptUrl.replace(/#.*$/, "").replace(/\?.*$/, "").replace(/\/[^\/]+$/, "/");
+/******/ 		__webpack_require__.p = scriptUrl;
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/jsonp chunk loading */
