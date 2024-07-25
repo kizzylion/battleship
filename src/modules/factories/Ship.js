@@ -45,6 +45,8 @@ class Ship {
   }
 }
 
+module.exports = { Ship, createTokenDiv }
+
 function createTokenDiv(name, direction, length, left, top) {
   // Create a new div element
   const div = document.createElement("div")
@@ -65,5 +67,3 @@ function createTokenDiv(name, direction, length, left, top) {
 
   return div
 }
-
-module.exports = Ship

@@ -1,5 +1,5 @@
 const { data } = require("autoprefixer")
-const Ship = require("./Ship")
+const { Ship } = require("./Ship")
 const { isColliding, isWithinBounds, orientation } = require("../playerDom")
 class Gameboard {
   constructor() {

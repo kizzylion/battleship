@@ -4,6 +4,7 @@ import dotSrc from "../../asset/images/dot.png"
 import shotSoundSrc from "../../asset/sound/shot.mp3"
 import hitSoundSrc from "../../asset/sound/hit.mp3"
 import missSoundSrc from "../../asset/sound/miss.mp3"
+import { createTokenDiv } from "../factories/Ship"
 
 //load x and dot images for canvas
 const xImage = new Image()
@@ -48,7 +49,7 @@ function resetMain() {
 export function createElement(string) {
   return document.createElement(string)
 }
-export function playerShoot(event, canvas, ctx, cellSize, board) {
+export function playerShoot(event, canvas, ctx, cellSize, board, placeable) {
   //   if (game_over) return
   //X & Y position of the mouse click relative to the canvas
   //event.client show the click position relative to the viewport
@@ -61,12 +62,12 @@ export function playerShoot(event, canvas, ctx, cellSize, board) {
   let left = Math.floor(X / cellSize)
 
   let id = board[top][left]
-  console.log(`top= ${top} , left = ${left}, id = ${id}`)
+  console.log(`top= ${top} , left = ${left}`, `id =`, id)
   playShotSound()
-  return drawOnBoard(id, ctx, left, top)
+  return drawOnBoard(id, ctx, left, top, placeable)
 }
 
-export function computerShoot(opponent, canvas, position) {
+export function computerShoot(opponent, ctx, position, placeable) {
   let randomPosition = randomCell()
 
   while (opponent.checkIfPositionHasBeenHit(randomPosition)) {
@@ -81,13 +82,28 @@ export function computerShoot(opponent, canvas, position) {
 
   console.log(`top= ${top} , left = ${left}, id = ${id}`)
   playShotSound()
-  return drawOnBoard(id, canvas, left, top)
+  return drawOnBoard(id, ctx, left, top, placeable)
 }
 
-function drawOnBoard(result, ctx, i, j) {
+function drawOnBoard(result, ctx, i, j, placeable) {
   const img = result ? xImage : dotImage
   ctx.drawImage(img, i * cellSize, j * cellSize, cellSize, cellSize)
   if (result) {
+    result.hit()
+    if (result.isSunk()) {
+      const tokenDiv = createTokenDiv(
+        result.name,
+        result.direction,
+        result.length,
+        result.left,
+        result.top
+      )
+      tokenDiv.style.position = "absolute"
+      tokenDiv.classList.add("bgImg")
+      if (result.direction === "vertical") tokenDiv.classList.add("vertical")
+      placeable.classList.add("bringFront")
+      placeable.appendChild(tokenDiv)
+    }
     playHitSound()
     return true
   }

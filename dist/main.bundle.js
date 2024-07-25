@@ -128,6 +128,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _asset_sound_shot_mp3__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../asset/sound/shot.mp3 */ "./src/asset/sound/shot.mp3");
 /* harmony import */ var _asset_sound_hit_mp3__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../asset/sound/hit.mp3 */ "./src/asset/sound/hit.mp3");
 /* harmony import */ var _asset_sound_miss_mp3__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../asset/sound/miss.mp3 */ "./src/asset/sound/miss.mp3");
+/* harmony import */ var _factories_Ship__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../factories/Ship */ "./src/modules/factories/Ship.js");
+/* harmony import */ var _factories_Ship__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_factories_Ship__WEBPACK_IMPORTED_MODULE_6__);
 function _readOnlyError(r) { throw new TypeError('"' + r + '" is read-only'); }
 function _toConsumableArray(r) { return _arrayWithoutHoles(r) || _iterableToArray(r) || _unsupportedIterableToArray(r) || _nonIterableSpread(); }
 function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -135,6 +137,7 @@ function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) 
 function _iterableToArray(r) { if ("undefined" != typeof Symbol && null != r[Symbol.iterator] || null != r["@@iterator"]) return Array.from(r); }
 function _arrayWithoutHoles(r) { if (Array.isArray(r)) return _arrayLikeToArray(r); }
 function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length); for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e]; return n; }
+
 
 
 
@@ -184,7 +187,7 @@ function resetMain() {
 function createElement(string) {
   return document.createElement(string);
 }
-function playerShoot(event, canvas, ctx, cellSize, board) {
+function playerShoot(event, canvas, ctx, cellSize, board, placeable) {
   //   if (game_over) return
   //X & Y position of the mouse click relative to the canvas
   //event.client show the click position relative to the viewport
@@ -196,11 +199,11 @@ function playerShoot(event, canvas, ctx, cellSize, board) {
   var top = Math.floor(Y / cellSize);
   var left = Math.floor(X / cellSize);
   var id = board[top][left];
-  console.log("top= ".concat(top, " , left = ").concat(left, ", id = ").concat(id));
+  console.log("top= ".concat(top, " , left = ").concat(left), "id =", id);
   playShotSound();
-  return drawOnBoard(id, ctx, left, top);
+  return drawOnBoard(id, ctx, left, top, placeable);
 }
-function computerShoot(opponent, canvas, position) {
+function computerShoot(opponent, ctx, position, placeable) {
   var randomPosition = randomCell();
   while (opponent.checkIfPositionHasBeenHit(randomPosition)) {
     console.log("position has been shot");
@@ -211,12 +214,21 @@ function computerShoot(opponent, canvas, position) {
   var id = opponent.board[top][left];
   console.log("top= ".concat(top, " , left = ").concat(left, ", id = ").concat(id));
   playShotSound();
-  return drawOnBoard(id, canvas, left, top);
+  return drawOnBoard(id, ctx, left, top, placeable);
 }
-function drawOnBoard(result, ctx, i, j) {
+function drawOnBoard(result, ctx, i, j, placeable) {
   var img = result ? xImage : dotImage;
   ctx.drawImage(img, i * _bin2_domevents__WEBPACK_IMPORTED_MODULE_0__.cellSize, j * _bin2_domevents__WEBPACK_IMPORTED_MODULE_0__.cellSize, _bin2_domevents__WEBPACK_IMPORTED_MODULE_0__.cellSize, _bin2_domevents__WEBPACK_IMPORTED_MODULE_0__.cellSize);
   if (result) {
+    result.hit();
+    if (result.isSunk()) {
+      var tokenDiv = (0,_factories_Ship__WEBPACK_IMPORTED_MODULE_6__.createTokenDiv)(result.name, result.direction, result.length, result.left, result.top);
+      tokenDiv.style.position = "absolute";
+      tokenDiv.classList.add("bgImg");
+      if (result.direction === "vertical") tokenDiv.classList.add("vertical");
+      placeable.classList.add("bringFront");
+      placeable.appendChild(tokenDiv);
+    }
     playHitSound();
     return true;
   }
@@ -319,6 +331,8 @@ function placeShipsRandomly(ships) {
       };
       wellPlaced = (0,_bin2_game__WEBPACK_IMPORTED_MODULE_3__.canPlaceShip)(_playerDom__WEBPACK_IMPORTED_MODULE_2__.computerBoard.board, newPosition.x * _bin2_domevents__WEBPACK_IMPORTED_MODULE_1__.cellSize, newPosition.y * _bin2_domevents__WEBPACK_IMPORTED_MODULE_1__.cellSize, length, orientation, _bin2_domevents__WEBPACK_IMPORTED_MODULE_1__.cellSize);
     }
+    ship.left = newPosition.x * _bin2_domevents__WEBPACK_IMPORTED_MODULE_1__.cellSize;
+    ship.top = newPosition.y * _bin2_domevents__WEBPACK_IMPORTED_MODULE_1__.cellSize;
     _playerDom__WEBPACK_IMPORTED_MODULE_2__.computerBoard.placeShip(ship, newPosition.x, newPosition.y, orientation);
   });
   console.log(_playerDom__WEBPACK_IMPORTED_MODULE_2__.computerBoard.board);
@@ -336,7 +350,7 @@ function _attack() {
           computerCtx = computerCvs.getContext("2d");
           playerCvs = (0,_DOM_utilities__WEBPACK_IMPORTED_MODULE_0__.getElementById)("playerboard");
           playerCtx = playerCvs.getContext("2d");
-          playerKill = (0,_DOM_utilities__WEBPACK_IMPORTED_MODULE_0__.playerShoot)(e, computerCvs, computerCtx, _bin2_domevents__WEBPACK_IMPORTED_MODULE_1__.cellSize, _playerDom__WEBPACK_IMPORTED_MODULE_2__.computerBoard.getBoard());
+          playerKill = (0,_DOM_utilities__WEBPACK_IMPORTED_MODULE_0__.playerShoot)(e, computerCvs, computerCtx, _bin2_domevents__WEBPACK_IMPORTED_MODULE_1__.cellSize, _playerDom__WEBPACK_IMPORTED_MODULE_2__.computerBoard.getBoard(), (0,_DOM_utilities__WEBPACK_IMPORTED_MODULE_0__.getElementById)("attackScreen"));
           if (!playerKill) {
             _context.next = 7;
             break;
@@ -350,7 +364,7 @@ function _attack() {
           });
         case 10:
           // Delay between computer shots
-          computerKill = (0,_DOM_utilities__WEBPACK_IMPORTED_MODULE_0__.computerShoot)(_playerDom__WEBPACK_IMPORTED_MODULE_2__.playerboard, playerCtx, (0,_DOM_utilities__WEBPACK_IMPORTED_MODULE_0__.randomCell)());
+          computerKill = (0,_DOM_utilities__WEBPACK_IMPORTED_MODULE_0__.computerShoot)(_playerDom__WEBPACK_IMPORTED_MODULE_2__.playerboard, playerCtx, (0,_DOM_utilities__WEBPACK_IMPORTED_MODULE_0__.randomCell)(), (0,_DOM_utilities__WEBPACK_IMPORTED_MODULE_0__.getElementById)("strategyscreen"));
         case 11:
           if (!computerKill) {
             _context.next = 17;
@@ -362,7 +376,7 @@ function _attack() {
           });
         case 14:
           // Delay between computer shots
-          computerKill = (0,_DOM_utilities__WEBPACK_IMPORTED_MODULE_0__.computerShoot)(_playerDom__WEBPACK_IMPORTED_MODULE_2__.playerboard, playerCtx, (0,_DOM_utilities__WEBPACK_IMPORTED_MODULE_0__.randomCell)());
+          computerKill = (0,_DOM_utilities__WEBPACK_IMPORTED_MODULE_0__.computerShoot)(_playerDom__WEBPACK_IMPORTED_MODULE_2__.playerboard, playerCtx, (0,_DOM_utilities__WEBPACK_IMPORTED_MODULE_0__.randomCell)(), (0,_DOM_utilities__WEBPACK_IMPORTED_MODULE_0__.getElementById)("strategyscreen"));
           _context.next = 11;
           break;
         case 17:
@@ -392,11 +406,12 @@ function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" 
 function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 var _require = __webpack_require__(/*! autoprefixer */ "./node_modules/autoprefixer/lib/autoprefixer.js"),
   data = _require.data;
-var Ship = __webpack_require__(/*! ./Ship */ "./src/modules/factories/Ship.js");
-var _require2 = __webpack_require__(/*! ../playerDom */ "./src/modules/playerDom.js"),
-  isColliding = _require2.isColliding,
-  isWithinBounds = _require2.isWithinBounds,
-  orientation = _require2.orientation;
+var _require2 = __webpack_require__(/*! ./Ship */ "./src/modules/factories/Ship.js"),
+  Ship = _require2.Ship;
+var _require3 = __webpack_require__(/*! ../playerDom */ "./src/modules/playerDom.js"),
+  isColliding = _require3.isColliding,
+  isWithinBounds = _require3.isWithinBounds,
+  orientation = _require3.orientation;
 var Gameboard = /*#__PURE__*/function () {
   function Gameboard() {
     _classCallCheck(this, Gameboard);
@@ -568,6 +583,10 @@ var Ship = /*#__PURE__*/function () {
     }
   }]);
 }();
+module.exports = {
+  Ship: Ship,
+  createTokenDiv: createTokenDiv
+};
 function createTokenDiv(name, direction, length, left, top) {
   // Create a new div element
   var div = document.createElement("div");
@@ -587,7 +606,6 @@ function createTokenDiv(name, direction, length, left, top) {
   div.style.top = "".concat(top, "px");
   return div;
 }
-module.exports = Ship;
 
 /***/ }),
 
@@ -911,10 +929,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js");
 /* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_getUrl_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../node_modules/css-loader/dist/runtime/getUrl.js */ "./node_modules/css-loader/dist/runtime/getUrl.js");
+/* harmony import */ var _node_modules_css_loader_dist_runtime_getUrl_js__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_getUrl_js__WEBPACK_IMPORTED_MODULE_2__);
 // Imports
 
 
+
+var ___CSS_LOADER_URL_IMPORT_0___ = new URL(/* asset import */ __webpack_require__(/*! ../asset/images/ships/carrierX.svg */ "./src/asset/images/ships/carrierX.svg"), __webpack_require__.b);
+var ___CSS_LOADER_URL_IMPORT_1___ = new URL(/* asset import */ __webpack_require__(/*! ../asset/images/ships/battleshipX.svg */ "./src/asset/images/ships/battleshipX.svg"), __webpack_require__.b);
+var ___CSS_LOADER_URL_IMPORT_2___ = new URL(/* asset import */ __webpack_require__(/*! ../asset/images/ships/destroyerX.svg */ "./src/asset/images/ships/destroyerX.svg"), __webpack_require__.b);
+var ___CSS_LOADER_URL_IMPORT_3___ = new URL(/* asset import */ __webpack_require__(/*! ../asset/images/ships/submarineX.svg */ "./src/asset/images/ships/submarineX.svg"), __webpack_require__.b);
+var ___CSS_LOADER_URL_IMPORT_4___ = new URL(/* asset import */ __webpack_require__(/*! ../asset/images/ships/patrolX.svg */ "./src/asset/images/ships/patrolX.svg"), __webpack_require__.b);
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
+var ___CSS_LOADER_URL_REPLACEMENT_0___ = _node_modules_css_loader_dist_runtime_getUrl_js__WEBPACK_IMPORTED_MODULE_2___default()(___CSS_LOADER_URL_IMPORT_0___);
+var ___CSS_LOADER_URL_REPLACEMENT_1___ = _node_modules_css_loader_dist_runtime_getUrl_js__WEBPACK_IMPORTED_MODULE_2___default()(___CSS_LOADER_URL_IMPORT_1___);
+var ___CSS_LOADER_URL_REPLACEMENT_2___ = _node_modules_css_loader_dist_runtime_getUrl_js__WEBPACK_IMPORTED_MODULE_2___default()(___CSS_LOADER_URL_IMPORT_2___);
+var ___CSS_LOADER_URL_REPLACEMENT_3___ = _node_modules_css_loader_dist_runtime_getUrl_js__WEBPACK_IMPORTED_MODULE_2___default()(___CSS_LOADER_URL_IMPORT_3___);
+var ___CSS_LOADER_URL_REPLACEMENT_4___ = _node_modules_css_loader_dist_runtime_getUrl_js__WEBPACK_IMPORTED_MODULE_2___default()(___CSS_LOADER_URL_IMPORT_4___);
 // Module
 ___CSS_LOADER_EXPORT___.push([module.id, `/*
 ! tailwindcss v3.4.5 | MIT License | https://tailwindcss.com
@@ -1630,25 +1661,48 @@ video {
   cursor: grab;
   transform: rotate(0deg);
 }
+.bgImg {
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+
+  background-color: rgba(255, 0, 0, 0.293) !important;
+  border: rgba(255, 0, 0, 0.506) !important;
+}
 .token.carrier {
   width: calc(4 * var(--cell-size));
   height: var(--cell-size);
+}
+.token.carrier.bgImg {
+  background-image: url(${___CSS_LOADER_URL_REPLACEMENT_0___});
 }
 .token.battleship {
   width: calc(3 * var(--cell-size));
   height: var(--cell-size);
 }
+.token.battleship.bgImg {
+  background-image: url(${___CSS_LOADER_URL_REPLACEMENT_1___});
+}
 .token.destroyer {
   width: calc(2 * var(--cell-size));
   height: var(--cell-size);
+}
+.token.destroyer.bgImg {
+  background-image: url(${___CSS_LOADER_URL_REPLACEMENT_2___});
 }
 .token.submarine {
   width: calc(2 * var(--cell-size));
   height: var(--cell-size);
 }
+.token.submarine.bgImg {
+  background-image: url(${___CSS_LOADER_URL_REPLACEMENT_3___});
+}
 .token.patrol {
   width: var(--cell-size);
   height: var(--cell-size);
+}
+.token.patrol.bgImg {
+  background-image: url(${___CSS_LOADER_URL_REPLACEMENT_4___});
 }
 .token.carrier.vertical {
   height: calc(4 * var(--cell-size));
@@ -1689,7 +1743,7 @@ video {
   border: 1px solid red !important;
   background-color: rgba(255, 0, 0, 0.2) !important;
 }
-`, "",{"version":3,"sources":["webpack://./node_modules/tailwindcss/base.css","webpack://./node_modules/tailwindcss/utilities.css","webpack://./src/style/style.css"],"names":[],"mappings":"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","sourcesContent":["@tailwind base;\n","@tailwind utilities;\n","@import \"tailwindcss/base\";\n@import \"tailwindcss/components\";\n@import \"tailwindcss/utilities\";\n\n:root {\n  --cell-size: 36px;\n}\n\n.pack {\n  box-sizing: content-box;\n  border: 1px dotted #00000020;\n  width: 140px;\n  /* transform: scale(0.5); */\n}\n\n#strategyscreen {\n  /* transform: scale(0.5); */\n}\n\n.btn {\n  cursor: pointer;\n  background-color: #ffffff;\n  color: #0000ff;\n}\n\n.bringFront {\n  z-index: 10;\n}\n\n.active {\n  background-color: #0000ff !important;\n  color: white !important;\n}\n.play {\n  background-color: #008000 !important;\n  border: 1px solid #008000;\n  color: white !important;\n}\n.restart {\n  border: 1px solid #ff0000 !important;\n  color: red !important;\n}\n\n.token {\n  /* position: absolute; */\n  top: 0;\n  left: 0;\n  border: 1px solid #0000ff;\n  background-color: #0000ff10;\n  box-sizing: border-box;\n  cursor: grab;\n  transform: rotate(0deg);\n}\n\n.token.carrier {\n  width: calc(4 * var(--cell-size));\n  height: var(--cell-size);\n}\n.token.battleship {\n  width: calc(3 * var(--cell-size));\n  height: var(--cell-size);\n}\n.token.destroyer {\n  width: calc(2 * var(--cell-size));\n  height: var(--cell-size);\n}\n.token.submarine {\n  width: calc(2 * var(--cell-size));\n  height: var(--cell-size);\n}\n.token.patrol {\n  width: var(--cell-size);\n  height: var(--cell-size);\n}\n.token.carrier.vertical {\n  height: calc(4 * var(--cell-size));\n  width: var(--cell-size);\n  transition: ease;\n}\n.token.battleship.vertical {\n  height: calc(3 * var(--cell-size));\n  width: var(--cell-size);\n  transition: ease;\n}\n.token.destroyer.vertical {\n  height: calc(2 * var(--cell-size));\n  width: var(--cell-size);\n  transition: ease;\n}\n.token.submarine.vertical {\n  height: calc(2 * var(--cell-size));\n  width: var(--cell-size);\n  transition: ease;\n}\n.token.patrol.vertical {\n  width: var(--cell-size);\n  height: var(--cell-size);\n  transition: ease;\n}\n\n.token.dragging {\n  opacity: 0.5;\n}\n\n.token.rotate {\n  transform: rotate(90deg);\n  translate: -0% -0%;\n  transition: ease;\n  transition-delay: 3ms;\n  transform-origin: 18px center;\n}\n\n.errorBorder {\n  border: 1px solid red !important;\n  background-color: rgba(255, 0, 0, 0.2) !important;\n}\n"],"sourceRoot":""}]);
+`, "",{"version":3,"sources":["webpack://./node_modules/tailwindcss/base.css","webpack://./node_modules/tailwindcss/utilities.css","webpack://./src/style/style.css"],"names":[],"mappings":"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","sourcesContent":["@tailwind base;\n","@tailwind utilities;\n","@import \"tailwindcss/base\";\n@import \"tailwindcss/components\";\n@import \"tailwindcss/utilities\";\n\n:root {\n  --cell-size: 36px;\n}\n\n.pack {\n  box-sizing: content-box;\n  border: 1px dotted #00000020;\n  width: 140px;\n  /* transform: scale(0.5); */\n}\n\n#strategyscreen {\n  /* transform: scale(0.5); */\n}\n\n.btn {\n  cursor: pointer;\n  background-color: #ffffff;\n  color: #0000ff;\n}\n\n.bringFront {\n  z-index: 10;\n}\n\n.active {\n  background-color: #0000ff !important;\n  color: white !important;\n}\n.play {\n  background-color: #008000 !important;\n  border: 1px solid #008000;\n  color: white !important;\n}\n.restart {\n  border: 1px solid #ff0000 !important;\n  color: red !important;\n}\n\n.token {\n  /* position: absolute; */\n  top: 0;\n  left: 0;\n  border: 1px solid #0000ff;\n  background-color: #0000ff10;\n  box-sizing: border-box;\n  cursor: grab;\n  transform: rotate(0deg);\n}\n.bgImg {\n  background-repeat: no-repeat;\n  background-position: center;\n  background-size: contain;\n\n  background-color: rgba(255, 0, 0, 0.293) !important;\n  border: rgba(255, 0, 0, 0.506) !important;\n}\n.token.carrier {\n  width: calc(4 * var(--cell-size));\n  height: var(--cell-size);\n}\n.token.carrier.bgImg {\n  background-image: url(\"../asset/images/ships/carrierX.svg\");\n}\n.token.battleship {\n  width: calc(3 * var(--cell-size));\n  height: var(--cell-size);\n}\n.token.battleship.bgImg {\n  background-image: url(\"../asset/images/ships/battleshipX.svg\");\n}\n.token.destroyer {\n  width: calc(2 * var(--cell-size));\n  height: var(--cell-size);\n}\n.token.destroyer.bgImg {\n  background-image: url(\"../asset/images/ships/destroyerX.svg\");\n}\n.token.submarine {\n  width: calc(2 * var(--cell-size));\n  height: var(--cell-size);\n}\n.token.submarine.bgImg {\n  background-image: url(\"../asset/images/ships/submarineX.svg\");\n}\n.token.patrol {\n  width: var(--cell-size);\n  height: var(--cell-size);\n}\n.token.patrol.bgImg {\n  background-image: url(\"../asset/images/ships/patrolX.svg\");\n}\n.token.carrier.vertical {\n  height: calc(4 * var(--cell-size));\n  width: var(--cell-size);\n  transition: ease;\n}\n.token.battleship.vertical {\n  height: calc(3 * var(--cell-size));\n  width: var(--cell-size);\n  transition: ease;\n}\n.token.destroyer.vertical {\n  height: calc(2 * var(--cell-size));\n  width: var(--cell-size);\n  transition: ease;\n}\n.token.submarine.vertical {\n  height: calc(2 * var(--cell-size));\n  width: var(--cell-size);\n  transition: ease;\n}\n.token.patrol.vertical {\n  width: var(--cell-size);\n  height: var(--cell-size);\n  transition: ease;\n}\n\n.token.dragging {\n  opacity: 0.5;\n}\n\n.token.rotate {\n  transform: rotate(90deg);\n  translate: -0% -0%;\n  transition: ease;\n  transition-delay: 3ms;\n  transform-origin: 18px center;\n}\n\n.errorBorder {\n  border: 1px solid red !important;\n  background-color: rgba(255, 0, 0, 0.2) !important;\n}\n"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -1768,6 +1822,61 @@ module.exports = __webpack_require__.p + "images/X.png";
 
 "use strict";
 module.exports = __webpack_require__.p + "images/dot.png";
+
+/***/ }),
+
+/***/ "./src/asset/images/ships/battleshipX.svg":
+/*!************************************************!*\
+  !*** ./src/asset/images/ships/battleshipX.svg ***!
+  \************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+module.exports = __webpack_require__.p + "images/battleshipX.svg";
+
+/***/ }),
+
+/***/ "./src/asset/images/ships/carrierX.svg":
+/*!*********************************************!*\
+  !*** ./src/asset/images/ships/carrierX.svg ***!
+  \*********************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+module.exports = __webpack_require__.p + "images/carrierX.svg";
+
+/***/ }),
+
+/***/ "./src/asset/images/ships/destroyerX.svg":
+/*!***********************************************!*\
+  !*** ./src/asset/images/ships/destroyerX.svg ***!
+  \***********************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+module.exports = __webpack_require__.p + "images/destroyerX.svg";
+
+/***/ }),
+
+/***/ "./src/asset/images/ships/patrolX.svg":
+/*!********************************************!*\
+  !*** ./src/asset/images/ships/patrolX.svg ***!
+  \********************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+module.exports = __webpack_require__.p + "images/patrolX.svg";
+
+/***/ }),
+
+/***/ "./src/asset/images/ships/submarineX.svg":
+/*!***********************************************!*\
+  !*** ./src/asset/images/ships/submarineX.svg ***!
+  \***********************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+module.exports = __webpack_require__.p + "images/submarineX.svg";
 
 /***/ }),
 
@@ -2003,7 +2112,7 @@ module.exports = __webpack_require__.p + "sounds/shot.mp3";
 /******/ 	
 /******/ 	/* webpack/runtime/jsonp chunk loading */
 /******/ 	(() => {
-/******/ 		// no baseURI
+/******/ 		__webpack_require__.b = document.baseURI || self.location.href;
 /******/ 		
 /******/ 		// object to store loaded and loading chunks
 /******/ 		// undefined = chunk not loaded, null = chunk preloaded/prefetched
@@ -2064,7 +2173,7 @@ module.exports = __webpack_require__.p + "sounds/shot.mp3";
 /******/ 	// startup
 /******/ 	// Load entry module and return exports
 /******/ 	// This entry module depends on other loaded chunks and execution need to be delayed
-/******/ 	var __webpack_exports__ = __webpack_require__.O(undefined, ["vendors-node_modules_fortawesome_fontawesome-free_js_all_js-node_modules_autoprefixer_lib_aut-5d1bf3"], () => (__webpack_require__("./src/modules/index.js")))
+/******/ 	var __webpack_exports__ = __webpack_require__.O(undefined, ["vendors-node_modules_fortawesome_fontawesome-free_js_all_js-node_modules_autoprefixer_lib_aut-77484a"], () => (__webpack_require__("./src/modules/index.js")))
 /******/ 	__webpack_exports__ = __webpack_require__.O(__webpack_exports__);
 /******/ 	
 /******/ })()

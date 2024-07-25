@@ -51,26 +51,48 @@
   cursor: grab;
   transform: rotate(0deg);
 }
+.bgImg {
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
 
+  background-color: rgba(255, 0, 0, 0.293) !important;
+  border: rgba(255, 0, 0, 0.506) !important;
+}
 .token.carrier {
   width: calc(4 * var(--cell-size));
   height: var(--cell-size);
+}
+.token.carrier.bgImg {
+  background-image: url("../asset/images/ships/carrierX.svg");
 }
 .token.battleship {
   width: calc(3 * var(--cell-size));
   height: var(--cell-size);
 }
+.token.battleship.bgImg {
+  background-image: url("../asset/images/ships/battleshipX.svg");
+}
 .token.destroyer {
   width: calc(2 * var(--cell-size));
   height: var(--cell-size);
+}
+.token.destroyer.bgImg {
+  background-image: url("../asset/images/ships/destroyerX.svg");
 }
 .token.submarine {
   width: calc(2 * var(--cell-size));
   height: var(--cell-size);
 }
+.token.submarine.bgImg {
+  background-image: url("../asset/images/ships/submarineX.svg");
+}
 .token.patrol {
   width: var(--cell-size);
   height: var(--cell-size);
+}
+.token.patrol.bgImg {
+  background-image: url("../asset/images/ships/patrolX.svg");
 }
 .token.carrier.vertical {
   height: calc(4 * var(--cell-size));

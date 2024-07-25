@@ -90,6 +90,8 @@ function placeShipsRandomly(ships) {
       )
     }
 
+    ship.left = newPosition.x * cellSize
+    ship.top = newPosition.y * cellSize
     computerBoard.placeShip(ship, newPosition.x, newPosition.y, orientation)
   })
   console.log(computerBoard.board)
@@ -106,17 +108,28 @@ async function attack(e) {
     computerCvs,
     computerCtx,
     cellSize,
-    computerBoard.getBoard()
+    computerBoard.getBoard(),
+    getElementById("attackScreen")
   )
   if (playerKill) return
   computerCvs.removeEventListener("click", attack)
 
   await new Promise((resolve) => setTimeout(resolve, 1500)) // Delay between computer shots
 
-  let computerKill = computerShoot(playerboard, playerCtx, randomCell())
+  let computerKill = computerShoot(
+    playerboard,
+    playerCtx,
+    randomCell(),
+    getElementById("strategyscreen")
+  )
   while (computerKill) {
     await new Promise((resolve) => setTimeout(resolve, 1500)) // Delay between computer shots
-    computerKill = computerShoot(playerboard, playerCtx, randomCell())
+    computerKill = computerShoot(
+      playerboard,
+      playerCtx,
+      randomCell(),
+      getElementById("strategyscreen")
+    )
   }
 
   computerCvs.addEventListener("click", attack)
