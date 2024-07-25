@@ -3,6 +3,7 @@ import {
   createElement,
   playerShoot,
   computerShoot,
+  randomCell,
 } from "./DOM/utilities"
 
 const { Gameboard } = require("./factories/Gameboard")
@@ -24,22 +25,7 @@ export function initializeComputer() {
   drawCanvas(computerCtx, "#d4b4b4")
   placeShipsRandomly(computerBoard.ships)
 
-  computerCvs.addEventListener("click", function (e) {
-    playerShoot(e, computerCvs, computerCtx, cellSize, computerBoard.getBoard())
-
-    let randomPosition = randomCell()
-
-    const opponentBoard = playerboard.getBoard()
-
-    while (
-      checkIfPositionHasBeenHit(playerboard.positionShot, randomPosition)
-    ) {
-      console.log("position has been shot")
-      randomPosition = randomCell
-    }
-
-    computerShoot(opponentBoard, playerCtx, randomPosition)
-  })
+  computerCvs.addEventListener("click", attack)
 }
 
 function generateComputerBoardUi() {
@@ -62,16 +48,7 @@ function attackScreen() {
   return div
 }
 
-function randomCell() {
-  const randomX = Math.floor(Math.random() * 10)
-  const randomY = Math.floor(Math.random() * 10)
-  return { x: randomX, y: randomY }
-}
-
 //function that  check if position has been shoot previously
-function checkIfPositionHasBeenHit(set, position) {
-  return set.has(position.toString())
-}
 
 function placeShipsRandomly(ships) {
   ships.forEach((ship) => {
@@ -116,4 +93,31 @@ function placeShipsRandomly(ships) {
     computerBoard.placeShip(ship, newPosition.x, newPosition.y, orientation)
   })
   console.log(computerBoard.board)
+}
+
+async function attack(e) {
+  const computerCvs = getElementById("computerboard")
+  const computerCtx = computerCvs.getContext("2d")
+  const playerCvs = getElementById("playerboard")
+  const playerCtx = playerCvs.getContext("2d")
+
+  let playerKill = playerShoot(
+    e,
+    computerCvs,
+    computerCtx,
+    cellSize,
+    computerBoard.getBoard()
+  )
+  if (playerKill) return
+  computerCvs.removeEventListener("click", attack)
+
+  await new Promise((resolve) => setTimeout(resolve, 1500)) // Delay between computer shots
+
+  let computerKill = computerShoot(playerboard, playerCtx, randomCell())
+  while (computerKill) {
+    await new Promise((resolve) => setTimeout(resolve, 1500)) // Delay between computer shots
+    computerKill = computerShoot(playerboard, playerCtx, randomCell())
+  }
+
+  computerCvs.addEventListener("click", attack)
 }

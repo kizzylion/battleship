@@ -1,12 +1,22 @@
 import { cellSize } from "../../bin2/domevents"
 import xSrc from "../../asset/images/X.png"
 import dotSrc from "../../asset/images/dot.png"
+import shotSoundSrc from "../../asset/sound/shot.mp3"
+import hitSoundSrc from "../../asset/sound/hit.mp3"
+import missSoundSrc from "../../asset/sound/miss.mp3"
 
 //load x and dot images for canvas
 const xImage = new Image()
 xImage.src = xSrc
 const dotImage = new Image()
 dotImage.src = dotSrc
+//load audios
+const hitSound = new Audio(hitSoundSrc)
+hitSound.playbackRate = 1.5
+const shotSound = new Audio(shotSoundSrc)
+shotSound.playbackRate = 1.5
+const missSound = new Audio(missSoundSrc)
+missSound.playbackRate = 1.5
 
 // function that returns an element by id from the dom
 export function getElementById(id) {
@@ -50,23 +60,57 @@ export function playerShoot(event, canvas, ctx, cellSize, board) {
   let top = Math.floor(Y / cellSize)
   let left = Math.floor(X / cellSize)
 
-  console.log(`top= ${top} , left = ${left}, id = ${id}`)
   let id = board[top][left]
-
-  drawOnBoard(id, ctx, left, top)
+  console.log(`top= ${top} , left = ${left}, id = ${id}`)
+  playShotSound()
+  return drawOnBoard(id, ctx, left, top)
 }
 
-export function computerShoot(board, canvas, position) {
+export function computerShoot(opponent, canvas, position) {
+  let randomPosition = randomCell()
+
+  while (opponent.checkIfPositionHasBeenHit(randomPosition)) {
+    console.log("position has been shot")
+    randomPosition = randomCell()
+  }
+
   const top = position.y
   const left = position.x
 
-  let id = board[top][left]
+  let id = opponent.board[top][left]
 
   console.log(`top= ${top} , left = ${left}, id = ${id}`)
-  drawOnBoard(id, canvas, left, top)
+  playShotSound()
+  return drawOnBoard(id, canvas, left, top)
 }
 
 function drawOnBoard(result, ctx, i, j) {
   const img = result ? xImage : dotImage
   ctx.drawImage(img, i * cellSize, j * cellSize, cellSize, cellSize)
+  if (result) {
+    playHitSound()
+    return true
+  }
+  playMissSound()
+  return false
+}
+export function randomCell() {
+  const randomX = Math.floor(Math.random() * 10)
+  const randomY = Math.floor(Math.random() * 10)
+  return { x: randomX, y: randomY }
+}
+
+function playHitSound() {
+  hitSound.currentTime = 0
+  hitSound.play()
+}
+
+function playMissSound() {
+  missSound.currentTime = 0
+  missSound.play()
+}
+
+function playShotSound() {
+  shotSound.currentTime = 0
+  shotSound.play()
 }

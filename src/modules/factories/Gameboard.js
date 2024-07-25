@@ -121,6 +121,10 @@ class Gameboard {
   getBoard() {
     return this.board
   }
+
+  checkIfPositionHasBeenHit(position) {
+    return this.positionShot.has(position.toString())
+  }
 }
 
 module.exports = { Gameboard }
