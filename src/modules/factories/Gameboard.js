@@ -10,7 +10,8 @@ class Gameboard {
       new Ship("submarine", 2),
       new Ship("patrol", 1),
     ]
-    this.missedShots = []
+    this.missedShots = new Set()
+    this.positionShot = new Set()
     this.board = Array(10)
       .fill(null)
       .map(() => Array(10).fill(null))
@@ -34,21 +35,21 @@ class Gameboard {
         startX + shipLength > this.board[0].length ||
         startY >= this.board.length
       )
-        return
+        return false
     } else if (direction === "vertical") {
       if (
         startY + shipLength > this.board.length ||
         startX >= this.board[0].length
       )
-        return
+        return false
     }
 
     // Check if the placement is not colliding with another ship
     for (let i = 0; i < shipLength; i++) {
       if (direction === "horizontal") {
-        if (this.board[startY][startX + i]) return
+        if (this.board[startY][startX + i]) return false
       } else if (direction === "vertical") {
-        if (this.board[startY + i][startX]) return
+        if (this.board[startY + i][startX]) return false
       }
     }
 
@@ -68,9 +69,11 @@ class Gameboard {
   receiveAttack(x, y) {
     const target = this.board[y][x]
     if (target) {
+      this.positionShot.add([x, y].toString())
       target.hit()
     } else {
-      this.missedShots.push([x, y])
+      this.missedShots.add([x, y].toString)
+      this.positionShot.add([x, y].toString())
     }
   }
   removeShip(shipName, x, y, shipLength, direction) {
@@ -113,6 +116,10 @@ class Gameboard {
     this.board = Array(10)
       .fill(null)
       .map(() => Array(10).fill(null))
+  }
+
+  getBoard() {
+    return this.board
   }
 }
 

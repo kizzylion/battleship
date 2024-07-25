@@ -1,4 +1,9 @@
-const { htmlStructure } = require("../bin2/game")
+const {
+  htmlStructure,
+  getRandomDirection,
+  getRandomNumber,
+  canPlaceShip,
+} = require("../bin2/game")
 const { drawCanvas, cellSize } = require("../bin2/domevents")
 const { Gameboard } = require("./factories/Gameboard")
 import Typed from "typed.js"
@@ -9,6 +14,9 @@ import {
   flexElement,
 } from "./DOM/utilities"
 import { initializeComputer } from "./comDom"
+
+export const playerboard = new Gameboard()
+export const computerBoard = new Gameboard()
 ;(function () {
   htmlStructure()
 
@@ -16,8 +24,6 @@ import { initializeComputer } from "./comDom"
 
   const playerCvs = document.getElementById("playerboard")
   const playerCtx = playerCvs.getContext("2d")
-
-  const playerboard = new Gameboard()
 
   const message = document.querySelector(".screen p")
   const typed = new Typed(message, {
@@ -100,10 +106,12 @@ import { initializeComputer } from "./comDom"
       }
 
       wellPlaced = canPlaceShip(
+        playerboard.board,
         newPosition.x,
         newPosition.y,
         length,
-        orientation
+        orientation,
+        cellSize
       )
 
       while (!wellPlaced) {
@@ -112,12 +120,13 @@ import { initializeComputer } from "./comDom"
           y: getRandomNumber() * cellSize,
         }
 
-        // this allows the dragged token to move while isOverlap is true
         wellPlaced = canPlaceShip(
+          playerboard.board,
           newPosition.x,
           newPosition.y,
           length,
-          orientation
+          orientation,
+          cellSize
         )
       }
 
@@ -160,8 +169,8 @@ import { initializeComputer } from "./comDom"
       })
 
       getElementById("playerboard").classList.add("bringFront")
-
       initializeComputer()
+
       console.log("start!")
       console.log(playerboard.board)
     } else {
@@ -213,7 +222,16 @@ import { initializeComputer } from "./comDom"
 
     //check if canPlace ship
     //if it not return to previous state
-    if (!canPlaceShip(newPosition.x, newPosition.y, length, orientation)) {
+    if (
+      !canPlaceShip(
+        playerboard.board,
+        newPosition.x,
+        newPosition.y,
+        length,
+        orientation,
+        cellSize
+      )
+    ) {
       draggedToken.classList.add("errorBorder")
       let draggedShip = playerboard.getShip(
         draggedToken.getAttribute("data-name")
@@ -244,7 +262,16 @@ import { initializeComputer } from "./comDom"
       draggedToken
     )
 
-    if (canPlaceShip(newPosition.x, newPosition.y, length, orientation)) {
+    if (
+      canPlaceShip(
+        playerboard.board,
+        newPosition.x,
+        newPosition.y,
+        length,
+        orientation,
+        cellSize
+      )
+    ) {
       console.log(draggedToken)
       draggedToken.classList.remove("errorBorder")
       draggedToken.style.top = `${newPosition.y}px`
@@ -297,45 +324,6 @@ import { initializeComputer } from "./comDom"
     draggedShip.left = 0
     draggedShip.top = 0
     draggedShip.direction = "horizontal"
-  }
-
-  function canPlaceShip(xPosition, yPosition, shipLength, direction) {
-    let xCord = xPosition / cellSize
-    let yCord = yPosition / cellSize
-
-    if (direction === "horizontal") {
-      //check if ship can fit horizontal
-      if (xCord % 10 <= 10 - shipLength) {
-        for (let i = 0; i < shipLength; i++) {
-          let space = playerboard.board[yCord][xCord + i]
-          if (space) {
-            return false
-          }
-        }
-        return true
-      }
-      return false
-    } else if (direction === "vertical") {
-      //check if ship can fit vertical
-      if (yCord % 10 <= 10 - shipLength) {
-        for (let i = 0; i < shipLength; i++) {
-          let space = playerboard.board[yCord + i][xCord]
-          if (space) {
-            return false
-          }
-        }
-        return true
-      }
-      return false
-    }
-  }
-
-  function getRandomDirection() {
-    return Math.random() < 0.5 ? "horizontal" : "vertical"
-  }
-
-  function getRandomNumber() {
-    return Math.floor(Math.random() * 10)
   }
 
   //switch buttons

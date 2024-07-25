@@ -1,6 +1,3 @@
-const { playerFieldUi } = require("../modules/playerDom")
-const { drawCanvas } = require("./domevents")
-
 export function htmlStructure() {
   return (document.body.innerHTML = `
 
@@ -28,4 +25,48 @@ export function htmlStructure() {
     </footer>
 
     `)
+}
+export function getRandomDirection() {
+  return Math.random() < 0.5 ? "horizontal" : "vertical"
+}
+export function getRandomNumber() {
+  return Math.floor(Math.random() * 10)
+}
+
+export function canPlaceShip(
+  board,
+  xPosition,
+  yPosition,
+  shipLength,
+  direction,
+  cellSize
+) {
+  let xCord = xPosition / cellSize
+  let yCord = yPosition / cellSize
+
+  if (direction === "horizontal") {
+    //check if ship can fit horizontal
+    if (xCord % 10 <= 10 - shipLength) {
+      for (let i = 0; i < shipLength; i++) {
+        let space = board[yCord][xCord + i]
+        if (space) {
+          return false
+        }
+      }
+      return true
+    }
+    return false
+  } else if (direction === "vertical") {
+    //check if ship can fit vertical
+    if (yCord % 10 <= 10 - shipLength) {
+      for (let i = 0; i < shipLength; i++) {
+        let space = board[yCord + i][xCord]
+        if (space) {
+          return false
+        }
+      }
+      return true
+    }
+    return false
+  }
 }
