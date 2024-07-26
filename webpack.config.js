@@ -54,9 +54,22 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      title: "Battleship",
+      title: "Yokizzy Battleship Game",
       template: "./src/index.html",
       inject: "body",
+      favicon: "./src/asset/images/logo.png",
+      meta: {
+        viewport: "width=device-width, initial-scale=1.0",
+        "og:title": "YoKizzy! Battleship Game",
+        "og:description": "YoKizzy! Battleship Game",
+        "og:image": "images/logo.png",
+        "og:type": "website",
+        "og:url": "",
+        "twitter:card": "summary_large_image",
+        "twitter:image": "images/logo.png",
+        "twitter:title": "Yokizzy Battleship Game",
+        "twitter:description": "Yokizzy Battleship Game",
+      },
     }),
   ],
   optimization: {
@@ -65,3 +78,8 @@ module.exports = {
     },
   },
 }
+
+console.log(
+  "Favicon path: ",
+  path.resolve(__dirname, "src/assets/images/logo.png")
+)

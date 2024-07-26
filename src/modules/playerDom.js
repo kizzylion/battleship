@@ -1,3 +1,6 @@
+import logoSrc from "../asset/images/logo.png"
+import oceanSoundSrc from "../asset/sound/ocean.mp3"
+
 const {
   htmlStructure,
   getRandomDirection,
@@ -17,12 +20,15 @@ import { initializeComputer } from "./comDom"
 
 export const playerboard = new Gameboard()
 export const computerBoard = new Gameboard()
+
 playerboard.setOpponentName("Computer")
 computerBoard.setOpponentName("Player")
 ;(function () {
   htmlStructure()
+  getElementById("logo").src = logoSrc
 
   setupPlayerField()
+  const oceanSound = new Audio(oceanSoundSrc)
 
   const playerCvs = document.getElementById("playerboard")
   const playerCtx = playerCvs.getContext("2d")
@@ -91,6 +97,7 @@ computerBoard.setOpponentName("Player")
     let packedTokens = document.querySelectorAll(".pack .token")
     packedTokens.forEach((token) => token.remove())
     placedTokens.forEach((token) => token.remove())
+    playOceanSound()
 
     playerboard.clearBoard()
 
@@ -172,13 +179,18 @@ computerBoard.setOpponentName("Player")
 
       getElementById("playerboard").classList.add("bringFront")
       initializeComputer()
-
-      console.log("start!")
-      console.log(playerboard.board)
+      playOceanSound()
     } else {
-      console.log("fix board")
+      alert("Fix Board: click 'Random' button to set up ships randomly")
     }
   })
+
+  function playOceanSound() {
+    oceanSound.play().catch((error) => {
+      console.error("Error playing the sound:", error)
+    })
+    oceanSound.loop = true
+  }
 
   function dragStart(e) {
     this.classList.add("dragging")
@@ -354,7 +366,7 @@ computerBoard.setOpponentName("Player")
     return `
 
             <div id="battlefield" class="board w-full">
-            <div id="port" class="  inline-flex flex-col float-left flex-wrap w-52 gap-x-5 gap-y-10 mr-6">
+            <div id="port" class="hidden md:inline-flex flex-col float-left flex-wrap w-52 gap-x-5 gap-y-10 mr-6">
                 <div class="carrier-port pack placeable  h-9 ">
                     
                 </div>
@@ -376,7 +388,7 @@ computerBoard.setOpponentName("Player")
                 
             </div>
             <div id="field" class="flex flex-col justify-items-center">
-              <div id="axis-section" class="flex gap-4 w-[360px] justify-center mb-4">
+              <div id="axis-section" class="hidden md:flex gap-4 w-[360px] justify-center mb-4">
                 <div id="axis-x" class="btn axis-x px-6 py-1 border border-1 border-blue-600 rounded-lg active">X axis</div>
                 <div id="axis-y" class="btn axis-y px-6 py-1 border border-1 border-blue-600 rounded-lg">Y axis</div>
               </div>

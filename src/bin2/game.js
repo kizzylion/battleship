@@ -2,7 +2,7 @@ export function htmlStructure() {
   return (document.body.innerHTML = `
 
     <Header class="flex items-center max-w-7xl  w-full mx-auto mt-10 mb-4" >
-        <h1 id="Logo" class="text-2xl mr-5">Kiz BattleShip </h1>
+        <h1 id="Logo" class="text-2xl mr-5"><img id="logo"/>Kiz BattleShip </h1>
         <div class="screen flex px-4 py-3 bg-gray-200 text-sm max-w-xl w-full rounded-md">
             <p>Start editing to see some magic happen </p>
         </div>
@@ -41,8 +41,8 @@ export function canPlaceShip(
   direction,
   cellSize
 ) {
-  let xCord = xPosition / cellSize
-  let yCord = yPosition / cellSize
+  let xCord = parseInt(xPosition / cellSize)
+  let yCord = parseInt(yPosition / cellSize)
 
   if (direction === "horizontal") {
     //check if ship can fit horizontal

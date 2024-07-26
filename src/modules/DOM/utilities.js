@@ -6,6 +6,7 @@ import hitSoundSrc from "../../asset/sound/hit.mp3"
 import missSoundSrc from "../../asset/sound/miss.mp3"
 import { createTokenDiv } from "../factories/Ship"
 import Typed from "typed.js"
+import logoSrc from "../../asset/images/logo.png"
 
 //load x and dot images for canvas
 const xImage = new Image()

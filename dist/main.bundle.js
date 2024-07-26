@@ -63,7 +63,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   htmlStructure: () => (/* binding */ htmlStructure)
 /* harmony export */ });
 function htmlStructure() {
-  return document.body.innerHTML = "\n\n    <Header class=\"flex items-center max-w-7xl  w-full mx-auto mt-10 mb-4\" >\n        <h1 id=\"Logo\" class=\"text-2xl mr-5\">Kiz BattleShip </h1>\n        <div class=\"screen flex px-4 py-3 bg-gray-200 text-sm max-w-xl w-full rounded-md\">\n            <p>Start editing to see some magic happen </p>\n        </div>\n    </Header>\n    \n    <main id=\"body-container\" class=\" flex max-xl mx-auto max-w-7xl w-full h-full mt-12\">\n        \n        <div id=\"battlefield-2\" class=\"hidden board w-1/2\">\n            <canvas id=\"computerboard\" class=\"\" width=\"360\" height=\"360\"></canvas>\n        </div>\n\n    </main>\n\n\n    <footer class=\" max-w-7xl w-full mx-auto py-1\">\n        <p class=\"text-center text-sm\">\n           \n            <a href=\"#\"><i class=\"fa-brands fa-github\"></i> Kizzylion</a>\n        </p>\n    </footer>\n\n    ";
+  return document.body.innerHTML = "\n\n    <Header class=\"flex items-center max-w-7xl  w-full mx-auto mt-10 mb-4\" >\n        <h1 id=\"Logo\" class=\"text-2xl mr-5\"><img id=\"logo\"/>Kiz BattleShip </h1>\n        <div class=\"screen flex px-4 py-3 bg-gray-200 text-sm max-w-xl w-full rounded-md\">\n            <p>Start editing to see some magic happen </p>\n        </div>\n    </Header>\n    \n    <main id=\"body-container\" class=\" flex max-xl mx-auto max-w-7xl w-full h-full mt-12\">\n        \n        <div id=\"battlefield-2\" class=\"hidden board w-1/2\">\n            <canvas id=\"computerboard\" class=\"\" width=\"360\" height=\"360\"></canvas>\n        </div>\n\n    </main>\n\n\n    <footer class=\" max-w-7xl w-full mx-auto py-1\">\n        <p class=\"text-center text-sm\">\n           \n            <a href=\"#\"><i class=\"fa-brands fa-github\"></i> Kizzylion</a>\n        </p>\n    </footer>\n\n    ";
 }
 function getRandomDirection() {
   return Math.random() < 0.5 ? "horizontal" : "vertical";
@@ -72,8 +72,8 @@ function getRandomNumber() {
   return Math.floor(Math.random() * 10);
 }
 function canPlaceShip(board, xPosition, yPosition, shipLength, direction, cellSize) {
-  var xCord = xPosition / cellSize;
-  var yCord = yPosition / cellSize;
+  var xCord = parseInt(xPosition / cellSize);
+  var yCord = parseInt(yPosition / cellSize);
   if (direction === "horizontal") {
     //check if ship can fit horizontal
     if (xCord % 10 <= 10 - shipLength) {
@@ -131,6 +131,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _factories_Ship__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../factories/Ship */ "./src/modules/factories/Ship.js");
 /* harmony import */ var _factories_Ship__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_factories_Ship__WEBPACK_IMPORTED_MODULE_6__);
 /* harmony import */ var typed_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! typed.js */ "./node_modules/typed.js/dist/typed.module.js");
+/* harmony import */ var _asset_images_logo_png__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../asset/images/logo.png */ "./src/asset/images/logo.png");
 function _readOnlyError(r) { throw new TypeError('"' + r + '" is read-only'); }
 function _toConsumableArray(r) { return _arrayWithoutHoles(r) || _iterableToArray(r) || _unsupportedIterableToArray(r) || _nonIterableSpread(); }
 function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -138,6 +139,7 @@ function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) 
 function _iterableToArray(r) { if ("undefined" != typeof Symbol && null != r[Symbol.iterator] || null != r["@@iterator"]) return Array.from(r); }
 function _arrayWithoutHoles(r) { if (Array.isArray(r)) return _arrayLikeToArray(r); }
 function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length); for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e]; return n; }
+
 
 
 
@@ -309,7 +311,7 @@ var _require = __webpack_require__(/*! ./factories/Gameboard */ "./src/modules/f
 
 function initializeComputer() {
   (0,_DOM_utilities__WEBPACK_IMPORTED_MODULE_0__.getElementById)("field").classList.replace("flex-col", "flex-row");
-  (0,_DOM_utilities__WEBPACK_IMPORTED_MODULE_0__.getElementById)("field").classList.add("gap-6");
+  (0,_DOM_utilities__WEBPACK_IMPORTED_MODULE_0__.getElementById)("field").classList.add("gap-6", "begin");
   generateComputerBoardUi();
   var computerCvs = (0,_DOM_utilities__WEBPACK_IMPORTED_MODULE_0__.getElementById)("computerboard");
   var computerCtx = computerCvs.getContext("2d");
@@ -672,9 +674,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   computerBoard: () => (/* binding */ computerBoard),
 /* harmony export */   playerboard: () => (/* binding */ playerboard)
 /* harmony export */ });
-/* harmony import */ var typed_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! typed.js */ "./node_modules/typed.js/dist/typed.module.js");
-/* harmony import */ var _DOM_utilities__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./DOM/utilities */ "./src/modules/DOM/utilities.js");
-/* harmony import */ var _comDom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./comDom */ "./src/modules/comDom.js");
+/* harmony import */ var _asset_images_logo_png__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../asset/images/logo.png */ "./src/asset/images/logo.png");
+/* harmony import */ var _asset_sound_ocean_mp3__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../asset/sound/ocean.mp3 */ "./src/asset/sound/ocean.mp3");
+/* harmony import */ var typed_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! typed.js */ "./node_modules/typed.js/dist/typed.module.js");
+/* harmony import */ var _DOM_utilities__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./DOM/utilities */ "./src/modules/DOM/utilities.js");
+/* harmony import */ var _comDom__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./comDom */ "./src/modules/comDom.js");
+
+
 var _require = __webpack_require__(/*! ../bin2/game */ "./src/bin2/game.js"),
   htmlStructure = _require.htmlStructure,
   getRandomDirection = _require.getRandomDirection,
@@ -694,11 +700,13 @@ playerboard.setOpponentName("Computer");
 computerBoard.setOpponentName("Player");
 (function () {
   htmlStructure();
+  (0,_DOM_utilities__WEBPACK_IMPORTED_MODULE_3__.getElementById)("logo").src = _asset_images_logo_png__WEBPACK_IMPORTED_MODULE_0__;
   setupPlayerField();
+  var oceanSound = new Audio(_asset_sound_ocean_mp3__WEBPACK_IMPORTED_MODULE_1__);
   var playerCvs = document.getElementById("playerboard");
   var playerCtx = playerCvs.getContext("2d");
   var message = document.querySelector(".screen p");
-  var typed = new typed_js__WEBPACK_IMPORTED_MODULE_0__["default"](message, {
+  var typed = new typed_js__WEBPACK_IMPORTED_MODULE_2__["default"](message, {
     strings: ["Begin by setting up a formation", "Drag and Drop your ships in your country water", "You can arrange your ships in a vertical or horizontal position by using the X axis or Y axis Button", "All the best with your formation"],
     typeSpeed: 50,
     loop: true
@@ -724,7 +732,7 @@ computerBoard.setOpponentName("Player");
   playerboard.ships.forEach(function (ship) {
     ship.shipUi();
   });
-  var shipTokens = (0,_DOM_utilities__WEBPACK_IMPORTED_MODULE_1__.querySelectorAll)("token");
+  var shipTokens = (0,_DOM_utilities__WEBPACK_IMPORTED_MODULE_3__.querySelectorAll)("token");
   console.log(shipTokens);
   var wellPlaced = true;
   var allShipPlaced = checkAllTokenPlaced;
@@ -739,7 +747,7 @@ computerBoard.setOpponentName("Player");
   packs.forEach(function (pack) {
     pack.addEventListener("dragover", dragOverPack);
   });
-  var randomBTN = (0,_DOM_utilities__WEBPACK_IMPORTED_MODULE_1__.getElementById)("randomBTN");
+  var randomBTN = (0,_DOM_utilities__WEBPACK_IMPORTED_MODULE_3__.getElementById)("randomBTN");
   randomBTN.addEventListener("click", function () {
     var tokens = document.querySelectorAll(".token");
     var strategyscreen = document.getElementById("strategyscreen");
@@ -751,6 +759,7 @@ computerBoard.setOpponentName("Player");
     placedTokens.forEach(function (token) {
       return token.remove();
     });
+    playOceanSound();
     playerboard.clearBoard();
     tokens.forEach(function (token) {
       var wellPlaced = true;
@@ -791,24 +800,29 @@ computerBoard.setOpponentName("Player");
     });
     console.log(playerboard.board);
   });
-  var startBTN = (0,_DOM_utilities__WEBPACK_IMPORTED_MODULE_1__.getElementById)("startBTN");
+  var startBTN = (0,_DOM_utilities__WEBPACK_IMPORTED_MODULE_3__.getElementById)("startBTN");
   startBTN.addEventListener("click", function () {
     if (allShipPlaced() && wellPlaced) {
-      (0,_DOM_utilities__WEBPACK_IMPORTED_MODULE_1__.hideElement)((0,_DOM_utilities__WEBPACK_IMPORTED_MODULE_1__.getElementById)("port"));
-      (0,_DOM_utilities__WEBPACK_IMPORTED_MODULE_1__.hideElement)((0,_DOM_utilities__WEBPACK_IMPORTED_MODULE_1__.getElementById)("axis-section"));
-      (0,_DOM_utilities__WEBPACK_IMPORTED_MODULE_1__.hideElement)((0,_DOM_utilities__WEBPACK_IMPORTED_MODULE_1__.getElementById)("cta"));
-      (0,_DOM_utilities__WEBPACK_IMPORTED_MODULE_1__.flexElement)((0,_DOM_utilities__WEBPACK_IMPORTED_MODULE_1__.getElementById)("restartDiv"));
-      (0,_DOM_utilities__WEBPACK_IMPORTED_MODULE_1__.querySelectorAll)("token").forEach(function (token) {
+      (0,_DOM_utilities__WEBPACK_IMPORTED_MODULE_3__.hideElement)((0,_DOM_utilities__WEBPACK_IMPORTED_MODULE_3__.getElementById)("port"));
+      (0,_DOM_utilities__WEBPACK_IMPORTED_MODULE_3__.hideElement)((0,_DOM_utilities__WEBPACK_IMPORTED_MODULE_3__.getElementById)("axis-section"));
+      (0,_DOM_utilities__WEBPACK_IMPORTED_MODULE_3__.hideElement)((0,_DOM_utilities__WEBPACK_IMPORTED_MODULE_3__.getElementById)("cta"));
+      (0,_DOM_utilities__WEBPACK_IMPORTED_MODULE_3__.flexElement)((0,_DOM_utilities__WEBPACK_IMPORTED_MODULE_3__.getElementById)("restartDiv"));
+      (0,_DOM_utilities__WEBPACK_IMPORTED_MODULE_3__.querySelectorAll)("token").forEach(function (token) {
         removeDragEvents(token);
       });
-      (0,_DOM_utilities__WEBPACK_IMPORTED_MODULE_1__.getElementById)("playerboard").classList.add("bringFront");
-      (0,_comDom__WEBPACK_IMPORTED_MODULE_2__.initializeComputer)();
-      console.log("start!");
-      console.log(playerboard.board);
+      (0,_DOM_utilities__WEBPACK_IMPORTED_MODULE_3__.getElementById)("playerboard").classList.add("bringFront");
+      (0,_comDom__WEBPACK_IMPORTED_MODULE_4__.initializeComputer)();
+      playOceanSound();
     } else {
-      console.log("fix board");
+      alert("Fix Board: click 'Random' button to set up ships randomly");
     }
   });
+  function playOceanSound() {
+    oceanSound.play()["catch"](function (error) {
+      console.error("Error playing the sound:", error);
+    });
+    oceanSound.loop = true;
+  }
   function dragStart(e) {
     this.classList.add("dragging");
   }
@@ -926,12 +940,12 @@ computerBoard.setOpponentName("Player");
     return shipTokens.length === 5;
   }
   function playerFieldUi() {
-    return "\n\n            <div id=\"battlefield\" class=\"board w-full\">\n            <div id=\"port\" class=\"  inline-flex flex-col float-left flex-wrap w-52 gap-x-5 gap-y-10 mr-6\">\n                <div class=\"carrier-port pack placeable  h-9 \">\n                    \n                </div>\n                <div class=\"battleship-port pack placeable  h-9 \">\n                    \n                </div>\n                <div class=\"destroyer-port pack placeable  h-9\">\n                    \n                </div>\n                <div class=\"submarine-port pack placeable  h-9 \">\n                    \n                    \n                </div>\n                <div class=\"patrol-port pack placeable  h-9 \">\n                    \n                    \n                    \n                </div>\n                \n            </div>\n            <div id=\"field\" class=\"flex flex-col justify-items-center\">\n              <div id=\"axis-section\" class=\"flex gap-4 w-[360px] justify-center mb-4\">\n                <div id=\"axis-x\" class=\"btn axis-x px-6 py-1 border border-1 border-blue-600 rounded-lg active\">X axis</div>\n                <div id=\"axis-y\" class=\"btn axis-y px-6 py-1 border border-1 border-blue-600 rounded-lg\">Y axis</div>\n              </div>\n              <div id=\"strategyscreen\" class=\"placeable relative flex w-fit\">\n                  <canvas id=\"playerboard\" class=\" \" width=\"".concat(cellSize * 10, "\" height=\"").concat(cellSize * 10, "\"></canvas>\n              </div>\n              <div id=\"cta\" class=\"flex gap-4 w-[360px] justify-center mt-4\">\n                <div id=\"randomBTN\" class=\"btn  px-6 py-1 border border-1 border-blue-600 rounded-lg\">Random</div>\n                <div id=\"startBTN\" class=\"btn  px-6 py-1 border border-1 border-green-600 rounded-lg play\">Start</div>\n              </div>\n            </div>\n            <div id=\"restartDiv\" class=\"flex gap-4 justify-center mt-4\">\n                \n                <div id=\"restartBTN\" onclick = \"location.reload()\" class=\"btn  px-6 py-1 text-white bg-red-600 border border-1 border-red-600 rounded-lg restart\">Restart</div>\n              </div>\n\n        </div>\n        \n        ");
+    return "\n\n            <div id=\"battlefield\" class=\"board w-full\">\n            <div id=\"port\" class=\"hidden md:inline-flex flex-col float-left flex-wrap w-52 gap-x-5 gap-y-10 mr-6\">\n                <div class=\"carrier-port pack placeable  h-9 \">\n                    \n                </div>\n                <div class=\"battleship-port pack placeable  h-9 \">\n                    \n                </div>\n                <div class=\"destroyer-port pack placeable  h-9\">\n                    \n                </div>\n                <div class=\"submarine-port pack placeable  h-9 \">\n                    \n                    \n                </div>\n                <div class=\"patrol-port pack placeable  h-9 \">\n                    \n                    \n                    \n                </div>\n                \n            </div>\n            <div id=\"field\" class=\"flex flex-col justify-items-center\">\n              <div id=\"axis-section\" class=\"hidden md:flex gap-4 w-[360px] justify-center mb-4\">\n                <div id=\"axis-x\" class=\"btn axis-x px-6 py-1 border border-1 border-blue-600 rounded-lg active\">X axis</div>\n                <div id=\"axis-y\" class=\"btn axis-y px-6 py-1 border border-1 border-blue-600 rounded-lg\">Y axis</div>\n              </div>\n              <div id=\"strategyscreen\" class=\"placeable relative flex w-fit\">\n                  <canvas id=\"playerboard\" class=\" \" width=\"".concat(cellSize * 10, "\" height=\"").concat(cellSize * 10, "\"></canvas>\n              </div>\n              <div id=\"cta\" class=\"flex gap-4 w-[360px] justify-center mt-4\">\n                <div id=\"randomBTN\" class=\"btn  px-6 py-1 border border-1 border-blue-600 rounded-lg\">Random</div>\n                <div id=\"startBTN\" class=\"btn  px-6 py-1 border border-1 border-green-600 rounded-lg play\">Start</div>\n              </div>\n            </div>\n            <div id=\"restartDiv\" class=\"flex gap-4 justify-center mt-4\">\n                \n                <div id=\"restartBTN\" onclick = \"location.reload()\" class=\"btn  px-6 py-1 text-white bg-red-600 border border-1 border-red-600 rounded-lg restart\">Restart</div>\n              </div>\n\n        </div>\n        \n        ");
   }
   function setupPlayerField() {
-    var main = (0,_DOM_utilities__WEBPACK_IMPORTED_MODULE_1__.getElementById)("body-container");
+    var main = (0,_DOM_utilities__WEBPACK_IMPORTED_MODULE_3__.getElementById)("body-container");
     main.innerHTML = playerFieldUi();
-    (0,_DOM_utilities__WEBPACK_IMPORTED_MODULE_1__.hideElement)((0,_DOM_utilities__WEBPACK_IMPORTED_MODULE_1__.getElementById)("restartDiv"));
+    (0,_DOM_utilities__WEBPACK_IMPORTED_MODULE_3__.hideElement)((0,_DOM_utilities__WEBPACK_IMPORTED_MODULE_3__.getElementById)("restartDiv"));
   }
 
   //function that removes all events from token
@@ -1526,9 +1540,6 @@ video {
 .flex {
   display: flex;
 }
-.inline-flex {
-  display: inline-flex;
-}
 .hidden {
   display: none;
 }
@@ -1737,6 +1748,56 @@ html {
   background-size: 100% 100%;
   background-color: #000e29;
 }
+body {
+  margin: 0;
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  max-width: 1024px !important;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0 20px;
+}
+.screen {
+  max-width: 720px !important;
+  width: 100%;
+  height: 50px;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: #ff990032;
+  border: 1px solid #ff9900;
+  color: #ff9900;
+}
+footer {
+  color: white;
+  margin: 0 20px;
+  font-size: 20px !important;
+}
+#logo {
+  -o-object-position: center;
+     object-position: center;
+  -o-object-fit: cover;
+     object-fit: cover;
+  width: 40px;
+  display: inline-block;
+  margin-right: 6px;
+  margin-bottom: 4px;
+}
+header {
+  display: flex;
+  flex-direction: column;
+}
+header h1 {
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+  }
 .pack {
   box-sizing: content-box;
   border: 1px dotted #00000020;
@@ -1748,8 +1809,8 @@ html {
 }
 .btn {
   cursor: pointer;
-  background-color: #ffffff;
-  color: #0000ff;
+  background-color: #000b3435;
+  color: #a7a7ffe5;
 }
 .bringFront {
   z-index: 10;
@@ -1771,8 +1832,8 @@ html {
   /* position: absolute; */
   top: 0;
   left: 0;
-  border: 1px solid #0000ff;
-  background-color: #0000ff10;
+  border: 1px solid #ff99002f;
+  background-color: #ff99008a;
   box-sizing: border-box;
   cursor: grab;
   transform: rotate(0deg);
@@ -1867,6 +1928,13 @@ html {
   border: 1px solid red !important;
   background-color: rgba(255, 0, 0, 0.2) !important;
 }
+/* Media query for medium screen sizes (md) and up */
+@media (max-width: 768px) {
+  #field.begin {
+    flex-direction: column !important;
+    align-items: center;
+  }
+}
 .hover\\:bg-white:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(255 255 255 / var(--tw-bg-opacity));
@@ -1881,6 +1949,16 @@ html {
     width: 75%;
   }
 }
+@media (min-width: 768px) {
+
+  .md\\:flex {
+    display: flex;
+  }
+
+  .md\\:inline-flex {
+    display: inline-flex;
+  }
+}
 @media (min-width: 1024px) {
 
   .lg\\:w-2\\/4 {
@@ -1891,7 +1969,7 @@ html {
     width: 75%;
   }
 }
-`, "",{"version":3,"sources":["webpack://./node_modules/tailwindcss/base.css","webpack://./node_modules/tailwindcss/utilities.css","webpack://./src/style/style.css"],"names":[],"mappings":"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","sourcesContent":["@tailwind base;\n","@tailwind utilities;\n","@import \"tailwindcss/base\";\n@import \"tailwindcss/components\";\n@import \"tailwindcss/utilities\";\n\n:root {\n  --cell-size: 36px;\n}\n\nhtml {\n  background-image: url(\"../asset/images/world.svg\");\n  background-blend-mode: overlay;\n  background-repeat: no-repeat;\n  background-position: center;\n  object-position: center;\n  object-fit: cover;\n  background-size: 100% 100%;\n  background-color: #000e29;\n}\n.pack {\n  box-sizing: content-box;\n  border: 1px dotted #00000020;\n  width: 140px;\n  /* transform: scale(0.5); */\n}\n\n#strategyscreen {\n  /* transform: scale(0.5); */\n}\n\n.btn {\n  cursor: pointer;\n  background-color: #ffffff;\n  color: #0000ff;\n}\n\n.bringFront {\n  z-index: 10;\n}\n\n.active {\n  background-color: #0000ff !important;\n  color: white !important;\n}\n.play {\n  background-color: #008000 !important;\n  border: 1px solid #008000;\n  color: white !important;\n}\n.restart {\n  border: 1px solid #ff0000 !important;\n  color: red !important;\n}\n\n.token {\n  /* position: absolute; */\n  top: 0;\n  left: 0;\n  border: 1px solid #0000ff;\n  background-color: #0000ff10;\n  box-sizing: border-box;\n  cursor: grab;\n  transform: rotate(0deg);\n}\n\n#dialogue {\n  z-index: 10;\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 100vw;\n  height: 100vh;\n}\n\n.bgImg {\n  background-repeat: no-repeat;\n  background-position: center;\n  background-size: contain;\n  opacity: 0.5;\n  background-color: rgba(255, 0, 0, 0.293) !important;\n  border: rgba(255, 0, 0, 0.506) !important;\n}\n.token.carrier {\n  width: calc(4 * var(--cell-size));\n  height: var(--cell-size);\n}\n.token.carrier.bgImg {\n  background-image: url(\"../asset/images/ships/carrierX.svg\");\n}\n.token.battleship {\n  width: calc(3 * var(--cell-size));\n  height: var(--cell-size);\n}\n.token.battleship.bgImg {\n  background-image: url(\"../asset/images/ships/battleshipX.svg\");\n}\n.token.destroyer {\n  width: calc(2 * var(--cell-size));\n  height: var(--cell-size);\n}\n.token.destroyer.bgImg {\n  background-image: url(\"../asset/images/ships/destroyerX.svg\");\n}\n.token.submarine {\n  width: calc(2 * var(--cell-size));\n  height: var(--cell-size);\n}\n.token.submarine.bgImg {\n  background-image: url(\"../asset/images/ships/submarineX.svg\");\n}\n.token.patrol {\n  width: var(--cell-size);\n  height: var(--cell-size);\n}\n.token.patrol.bgImg {\n  background-image: url(\"../asset/images/ships/patrolX.svg\");\n}\n.token.carrier.vertical {\n  height: calc(4 * var(--cell-size));\n  width: var(--cell-size);\n  transition: ease;\n}\n.token.battleship.vertical {\n  height: calc(3 * var(--cell-size));\n  width: var(--cell-size);\n  transition: ease;\n}\n.token.destroyer.vertical {\n  height: calc(2 * var(--cell-size));\n  width: var(--cell-size);\n  transition: ease;\n}\n.token.submarine.vertical {\n  height: calc(2 * var(--cell-size));\n  width: var(--cell-size);\n  transition: ease;\n}\n.token.patrol.vertical {\n  width: var(--cell-size);\n  height: var(--cell-size);\n  transition: ease;\n}\n\n.token.dragging {\n  opacity: 0.5;\n}\n\n.token.rotate {\n  transform: rotate(90deg);\n  translate: -0% -0%;\n  transition: ease;\n  transition-delay: 3ms;\n  transform-origin: 18px center;\n}\n\n.errorBorder {\n  border: 1px solid red !important;\n  background-color: rgba(255, 0, 0, 0.2) !important;\n}\n"],"sourceRoot":""}]);
+`, "",{"version":3,"sources":["webpack://./node_modules/tailwindcss/base.css","webpack://./node_modules/tailwindcss/utilities.css","webpack://./src/style/style.css"],"names":[],"mappings":"AAAA;;CAAc,CAAd;;;CAAc;;AAAd;;;EAAA,sBAAc,EAAd,MAAc;EAAd,eAAc,EAAd,MAAc;EAAd,mBAAc,EAAd,MAAc;EAAd,qBAAc,EAAd,MAAc;AAAA;;AAAd;;EAAA,gBAAc;AAAA;;AAAd;;;;;;;;CAAc;;AAAd;;EAAA,gBAAc,EAAd,MAAc;EAAd,8BAAc,EAAd,MAAc;EAAd,gBAAc,EAAd,MAAc;EAAd,cAAc;KAAd,WAAc,EAAd,MAAc;EAAd,+HAAc,EAAd,MAAc;EAAd,6BAAc,EAAd,MAAc;EAAd,+BAAc,EAAd,MAAc;EAAd,wCAAc,EAAd,MAAc;AAAA;;AAAd;;;CAAc;;AAAd;EAAA,SAAc,EAAd,MAAc;EAAd,oBAAc,EAAd,MAAc;AAAA;;AAAd;;;;CAAc;;AAAd;EAAA,SAAc,EAAd,MAAc;EAAd,cAAc,EAAd,MAAc;EAAd,qBAAc,EAAd,MAAc;AAAA;;AAAd;;CAAc;;AAAd;EAAA,yCAAc;UAAd,iCAAc;AAAA;;AAAd;;CAAc;;AAAd;;;;;;EAAA,kBAAc;EAAd,oBAAc;AAAA;;AAAd;;CAAc;;AAAd;EAAA,cAAc;EAAd,wBAAc;AAAA;;AAAd;;CAAc;;AAAd;;EAAA,mBAAc;AAAA;;AAAd;;;;;CAAc;;AAAd;;;;EAAA,+GAAc,EAAd,MAAc;EAAd,6BAAc,EAAd,MAAc;EAAd,+BAAc,EAAd,MAAc;EAAd,cAAc,EAAd,MAAc;AAAA;;AAAd;;CAAc;;AAAd;EAAA,cAAc;AAAA;;AAAd;;CAAc;;AAAd;;EAAA,cAAc;EAAd,cAAc;EAAd,kBAAc;EAAd,wBAAc;AAAA;;AAAd;EAAA,eAAc;AAAA;;AAAd;EAAA,WAAc;AAAA;;AAAd;;;;CAAc;;AAAd;EAAA,cAAc,EAAd,MAAc;EAAd,qBAAc,EAAd,MAAc;EAAd,yBAAc,EAAd,MAAc;AAAA;;AAAd;;;;CAAc;;AAAd;;;;;EAAA,oBAAc,EAAd,MAAc;EAAd,8BAAc,EAAd,MAAc;EAAd,gCAAc,EAAd,MAAc;EAAd,eAAc,EAAd,MAAc;EAAd,oBAAc,EAAd,MAAc;EAAd,oBAAc,EAAd,MAAc;EAAd,uBAAc,EAAd,MAAc;EAAd,cAAc,EAAd,MAAc;EAAd,SAAc,EAAd,MAAc;EAAd,UAAc,EAAd,MAAc;AAAA;;AAAd;;CAAc;;AAAd;;EAAA,oBAAc;AAAA;;AAAd;;;CAAc;;AAAd;;;;EAAA,0BAAc,EAAd,MAAc;EAAd,6BAAc,EAAd,MAAc;EAAd,sBAAc,EAAd,MAAc;AAAA;;AAAd;;CAAc;;AAAd;EAAA,aAAc;AAAA;;AAAd;;CAAc;;AAAd;EAAA,gBAAc;AAAA;;AAAd;;CAAc;;AAAd;EAAA,wBAAc;AAAA;;AAAd;;CAAc;;AAAd;;EAAA,YAAc;AAAA;;AAAd;;;CAAc;;AAAd;EAAA,6BAAc,EAAd,MAAc;EAAd,oBAAc,EAAd,MAAc;AAAA;;AAAd;;CAAc;;AAAd;EAAA,wBAAc;AAAA;;AAAd;;;CAAc;;AAAd;EAAA,0BAAc,EAAd,MAAc;EAAd,aAAc,EAAd,MAAc;AAAA;;AAAd;;CAAc;;AAAd;EAAA,kBAAc;AAAA;;AAAd;;CAAc;;AAAd;;;;;;;;;;;;;EAAA,SAAc;AAAA;;AAAd;EAAA,SAAc;EAAd,UAAc;AAAA;;AAAd;EAAA,UAAc;AAAA;;AAAd;;;EAAA,gBAAc;EAAd,SAAc;EAAd,UAAc;AAAA;;AAAd;;CAAc;AAAd;EAAA,UAAc;AAAA;;AAAd;;CAAc;;AAAd;EAAA,gBAAc;AAAA;;AAAd;;;CAAc;;AAAd;EAAA,UAAc,EAAd,MAAc;EAAd,cAAc,EAAd,MAAc;AAAA;;AAAd;;EAAA,UAAc,EAAd,MAAc;EAAd,cAAc,EAAd,MAAc;AAAA;;AAAd;;CAAc;;AAAd;;EAAA,eAAc;AAAA;;AAAd;;CAAc;AAAd;EAAA,eAAc;AAAA;;AAAd;;;;CAAc;;AAAd;;;;;;;;EAAA,cAAc,EAAd,MAAc;EAAd,sBAAc,EAAd,MAAc;AAAA;;AAAd;;CAAc;;AAAd;;EAAA,eAAc;EAAd,YAAc;AAAA;;AAAd,wEAAc;AAAd;EAAA,aAAc;AAAA;;AAAd;EAAA,wBAAc;EAAd,wBAAc;EAAd,mBAAc;EAAd,mBAAc;EAAd,cAAc;EAAd,cAAc;EAAd,cAAc;EAAd,eAAc;EAAd,eAAc;EAAd,aAAc;EAAd,aAAc;EAAd,kBAAc;EAAd,sCAAc;EAAd,8BAAc;EAAd,6BAAc;EAAd,4BAAc;EAAd,eAAc;EAAd,oBAAc;EAAd,sBAAc;EAAd,uBAAc;EAAd,wBAAc;EAAd,kBAAc;EAAd,2BAAc;EAAd,4BAAc;EAAd,sCAAc;EAAd,kCAAc;EAAd,2BAAc;EAAd,sBAAc;EAAd,8BAAc;EAAd,YAAc;EAAd,kBAAc;EAAd,gBAAc;EAAd,iBAAc;EAAd,kBAAc;EAAd,cAAc;EAAd,gBAAc;EAAd,aAAc;EAAd,mBAAc;EAAd,qBAAc;EAAd,2BAAc;EAAd,yBAAc;EAAd,0BAAc;EAAd,2BAAc;EAAd,uBAAc;EAAd,wBAAc;EAAd,yBAAc;EAAd,sBAAc;EAAd,oBAAc;EAAd,sBAAc;EAAd,qBAAc;EAAd;AAAc;;AAAd;EAAA,wBAAc;EAAd,wBAAc;EAAd,mBAAc;EAAd,mBAAc;EAAd,cAAc;EAAd,cAAc;EAAd,cAAc;EAAd,eAAc;EAAd,eAAc;EAAd,aAAc;EAAd,aAAc;EAAd,kBAAc;EAAd,sCAAc;EAAd,8BAAc;EAAd,6BAAc;EAAd,4BAAc;EAAd,eAAc;EAAd,oBAAc;EAAd,sBAAc;EAAd,uBAAc;EAAd,wBAAc;EAAd,kBAAc;EAAd,2BAAc;EAAd,4BAAc;EAAd,sCAAc;EAAd,kCAAc;EAAd,2BAAc;EAAd,sBAAc;EAAd,8BAAc;EAAd,YAAc;EAAd,kBAAc;EAAd,gBAAc;EAAd,iBAAc;EAAd,kBAAc;EAAd,cAAc;EAAd,gBAAc;EAAd,aAAc;EAAd,mBAAc;EAAd,qBAAc;EAAd,2BAAc;EAAd,yBAAc;EAAd,0BAAc;EAAd,2BAAc;EAAd,uBAAc;EAAd,wBAAc;EAAd,yBAAc;EAAd,sBAAc;EAAd,oBAAc;EAAd,sBAAc;EAAd,qBAAc;EAAd;AAAc;ACAd;EAAA;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA,iBAAmB;EAAnB;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA,wBAAmB;EAAnB;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA,uBAAmB;EAAnB;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA,wBAAmB;OAAnB;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA,sBAAmB;EAAnB;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA,sBAAmB;EAAnB;AAAmB;AAAnB;EAAA,sBAAmB;EAAnB;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA,kBAAmB;EAAnB;AAAmB;AAAnB;EAAA,kBAAmB;EAAnB;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA,kBAAmB;EAAnB;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA,kBAAmB;EAAnB;AAAmB;AAAnB;EAAA,qBAAmB;EAAnB;AAAmB;AAAnB;EAAA,oBAAmB;EAAnB;AAAmB;AAAnB;EAAA,oBAAmB;EAAnB;AAAmB;AAAnB;EAAA,mBAAmB;EAAnB;AAAmB;AAAnB;EAAA,oBAAmB;EAAnB;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA,iBAAmB;EAAnB;AAAmB;AAAnB;EAAA,eAAmB;EAAnB;AAAmB;AAAnB;EAAA,mBAAmB;EAAnB;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA,oBAAmB;EAAnB;AAAmB;AAAnB;EAAA,oBAAmB;EAAnB;AAAmB;AAAnB;EAAA,oBAAmB;EAAnB;AAAmB;AAAnB;EAAA,gDAAmB;EAAnB,6DAAmB;EAAnB;AAAmB;AAAnB;EAAA,6EAAmB;EAAnB,iGAAmB;EAAnB;AAAmB;ACInB;EACE,iBAAiB;AACnB;AAEA;EACE,yDAAkD;EAClD,8BAA8B;EAC9B,4BAA4B;EAC5B,2BAA2B;EAC3B,0BAAuB;KAAvB,uBAAuB;EACvB,oBAAiB;KAAjB,iBAAiB;EACjB,0BAA0B;EAC1B,yBAAyB;AAC3B;AAEA;EACE,SAAS;EACT,UAAU;EACV;;cAEY;EACZ,mCAAmC;EACnC,kCAAkC;;EAElC,4BAA4B;EAC5B,WAAW;EACX,iBAAiB;EACjB,kBAAkB;EAClB,eAAe;AACjB;AAEA;EACE,2BAA2B;EAC3B,WAAW;EACX,YAAY;EACZ,iBAAiB;EACjB,kBAAkB;EAClB,2BAA2B;EAC3B,yBAAyB;EACzB,cAAc;AAChB;AAEA;EACE,YAAY;EACZ,cAAc;EACd,0BAA0B;AAC5B;AAEA;EACE,0BAAuB;KAAvB,uBAAuB;EACvB,oBAAiB;KAAjB,iBAAiB;EACjB,WAAW;EACX,qBAAqB;EACrB,iBAAiB;EACjB,kBAAkB;AACpB;AACA;EACE,aAAa;EACb,sBAAsB;AAOxB;AANE;IACE,cAAc;IACd,aAAa;IACb,mBAAmB;IACnB,mBAAmB;EACrB;AAEF;EACE,uBAAuB;EACvB,4BAA4B;EAC5B,YAAY;EACZ,2BAA2B;AAC7B;AAEA;EACE,2BAA2B;AAC7B;AAEA;EACE,eAAe;EACf,2BAA2B;EAC3B,gBAAgB;AAClB;AAEA;EACE,WAAW;AACb;AAEA;EACE,oCAAoC;EACpC,uBAAuB;AACzB;AACA;EACE,oCAAoC;EACpC,yBAAyB;EACzB,uBAAuB;AACzB;AACA;EACE,oCAAoC;EACpC,qBAAqB;AACvB;AAEA;EACE,wBAAwB;EACxB,MAAM;EACN,OAAO;EACP,2BAA2B;EAC3B,2BAA2B;EAC3B,sBAAsB;EACtB,YAAY;EACZ,uBAAuB;AACzB;AAEA;EACE,WAAW;EACX,kBAAkB;EAClB,MAAM;EACN,OAAO;EACP,YAAY;EACZ,aAAa;AACf;AAEA;EACE,4BAA4B;EAC5B,2BAA2B;EAC3B,wBAAwB;EACxB,YAAY;EACZ,mDAAmD;EACnD,yCAAyC;AAC3C;AACA;EACE,iCAAiC;EACjC,wBAAwB;AAC1B;AACA;EACE,yDAA2D;AAC7D;AACA;EACE,iCAAiC;EACjC,wBAAwB;AAC1B;AACA;EACE,yDAA8D;AAChE;AACA;EACE,iCAAiC;EACjC,wBAAwB;AAC1B;AACA;EACE,yDAA6D;AAC/D;AACA;EACE,iCAAiC;EACjC,wBAAwB;AAC1B;AACA;EACE,yDAA6D;AAC/D;AACA;EACE,uBAAuB;EACvB,wBAAwB;AAC1B;AACA;EACE,yDAA0D;AAC5D;AACA;EACE,kCAAkC;EAClC,uBAAuB;EACvB,gBAAgB;AAClB;AACA;EACE,kCAAkC;EAClC,uBAAuB;EACvB,gBAAgB;AAClB;AACA;EACE,kCAAkC;EAClC,uBAAuB;EACvB,gBAAgB;AAClB;AACA;EACE,kCAAkC;EAClC,uBAAuB;EACvB,gBAAgB;AAClB;AACA;EACE,uBAAuB;EACvB,wBAAwB;EACxB,gBAAgB;AAClB;AAEA;EACE,YAAY;AACd;AAEA;EACE,wBAAwB;EACxB,kBAAkB;EAClB,gBAAgB;EAChB,qBAAqB;EACrB,6BAA6B;AAC/B;AAEA;EACE,gCAAgC;EAChC,iDAAiD;AACnD;AAEA,oDAAoD;AACpD;EACE;IACE,iCAAiC;IACjC,mBAAmB;EACrB;AACF;AAzNA;EAAA,kBA0NA;EA1NA;AA0NA;AA1NA;EAAA,oBA0NA;EA1NA;AA0NA;AA1NA;;EAAA;IAAA;EA0NA;AAAA;AA1NA;;EAAA;IAAA;EA0NA;;EA1NA;IAAA;EA0NA;AAAA;AA1NA;;EAAA;IAAA;EA0NA;;EA1NA;IAAA;EA0NA;AAAA","sourcesContent":["@tailwind base;\n","@tailwind utilities;\n","@import \"tailwindcss/base\";\n@import \"tailwindcss/components\";\n@import \"tailwindcss/utilities\";\n\n:root {\n  --cell-size: 36px;\n}\n\nhtml {\n  background-image: url(\"../asset/images/world.svg\");\n  background-blend-mode: overlay;\n  background-repeat: no-repeat;\n  background-position: center;\n  object-position: center;\n  object-fit: cover;\n  background-size: 100% 100%;\n  background-color: #000e29;\n}\n\nbody {\n  margin: 0;\n  padding: 0;\n  font-family: -apple-system, BlinkMacSystemFont, \"Segoe UI\", \"Roboto\", \"Oxygen\",\n    \"Ubuntu\", \"Cantarell\", \"Fira Sans\", \"Droid Sans\", \"Helvetica Neue\",\n    sans-serif;\n  -webkit-font-smoothing: antialiased;\n  -moz-osx-font-smoothing: grayscale;\n\n  max-width: 1024px !important;\n  width: 100%;\n  margin-left: auto;\n  margin-right: auto;\n  padding: 0 20px;\n}\n\n.screen {\n  max-width: 720px !important;\n  width: 100%;\n  height: 50px;\n  margin-left: auto;\n  margin-right: auto;\n  background-color: #ff990032;\n  border: 1px solid #ff9900;\n  color: #ff9900;\n}\n\nfooter {\n  color: white;\n  margin: 0 20px;\n  font-size: 20px !important;\n}\n\n#logo {\n  object-position: center;\n  object-fit: cover;\n  width: 40px;\n  display: inline-block;\n  margin-right: 6px;\n  margin-bottom: 4px;\n}\nheader {\n  display: flex;\n  flex-direction: column;\n  h1 {\n    color: #ffffff;\n    display: flex;\n    align-items: center;\n    margin-bottom: 20px;\n  }\n}\n.pack {\n  box-sizing: content-box;\n  border: 1px dotted #00000020;\n  width: 140px;\n  /* transform: scale(0.5); */\n}\n\n#strategyscreen {\n  /* transform: scale(0.5); */\n}\n\n.btn {\n  cursor: pointer;\n  background-color: #000b3435;\n  color: #a7a7ffe5;\n}\n\n.bringFront {\n  z-index: 10;\n}\n\n.active {\n  background-color: #0000ff !important;\n  color: white !important;\n}\n.play {\n  background-color: #008000 !important;\n  border: 1px solid #008000;\n  color: white !important;\n}\n.restart {\n  border: 1px solid #ff0000 !important;\n  color: red !important;\n}\n\n.token {\n  /* position: absolute; */\n  top: 0;\n  left: 0;\n  border: 1px solid #ff99002f;\n  background-color: #ff99008a;\n  box-sizing: border-box;\n  cursor: grab;\n  transform: rotate(0deg);\n}\n\n#dialogue {\n  z-index: 10;\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 100vw;\n  height: 100vh;\n}\n\n.bgImg {\n  background-repeat: no-repeat;\n  background-position: center;\n  background-size: contain;\n  opacity: 0.5;\n  background-color: rgba(255, 0, 0, 0.293) !important;\n  border: rgba(255, 0, 0, 0.506) !important;\n}\n.token.carrier {\n  width: calc(4 * var(--cell-size));\n  height: var(--cell-size);\n}\n.token.carrier.bgImg {\n  background-image: url(\"../asset/images/ships/carrierX.svg\");\n}\n.token.battleship {\n  width: calc(3 * var(--cell-size));\n  height: var(--cell-size);\n}\n.token.battleship.bgImg {\n  background-image: url(\"../asset/images/ships/battleshipX.svg\");\n}\n.token.destroyer {\n  width: calc(2 * var(--cell-size));\n  height: var(--cell-size);\n}\n.token.destroyer.bgImg {\n  background-image: url(\"../asset/images/ships/destroyerX.svg\");\n}\n.token.submarine {\n  width: calc(2 * var(--cell-size));\n  height: var(--cell-size);\n}\n.token.submarine.bgImg {\n  background-image: url(\"../asset/images/ships/submarineX.svg\");\n}\n.token.patrol {\n  width: var(--cell-size);\n  height: var(--cell-size);\n}\n.token.patrol.bgImg {\n  background-image: url(\"../asset/images/ships/patrolX.svg\");\n}\n.token.carrier.vertical {\n  height: calc(4 * var(--cell-size));\n  width: var(--cell-size);\n  transition: ease;\n}\n.token.battleship.vertical {\n  height: calc(3 * var(--cell-size));\n  width: var(--cell-size);\n  transition: ease;\n}\n.token.destroyer.vertical {\n  height: calc(2 * var(--cell-size));\n  width: var(--cell-size);\n  transition: ease;\n}\n.token.submarine.vertical {\n  height: calc(2 * var(--cell-size));\n  width: var(--cell-size);\n  transition: ease;\n}\n.token.patrol.vertical {\n  width: var(--cell-size);\n  height: var(--cell-size);\n  transition: ease;\n}\n\n.token.dragging {\n  opacity: 0.5;\n}\n\n.token.rotate {\n  transform: rotate(90deg);\n  translate: -0% -0%;\n  transition: ease;\n  transition-delay: 3ms;\n  transform-origin: 18px center;\n}\n\n.errorBorder {\n  border: 1px solid red !important;\n  background-color: rgba(255, 0, 0, 0.2) !important;\n}\n\n/* Media query for medium screen sizes (md) and up */\n@media (max-width: 768px) {\n  #field.begin {\n    flex-direction: column !important;\n    align-items: center;\n  }\n}\n"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -1970,6 +2048,17 @@ module.exports = __webpack_require__.p + "images/X.png";
 
 "use strict";
 module.exports = __webpack_require__.p + "images/dot.png";
+
+/***/ }),
+
+/***/ "./src/asset/images/logo.png":
+/*!***********************************!*\
+  !*** ./src/asset/images/logo.png ***!
+  \***********************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+module.exports = __webpack_require__.p + "images/logo.png";
 
 /***/ }),
 
@@ -2058,6 +2147,17 @@ module.exports = __webpack_require__.p + "sounds/hit.mp3";
 
 "use strict";
 module.exports = __webpack_require__.p + "sounds/miss.mp3";
+
+/***/ }),
+
+/***/ "./src/asset/sound/ocean.mp3":
+/*!***********************************!*\
+  !*** ./src/asset/sound/ocean.mp3 ***!
+  \***********************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+module.exports = __webpack_require__.p + "sounds/ocean.mp3";
 
 /***/ }),
 

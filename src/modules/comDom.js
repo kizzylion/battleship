@@ -14,7 +14,7 @@ import { getRandomDirection, getRandomNumber, canPlaceShip } from "../bin2/game"
 
 export function initializeComputer() {
   getElementById("field").classList.replace("flex-col", "flex-row")
-  getElementById("field").classList.add("gap-6")
+  getElementById("field").classList.add("gap-6", "begin")
   generateComputerBoardUi()
 
   const computerCvs = getElementById("computerboard")
