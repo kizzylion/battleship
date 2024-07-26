@@ -6,55 +6,19 @@
     <title>Kiz BattleShip</title>
 </head>
 <body class="flex flex-col w-screen  h-dvh">
-    <!-- <Header class="flex items-center max-w-7xl  w-full mx-auto mt-10 mb-4" >
-        <h1 id="Logo" class="text-2xl mr-5">Kiz BattleShip </h1>
-        <div class="screen flex px-4 py-3 bg-gray-200 text-sm max-w-xl w-full rounded-md">
-            <p>Start editing to see some magic happen </p>
+   
+    <dialog id="gameOver" class=" flex w-full h-full justify-center items-center bg-blue-900/80">
+        <div class=":sm:w-3/4 lg:w-2/4 h-fit p-10 bg-gray-900/60 border bottom-1 border-blue-600/50 rounded-2xl shadow-2xl">
+            <h1 class="text-center text-5xl text-blue-100 mb-4 font-semibold">Game Over!</h1>
+            <p id="message" class="text-center text-2xl text-blue-500 mb-12 mt-10 font-mono">Player Kizzy has won the battle</p>
+            <div id="restartBtn" class="flex w-fit px-5 py-2 bg-gray-900 hover:bg-white hover:text-gray-950 rounded-lg  mt-4 shadow-md mx-auto text-white font-thin cursor-pointer" onclick="location.reload">Restart</div>
         </div>
-    </Header>
+    </dialog>
     
-    <div id="body-container" class=" flex max-xl mx-auto max-w-7xl w-full h-full mt-12">
-        <div id="battlefield" class="board w-1/2">
-            <div id="port" class="  inline-flex flex-col float-left flex-wrap w-52 gap-x-5 gap-y-10 mr-6">
-                <div class="carrier-port pack placeable relative h-9 ">
-                    <div data-name="carrier" data-direction="horizontal" data-length="4" draggable="true" class="carrier token"></div>
-                </div>
-                <div class="battleship-port pack placeable relative h-9 ">
-                    <div data-name="battleship" data-direction="horizontal" data-length="3" draggable="true" class="battleship token"></div>
-                </div>
-                <div class="destroyer-port pack placeable relative h-9">
-                    <div data-name="destroyer" data-direction="horizontal" data-length="2" draggable="true" class="destroyer token"></div>
-                </div>
-                <div class="submarine-port pack placeable relative h-9 ">
-                    
-                    <div data-name="submarine" data-direction="horizontal" data-length="2" draggable="true" class="submarine token"></div>
-                </div>
-                <div class="submarine-port pack placeable relative h-9 ">
-                    
-                    <div data-name="patrol" data-direction="horizontal" data-length="1" draggable="true" class="patrol token"></div>
-                    
-                </div>
-                
-            </div>
-            <div id="strategyscreen" class="placeable relative flex w-fit">
-                <canvas id="playerboard" class=" " width="360" height="360"></canvas>
-            </div>
-
-        </div>
-        <div id="battlefield-2" class="hidden board w-1/2">
-            <canvas id="computerboard" class="" width="360" height="360"></canvas>
-        </div>
-
-    </div>
-
-
-    <footer class=" max-w-7xl w-full mx-auto py-1">
-        <p class="text-center text-sm">
-           
-            <a href="#"><i class="fa-brands fa-github"></i> Kizzylion</a>
-        </p>
-    </footer> -->
     
+    <script>
+        document.getElementById("gameOver").showModal()
+    </script>
 
 </body>
 </html>

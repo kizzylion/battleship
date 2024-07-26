@@ -3,13 +3,14 @@ const { Ship } = require("./Ship")
 const { isColliding, isWithinBounds, orientation } = require("../playerDom")
 class Gameboard {
   constructor() {
-    this.ships = [
-      new Ship("carrier", 4),
-      new Ship("battleship", 3),
-      new Ship("destroyer", 2),
-      new Ship("submarine", 2),
-      new Ship("patrol", 1),
-    ]
+    this.opponentName,
+      (this.ships = [
+        new Ship("carrier", 4),
+        new Ship("battleship", 3),
+        new Ship("destroyer", 2),
+        new Ship("submarine", 2),
+        new Ship("patrol", 1),
+      ])
     this.missedShots = new Set()
     this.positionShot = new Set()
     this.board = Array(10)
@@ -18,6 +19,12 @@ class Gameboard {
     this.buckets = new Array(5).fill(null)
   }
 
+  setOpponentName(name) {
+    this.playerName = name
+  }
+  getOpponentName() {
+    return this.playerName
+  }
   _hash(key) {
     if (key === "carrier") return 0
     if (key === "battleship") return 1

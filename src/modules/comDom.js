@@ -109,7 +109,8 @@ async function attack(e) {
     computerCtx,
     cellSize,
     computerBoard.getBoard(),
-    getElementById("attackScreen")
+    getElementById("attackScreen"),
+    computerBoard
   )
   if (playerKill) return
   computerCvs.removeEventListener("click", attack)
@@ -120,7 +121,8 @@ async function attack(e) {
     playerboard,
     playerCtx,
     randomCell(),
-    getElementById("strategyscreen")
+    getElementById("strategyscreen"),
+    playerboard
   )
   while (computerKill) {
     await new Promise((resolve) => setTimeout(resolve, 1500)) // Delay between computer shots
@@ -128,7 +130,8 @@ async function attack(e) {
       playerboard,
       playerCtx,
       randomCell(),
-      getElementById("strategyscreen")
+      getElementById("strategyscreen"),
+      playerboard
     )
   }
 

@@ -17,6 +17,8 @@ import { initializeComputer } from "./comDom"
 
 export const playerboard = new Gameboard()
 export const computerBoard = new Gameboard()
+playerboard.setOpponentName("Computer")
+computerBoard.setOpponentName("Player")
 ;(function () {
   htmlStructure()
 
