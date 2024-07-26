@@ -131,7 +131,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _factories_Ship__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../factories/Ship */ "./src/modules/factories/Ship.js");
 /* harmony import */ var _factories_Ship__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_factories_Ship__WEBPACK_IMPORTED_MODULE_6__);
 /* harmony import */ var typed_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! typed.js */ "./node_modules/typed.js/dist/typed.module.js");
-/* harmony import */ var _asset_images_logo_png__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../asset/images/logo.png */ "./src/asset/images/logo.png");
+/* harmony import */ var _playerDom__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../playerDom */ "./src/modules/playerDom.js");
 function _readOnlyError(r) { throw new TypeError('"' + r + '" is read-only'); }
 function _toConsumableArray(r) { return _arrayWithoutHoles(r) || _iterableToArray(r) || _unsupportedIterableToArray(r) || _nonIterableSpread(); }
 function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -202,14 +202,17 @@ function playerShoot(event, canvas, ctx, cellSize, board, placeable, gameboard) 
   //we calculated i & j of the clicked canvas
   var top = Math.floor(Y / cellSize);
   var left = Math.floor(X / cellSize);
+  var position = [left, top];
+  //check if position have been hit
+  if (gameboard.checkIfPositionHasBeenHit(position)) return true;
   var id = board[top][left];
   console.log("top= ".concat(top, " , left = ").concat(left), "id =", id);
   playShotSound();
   return drawOnBoard(id, ctx, left, top, placeable, gameboard);
 }
-function computerShoot(opponent, ctx, position, placeable, gameboard) {
-  var randomPosition = randomCell();
-  while (opponent.checkIfPositionHasBeenHit(randomPosition)) {
+function computerShoot(opponent, ctx, position, placeable) {
+  var randomPosition = position;
+  while (opponent.checkIfPositionHasBeenHit(Object.values(randomPosition))) {
     console.log("position has been shot");
     randomPosition = randomCell();
   }
@@ -218,13 +221,13 @@ function computerShoot(opponent, ctx, position, placeable, gameboard) {
   var id = opponent.board[top][left];
   console.log("top= ".concat(top, " , left = ").concat(left, ", id = ").concat(id));
   playShotSound();
-  return drawOnBoard(id, ctx, left, top, placeable, gameboard);
+  return drawOnBoard(id, ctx, left, top, placeable, opponent);
 }
 function drawOnBoard(result, ctx, left, top, placeable, gameboard) {
   var img = result ? xImage : dotImage;
   ctx.drawImage(img, left * _bin2_domevents__WEBPACK_IMPORTED_MODULE_0__.cellSize, top * _bin2_domevents__WEBPACK_IMPORTED_MODULE_0__.cellSize, _bin2_domevents__WEBPACK_IMPORTED_MODULE_0__.cellSize, _bin2_domevents__WEBPACK_IMPORTED_MODULE_0__.cellSize);
+  gameboard.receiveAttack(left, top);
   if (result) {
-    result.hit();
     if (result.isSunk()) {
       var tokenDiv = (0,_factories_Ship__WEBPACK_IMPORTED_MODULE_6__.createTokenDiv)(result.name, result.direction, result.length, result.left, result.top);
       tokenDiv.style.position = "absolute";
@@ -376,37 +379,39 @@ function _attack() {
           playerCvs = (0,_DOM_utilities__WEBPACK_IMPORTED_MODULE_0__.getElementById)("playerboard");
           playerCtx = playerCvs.getContext("2d");
           playerKill = (0,_DOM_utilities__WEBPACK_IMPORTED_MODULE_0__.playerShoot)(e, computerCvs, computerCtx, _bin2_domevents__WEBPACK_IMPORTED_MODULE_1__.cellSize, _playerDom__WEBPACK_IMPORTED_MODULE_2__.computerBoard.getBoard(), (0,_DOM_utilities__WEBPACK_IMPORTED_MODULE_0__.getElementById)("attackScreen"), _playerDom__WEBPACK_IMPORTED_MODULE_2__.computerBoard);
+          console.log(_playerDom__WEBPACK_IMPORTED_MODULE_2__.computerBoard.positionShot);
           if (!playerKill) {
-            _context.next = 7;
+            _context.next = 8;
             break;
           }
           return _context.abrupt("return");
-        case 7:
+        case 8:
           computerCvs.removeEventListener("click", attack);
-          _context.next = 10;
+          _context.next = 11;
           return new Promise(function (resolve) {
             return setTimeout(resolve, 1500);
           });
-        case 10:
-          // Delay between computer shots
-          computerKill = (0,_DOM_utilities__WEBPACK_IMPORTED_MODULE_0__.computerShoot)(_playerDom__WEBPACK_IMPORTED_MODULE_2__.playerboard, playerCtx, (0,_DOM_utilities__WEBPACK_IMPORTED_MODULE_0__.randomCell)(), (0,_DOM_utilities__WEBPACK_IMPORTED_MODULE_0__.getElementById)("strategyscreen"), _playerDom__WEBPACK_IMPORTED_MODULE_2__.playerboard);
         case 11:
+          // Delay between computer shots
+          computerKill = (0,_DOM_utilities__WEBPACK_IMPORTED_MODULE_0__.computerShoot)(_playerDom__WEBPACK_IMPORTED_MODULE_2__.playerboard, playerCtx, (0,_DOM_utilities__WEBPACK_IMPORTED_MODULE_0__.randomCell)(), (0,_DOM_utilities__WEBPACK_IMPORTED_MODULE_0__.getElementById)("strategyscreen"));
+        case 12:
           if (!computerKill) {
-            _context.next = 17;
+            _context.next = 19;
             break;
           }
-          _context.next = 14;
+          console.log("position has been hit previously");
+          _context.next = 16;
           return new Promise(function (resolve) {
             return setTimeout(resolve, 1500);
           });
-        case 14:
+        case 16:
           // Delay between computer shots
-          computerKill = (0,_DOM_utilities__WEBPACK_IMPORTED_MODULE_0__.computerShoot)(_playerDom__WEBPACK_IMPORTED_MODULE_2__.playerboard, playerCtx, (0,_DOM_utilities__WEBPACK_IMPORTED_MODULE_0__.randomCell)(), (0,_DOM_utilities__WEBPACK_IMPORTED_MODULE_0__.getElementById)("strategyscreen"), _playerDom__WEBPACK_IMPORTED_MODULE_2__.playerboard);
-          _context.next = 11;
+          computerKill = (0,_DOM_utilities__WEBPACK_IMPORTED_MODULE_0__.computerShoot)(_playerDom__WEBPACK_IMPORTED_MODULE_2__.playerboard, playerCtx, (0,_DOM_utilities__WEBPACK_IMPORTED_MODULE_0__.randomCell)(), (0,_DOM_utilities__WEBPACK_IMPORTED_MODULE_0__.getElementById)("strategyscreen"));
+          _context.next = 12;
           break;
-        case 17:
+        case 19:
           computerCvs.addEventListener("click", attack);
-        case 18:
+        case 20:
         case "end":
           return _context.stop();
       }
@@ -503,12 +508,18 @@ var Gameboard = /*#__PURE__*/function () {
     value: function receiveAttack(x, y) {
       var target = this.board[y][x];
       if (target) {
-        this.positionShot.add([x, y].toString());
+        this.addToPositionShot([x, y]);
         target.hit();
       } else {
-        this.missedShots.add([x, y].toString);
-        this.positionShot.add([x, y].toString());
+        this.missedShots.add([x, y].toString());
+        this.addToPositionShot([x, y]);
       }
+    }
+  }, {
+    key: "addToPositionShot",
+    value: function addToPositionShot(array) {
+      var string = array.toString();
+      this.positionShot.add(string);
     }
   }, {
     key: "removeShip",

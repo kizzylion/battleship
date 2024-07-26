@@ -76,12 +76,17 @@ class Gameboard {
   receiveAttack(x, y) {
     const target = this.board[y][x]
     if (target) {
-      this.positionShot.add([x, y].toString())
+      this.addToPositionShot([x, y])
       target.hit()
     } else {
-      this.missedShots.add([x, y].toString)
-      this.positionShot.add([x, y].toString())
+      this.missedShots.add([x, y].toString())
+      this.addToPositionShot([x, y])
     }
+  }
+
+  addToPositionShot(array) {
+    const string = array.toString()
+    this.positionShot.add(string)
   }
   removeShip(shipName, x, y, shipLength, direction) {
     const ship = this.getShip(shipName)

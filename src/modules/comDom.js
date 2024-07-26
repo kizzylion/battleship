@@ -112,6 +112,7 @@ async function attack(e) {
     getElementById("attackScreen"),
     computerBoard
   )
+  console.log(computerBoard.positionShot)
   if (playerKill) return
   computerCvs.removeEventListener("click", attack)
 
@@ -121,17 +122,16 @@ async function attack(e) {
     playerboard,
     playerCtx,
     randomCell(),
-    getElementById("strategyscreen"),
-    playerboard
+    getElementById("strategyscreen")
   )
   while (computerKill) {
+    console.log("position has been hit previously")
     await new Promise((resolve) => setTimeout(resolve, 1500)) // Delay between computer shots
     computerKill = computerShoot(
       playerboard,
       playerCtx,
       randomCell(),
-      getElementById("strategyscreen"),
-      playerboard
+      getElementById("strategyscreen")
     )
   }
 

@@ -6,7 +6,7 @@ import hitSoundSrc from "../../asset/sound/hit.mp3"
 import missSoundSrc from "../../asset/sound/miss.mp3"
 import { createTokenDiv } from "../factories/Ship"
 import Typed from "typed.js"
-import logoSrc from "../../asset/images/logo.png"
+import { computerBoard } from "../playerDom"
 
 //load x and dot images for canvas
 const xImage = new Image()
@@ -70,6 +70,9 @@ export function playerShoot(
   //we calculated i & j of the clicked canvas
   let top = Math.floor(Y / cellSize)
   let left = Math.floor(X / cellSize)
+  let position = [left, top]
+  //check if position have been hit
+  if (gameboard.checkIfPositionHasBeenHit(position)) return true
 
   let id = board[top][left]
   console.log(`top= ${top} , left = ${left}`, `id =`, id)
@@ -77,10 +80,10 @@ export function playerShoot(
   return drawOnBoard(id, ctx, left, top, placeable, gameboard)
 }
 
-export function computerShoot(opponent, ctx, position, placeable, gameboard) {
-  let randomPosition = randomCell()
+export function computerShoot(opponent, ctx, position, placeable) {
+  let randomPosition = position
 
-  while (opponent.checkIfPositionHasBeenHit(randomPosition)) {
+  while (opponent.checkIfPositionHasBeenHit(Object.values(randomPosition))) {
     console.log("position has been shot")
     randomPosition = randomCell()
   }
@@ -92,14 +95,14 @@ export function computerShoot(opponent, ctx, position, placeable, gameboard) {
 
   console.log(`top= ${top} , left = ${left}, id = ${id}`)
   playShotSound()
-  return drawOnBoard(id, ctx, left, top, placeable, gameboard)
+  return drawOnBoard(id, ctx, left, top, placeable, opponent)
 }
 
 function drawOnBoard(result, ctx, left, top, placeable, gameboard) {
   const img = result ? xImage : dotImage
   ctx.drawImage(img, left * cellSize, top * cellSize, cellSize, cellSize)
+  gameboard.receiveAttack(left, top)
   if (result) {
-    result.hit()
     if (result.isSunk()) {
       const tokenDiv = createTokenDiv(
         result.name,
