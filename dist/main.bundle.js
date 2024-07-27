@@ -63,7 +63,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   htmlStructure: () => (/* binding */ htmlStructure)
 /* harmony export */ });
 function htmlStructure() {
-  return document.body.innerHTML = "\n\n    <Header class=\"flex items-center max-w-7xl  w-full mx-auto mt-10 mb-4\" >\n        <h1 id=\"Logo\" class=\"text-2xl mr-5\"><img id=\"logo\"/>Kiz BattleShip </h1>\n        <div class=\"screen flex px-4 py-3 bg-gray-200 text-sm max-w-xl w-full rounded-md\">\n            <p id=\"message\">Start editing to see some magic happen </p>\n        </div>\n    </Header>\n    \n    <main id=\"body-container\" class=\" flex max-xl mx-auto max-w-7xl w-full h-full mt-12\">\n        \n        <div id=\"battlefield-2\" class=\"hidden board w-1/2\">\n            <canvas id=\"computerboard\" class=\"\" width=\"360\" height=\"360\"></canvas>\n        </div>\n\n    </main>\n\n\n    <footer class=\" max-w-7xl w-full mx-auto py-1\">\n        <p class=\"text-center text-sm\">\n           \n            <a href=\"#\"><i class=\"fa-brands fa-github\"></i> Kizzylion</a>\n        </p>\n    </footer>\n\n    ";
+  return document.body.innerHTML = "\n\n    <Header class=\"flex items-center max-w-7xl  w-full mx-auto mt-10 mb-4\" >\n        <h1 id=\"Logo\" class=\"text-2xl mr-5\"><img id=\"logo\"/>Kiz BattleShip </h1>\n        <div class=\"screen flex px-4 py-3 bg-gray-200 text-sm max-w-xl w-full rounded-md\">\n            <p id=\"message\">Start editing to see some magic happen </p>\n        </div>\n    </Header>\n    \n    <main id=\"body-container\" class=\" flex max-xl mx-auto max-w-7xl w-full h-full mt-12\">\n        \n        <div id=\"battlefield-2\" class=\"hidden board w-1/2\">\n            <canvas id=\"computerboard\" class=\"\" width=\"360\" height=\"360\"></canvas>\n        </div>\n\n    </main>\n\n\n    <footer class=\" max-w-7xl w-full mx-auto py-1\">\n        <p class=\"text-center text-sm\">\n           \n            <a target=\"_blank\" href=\"https://github.com/kizzylion/battleship\"><i class=\"fa-brands fa-github\"></i> Kizzylion</a>\n        </p>\n    </footer>\n\n    ";
 }
 function getRandomDirection() {
   return Math.random() < 0.5 ? "horizontal" : "vertical";
@@ -126,12 +126,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _bin2_domevents__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_bin2_domevents__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _asset_images_X_png__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../asset/images/X.png */ "./src/asset/images/X.png");
 /* harmony import */ var _asset_images_dot_png__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../asset/images/dot.png */ "./src/asset/images/dot.png");
-/* harmony import */ var _asset_sound_shot_mp3__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../asset/sound/shot.mp3 */ "./src/asset/sound/shot.mp3");
-/* harmony import */ var _asset_sound_hit_mp3__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../asset/sound/hit.mp3 */ "./src/asset/sound/hit.mp3");
-/* harmony import */ var _asset_sound_miss_mp3__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../asset/sound/miss.mp3 */ "./src/asset/sound/miss.mp3");
-/* harmony import */ var _factories_Ship__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../factories/Ship */ "./src/modules/factories/Ship.js");
-/* harmony import */ var _factories_Ship__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_factories_Ship__WEBPACK_IMPORTED_MODULE_6__);
-/* harmony import */ var typed_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! typed.js */ "./node_modules/typed.js/dist/typed.module.js");
+/* harmony import */ var _asset_images_dot2_png__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../asset/images/dot2.png */ "./src/asset/images/dot2.png");
+/* harmony import */ var _asset_sound_shot_mp3__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../asset/sound/shot.mp3 */ "./src/asset/sound/shot.mp3");
+/* harmony import */ var _asset_sound_hit_mp3__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../asset/sound/hit.mp3 */ "./src/asset/sound/hit.mp3");
+/* harmony import */ var _asset_sound_miss_mp3__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../asset/sound/miss.mp3 */ "./src/asset/sound/miss.mp3");
+/* harmony import */ var _factories_Ship__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../factories/Ship */ "./src/modules/factories/Ship.js");
+/* harmony import */ var _factories_Ship__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(_factories_Ship__WEBPACK_IMPORTED_MODULE_7__);
+/* harmony import */ var typed_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! typed.js */ "./node_modules/typed.js/dist/typed.module.js");
+/* harmony import */ var autoprefixer__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! autoprefixer */ "./node_modules/autoprefixer/lib/autoprefixer.js");
+/* harmony import */ var autoprefixer__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(autoprefixer__WEBPACK_IMPORTED_MODULE_9__);
 function _readOnlyError(r) { throw new TypeError('"' + r + '" is read-only'); }
 function _toConsumableArray(r) { return _arrayWithoutHoles(r) || _iterableToArray(r) || _unsupportedIterableToArray(r) || _nonIterableSpread(); }
 function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -148,17 +151,21 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
 
 
 
+
+
 //load x and dot images for canvas
 var xImage = new Image();
 xImage.src = _asset_images_X_png__WEBPACK_IMPORTED_MODULE_1__;
 var dotImage = new Image();
 dotImage.src = _asset_images_dot_png__WEBPACK_IMPORTED_MODULE_2__;
+var dot2Image = new Image();
+dot2Image.src = _asset_images_dot2_png__WEBPACK_IMPORTED_MODULE_3__;
 //load audios
-var hitSound = new Audio(_asset_sound_hit_mp3__WEBPACK_IMPORTED_MODULE_4__);
+var hitSound = new Audio(_asset_sound_hit_mp3__WEBPACK_IMPORTED_MODULE_5__);
 hitSound.playbackRate = 1.5;
-var shotSound = new Audio(_asset_sound_shot_mp3__WEBPACK_IMPORTED_MODULE_3__);
+var shotSound = new Audio(_asset_sound_shot_mp3__WEBPACK_IMPORTED_MODULE_4__);
 shotSound.playbackRate = 1.5;
-var missSound = new Audio(_asset_sound_miss_mp3__WEBPACK_IMPORTED_MODULE_5__);
+var missSound = new Audio(_asset_sound_miss_mp3__WEBPACK_IMPORTED_MODULE_6__);
 missSound.playbackRate = 1.5;
 
 // function that returns an element by id from the dom
@@ -205,7 +212,7 @@ function playerShoot(event, canvas, ctx, cellSize, board, placeable, gameboard) 
   //check if position have been hit
   if (gameboard.checkIfPositionHasBeenHit(position)) return true;
   var id = board[top][left];
-  console.log("top= ".concat(top, " , left = ").concat(left), "id =", id);
+  // console.log(`top= ${top} , left = ${left}`, `id =`, id)
   playShotSound();
   return drawOnBoard(id, ctx, left, top, placeable, gameboard);
 }
@@ -223,12 +230,12 @@ function computerShoot(opponent, ctx, position, placeable) {
   return drawOnBoard(id, ctx, left, top, placeable, opponent);
 }
 function drawOnBoard(result, ctx, left, top, placeable, gameboard) {
-  var img = result ? xImage : dotImage;
+  var img = result ? xImage : gameboard.getOpponentName() === "Computer" ? dot2Image : dotImage;
   ctx.drawImage(img, left * _bin2_domevents__WEBPACK_IMPORTED_MODULE_0__.cellSize, top * _bin2_domevents__WEBPACK_IMPORTED_MODULE_0__.cellSize, _bin2_domevents__WEBPACK_IMPORTED_MODULE_0__.cellSize, _bin2_domevents__WEBPACK_IMPORTED_MODULE_0__.cellSize);
   gameboard.receiveAttack(left, top);
   if (result) {
     if (result.isSunk()) {
-      var tokenDiv = (0,_factories_Ship__WEBPACK_IMPORTED_MODULE_6__.createTokenDiv)(result.name, result.direction, result.length, result.left, result.top);
+      var tokenDiv = (0,_factories_Ship__WEBPACK_IMPORTED_MODULE_7__.createTokenDiv)(result.name, result.direction, result.length, result.left, result.top);
       tokenDiv.style.position = "absolute";
       tokenDiv.setAttribute("draggable", false);
       tokenDiv.style.cursor = "default";
@@ -272,9 +279,9 @@ function displayGameOverDialogue(gameboard) {
   dialog.setAttribute("class", "dialogue");
   dialog.classList.add("flex", "justify-center", "items-center", "bg-blue-900/80");
   getElementById("body-container").appendChild(dialog);
-  dialog.innerHTML = "\n        <div class=\"sm:w-3/4 lg:w-3/4 h-fit p-10 bg-gray-900/60 border bottom-1 border-blue-600/50 rounded-2xl shadow-2xl\">\n            <h1 class=\"text-center text-5xl text-blue-100 mb-4 font-semibold\">Game Over!</h1>\n            <p id=\"message\" class=\"text-center text-2xl text-blue-500 mb-12 mt-10 font-mono\"></p>\n            <div id=\"restartBtn\" class=\"flex w-fit px-5 py-2 bg-gray-900 hover:bg-white hover:text-gray-950 rounded-lg  mt-4 shadow-md mx-auto text-white font-thin cursor-pointer\">Restart</div>\n        </div>\n    ";
+  dialog.innerHTML = "\n        <div class=\"sm:w-3/4 lg:w-3/4 h-fit p-10 bg-gray-900/60 border bottom-1 border-blue-600/50 rounded-2xl shadow-2xl\">\n            <h1 class=\"text-center text-5xl text-blue-100 mb-4 font-semibold\">Game Over!</h1>\n            <p id=\"winnerInfo\" class=\"text-center text-2xl text-blue-500 mb-12 mt-10 font-mono\"></p>\n            <div id=\"restartBtn\" class=\"flex w-fit px-5 py-2 bg-gray-900 hover:bg-white hover:text-gray-950 rounded-lg  mt-4 shadow-md mx-auto text-white font-thin cursor-pointer\">Restart</div>\n        </div>\n    ";
   var winnerMessage = ["".concat(gameboard.getOpponentName(), " has won the battle")];
-  newMessage(winnerMessage);
+  newMessage("winnerInfo", winnerMessage);
   document.body.classList.add("no-scroll");
   var restartBtn = getElementById("restartBtn");
   restartBtn.addEventListener("click", function () {
@@ -282,14 +289,14 @@ function displayGameOverDialogue(gameboard) {
   });
 }
 var typedInstance = null;
-function newMessage(array) {
-  var loop = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
-  var typeSpeed = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 50;
+function newMessage(element, array) {
+  var loop = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
+  var typeSpeed = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 50;
   if (typedInstance) {
     typedInstance.destroy();
     typedInstance = null;
   }
-  typedInstance = new typed_js__WEBPACK_IMPORTED_MODULE_7__["default"](getElementById("message"), {
+  typedInstance = new typed_js__WEBPACK_IMPORTED_MODULE_8__["default"](getElementById(element), {
     strings: array,
     typeSpeed: typeSpeed,
     backSpeed: 25,
@@ -329,6 +336,7 @@ var _require = __webpack_require__(/*! ./factories/Gameboard */ "./src/modules/f
 
 
 var isHunting = true;
+var targetCells = [];
 var lastHitCell = null;
 function initializeComputer() {
   (0,_DOM_utilities__WEBPACK_IMPORTED_MODULE_0__.getElementById)("field").classList.replace("flex-col", "flex-row");
@@ -385,29 +393,29 @@ function placeShipsRandomly(ships) {
     ship.top = newPosition.y * _bin2_domevents__WEBPACK_IMPORTED_MODULE_1__.cellSize;
     _playerDom__WEBPACK_IMPORTED_MODULE_2__.computerBoard.placeShip(ship, newPosition.x, newPosition.y, orientation);
   });
-  console.log(_playerDom__WEBPACK_IMPORTED_MODULE_2__.computerBoard.board);
+  // console.log(computerBoard.board)
 }
 function attack(_x) {
   return _attack.apply(this, arguments);
 }
 function _attack() {
   _attack = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(e) {
-    var computerCvs, computerCtx, playerCvs, playerCtx, playerKill, computerKill;
+    var computerCvs, computerCtx, playerCvs, playerCtx, playerKill, cell, result;
     return _regeneratorRuntime().wrap(function _callee$(_context) {
       while (1) switch (_context.prev = _context.next) {
         case 0:
-          computerCvs = (0,_DOM_utilities__WEBPACK_IMPORTED_MODULE_0__.getElementById)("computerboard");
+          computerCvs = document.getElementById("computerboard");
           computerCtx = computerCvs.getContext("2d");
-          playerCvs = (0,_DOM_utilities__WEBPACK_IMPORTED_MODULE_0__.getElementById)("playerboard");
+          playerCvs = document.getElementById("playerboard");
           playerCtx = playerCvs.getContext("2d");
-          playerKill = (0,_DOM_utilities__WEBPACK_IMPORTED_MODULE_0__.playerShoot)(e, computerCvs, computerCtx, _bin2_domevents__WEBPACK_IMPORTED_MODULE_1__.cellSize, _playerDom__WEBPACK_IMPORTED_MODULE_2__.computerBoard.getBoard(), (0,_DOM_utilities__WEBPACK_IMPORTED_MODULE_0__.getElementById)("attackScreen"), _playerDom__WEBPACK_IMPORTED_MODULE_2__.computerBoard);
+          playerKill = (0,_DOM_utilities__WEBPACK_IMPORTED_MODULE_0__.playerShoot)(e, computerCvs, computerCtx, _bin2_domevents__WEBPACK_IMPORTED_MODULE_1__.cellSize, _playerDom__WEBPACK_IMPORTED_MODULE_2__.computerBoard.getBoard(), document.getElementById("attackScreen"), _playerDom__WEBPACK_IMPORTED_MODULE_2__.computerBoard);
           if (!playerKill) {
             _context.next = 7;
             break;
           }
           return _context.abrupt("return");
         case 7:
-          //player plays again
+          // player plays again
 
           computerCvs.removeEventListener("click", attack);
           _context.next = 10;
@@ -415,34 +423,73 @@ function _attack() {
             return setTimeout(resolve, 1500);
           });
         case 10:
-          // Delay between computer shots
-          // if (isHunting){
-          //   let cell = randomCell()
-          // }
-          computerKill = (0,_DOM_utilities__WEBPACK_IMPORTED_MODULE_0__.computerShoot)(_playerDom__WEBPACK_IMPORTED_MODULE_2__.playerboard, playerCtx, (0,_DOM_utilities__WEBPACK_IMPORTED_MODULE_0__.randomCell)(), (0,_DOM_utilities__WEBPACK_IMPORTED_MODULE_0__.getElementById)("strategyscreen"));
-        case 11:
-          if (!computerKill) {
-            _context.next = 17;
-            break;
+          if (isHunting) {
+            cell = shootCellRandomly(_playerDom__WEBPACK_IMPORTED_MODULE_2__.playerboard);
+          } else {
+            cell = targetCells.shift();
+            if (!cell) {
+              isHunting = true;
+              cell = shootCellRandomly(_playerDom__WEBPACK_IMPORTED_MODULE_2__.playerboard);
+            }
           }
-          _context.next = 14;
+          result = (0,_DOM_utilities__WEBPACK_IMPORTED_MODULE_0__.computerShoot)(_playerDom__WEBPACK_IMPORTED_MODULE_2__.playerboard, playerCtx, cell, document.getElementById("strategyscreen"));
+          if (result) {
+            lastHitCell = cell;
+            isHunting = false;
+            targetCells = getTargetCells(cell);
+          }
+          _context.next = 15;
           return new Promise(function (resolve) {
             return setTimeout(resolve, 1500);
           });
-        case 14:
-          // Delay between computer shots
-          computerKill = (0,_DOM_utilities__WEBPACK_IMPORTED_MODULE_0__.computerShoot)(_playerDom__WEBPACK_IMPORTED_MODULE_2__.playerboard, playerCtx, (0,_DOM_utilities__WEBPACK_IMPORTED_MODULE_0__.randomCell)(), (0,_DOM_utilities__WEBPACK_IMPORTED_MODULE_0__.getElementById)("strategyscreen"));
-          _context.next = 11;
-          break;
-        case 17:
+        case 15:
+          if (result) {
+            _context.next = 10;
+            break;
+          }
+        case 16:
+          // Continue shooting if hit
+
           computerCvs.addEventListener("click", attack);
-        case 18:
+        case 17:
         case "end":
           return _context.stop();
       }
     }, _callee);
   }));
   return _attack.apply(this, arguments);
+}
+function shootCellRandomly(gameBoard) {
+  var cell;
+  do {
+    cell = (0,_DOM_utilities__WEBPACK_IMPORTED_MODULE_0__.randomCell)();
+  } while (gameBoard.checkIfPositionHasBeenHit([cell.x, cell.y]));
+  return cell;
+}
+function getTargetCells(cell) {
+  return getAdjacentCells(cell).filter(function (c) {
+    return !_playerDom__WEBPACK_IMPORTED_MODULE_2__.playerboard.checkIfPositionHasBeenHit([c.x, c.y]);
+  });
+}
+function getAdjacentCells(cell) {
+  var arr = [];
+  if (cell.x - 1 >= 0) arr.push({
+    x: cell.x - 1,
+    y: cell.y
+  });
+  if (cell.x + 1 < 10) arr.push({
+    x: cell.x + 1,
+    y: cell.y
+  });
+  if (cell.y - 1 >= 0) arr.push({
+    x: cell.x,
+    y: cell.y - 1
+  });
+  if (cell.y + 1 < 10) arr.push({
+    x: cell.x,
+    y: cell.y + 1
+  });
+  return arr;
 }
 
 /***/ }),
@@ -741,7 +788,7 @@ computerBoard.setOpponentName("Player");
   var playerCvs = document.getElementById("playerboard");
   var playerCtx = playerCvs.getContext("2d");
   var startMessage = ["Begin by setting up a formation", "Drag and Drop your ships in your country water", "You can arrange your ships in a vertical or horizontal position by using the X axis or Y axis Button", "All the best with your formation"];
-  (0,_DOM_utilities__WEBPACK_IMPORTED_MODULE_2__.newMessage)(startMessage);
+  (0,_DOM_utilities__WEBPACK_IMPORTED_MODULE_2__.newMessage)("message", startMessage);
 
   //draw player canvas
   drawCanvas(playerCtx, "#b4b4ff");
@@ -830,8 +877,8 @@ computerBoard.setOpponentName("Player");
       playerboard.placeShip(draggedShip, newPosition.x / cellSize, newPosition.y / cellSize, orientation);
     });
     var randomFormation = ["Your Ships have been placed randomly", "Not fine with the formation? click Random, else, Start! now"];
-    (0,_DOM_utilities__WEBPACK_IMPORTED_MODULE_2__.newMessage)(randomFormation);
-    console.log(playerboard.board);
+    (0,_DOM_utilities__WEBPACK_IMPORTED_MODULE_2__.newMessage)("message", randomFormation);
+    // console.log(playerboard.board)
   });
   var startBTN = (0,_DOM_utilities__WEBPACK_IMPORTED_MODULE_2__.getElementById)("startBTN");
   startBTN.addEventListener("click", function () {
@@ -844,7 +891,7 @@ computerBoard.setOpponentName("Player");
         removeDragEvents(token);
       });
       var _startMessage = ["Fight!!! Now", "Shoot any position on your enemies water to destroy enemies ship", "Remember, Ships are placed Horizontally and Vertically Only"];
-      (0,_DOM_utilities__WEBPACK_IMPORTED_MODULE_2__.newMessage)(_startMessage, true);
+      (0,_DOM_utilities__WEBPACK_IMPORTED_MODULE_2__.newMessage)("message", _startMessage, true);
       (0,_DOM_utilities__WEBPACK_IMPORTED_MODULE_2__.getElementById)("playerboard").classList.add("bringFront");
       (0,_comDom__WEBPACK_IMPORTED_MODULE_3__.initializeComputer)();
       playOceanSound();
@@ -1768,6 +1815,9 @@ video {
   --tw-shadow-colored: 0 4px 6px -1px var(--tw-shadow-color), 0 2px 4px -2px var(--tw-shadow-color);
   box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
 }
+.filter {
+  filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
+}
 :root {
   --cell-size: 36px;
 }
@@ -2003,7 +2053,7 @@ header h1 {
     width: 75%;
   }
 }
-`, "",{"version":3,"sources":["webpack://./node_modules/tailwindcss/base.css","webpack://./node_modules/tailwindcss/utilities.css","webpack://./src/style/style.css"],"names":[],"mappings":"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","sourcesContent":["@tailwind base;\n","@tailwind utilities;\n","@import \"tailwindcss/base\";\n@import \"tailwindcss/components\";\n@import \"tailwindcss/utilities\";\n\n:root {\n  --cell-size: 36px;\n}\n\nhtml {\n  background-image: url(\"../asset/images/world.svg\");\n  background-blend-mode: overlay;\n  background-repeat: no-repeat;\n  background-position: center;\n  object-position: center;\n  object-fit: cover;\n  background-size: 100% 100%;\n  background-color: #000e29;\n}\n\nbody {\n  margin: 0;\n  padding: 0;\n  font-family: -apple-system, BlinkMacSystemFont, \"Segoe UI\", \"Roboto\", \"Oxygen\",\n    \"Ubuntu\", \"Cantarell\", \"Fira Sans\", \"Droid Sans\", \"Helvetica Neue\",\n    sans-serif;\n  -webkit-font-smoothing: antialiased;\n  -moz-osx-font-smoothing: grayscale;\n\n  max-width: 1024px !important;\n  width: 100%;\n  margin-left: auto;\n  margin-right: auto;\n  padding: 0 20px;\n}\n\n.screen {\n  max-width: 720px !important;\n  width: 100%;\n  height: 50px;\n  margin-left: auto;\n  margin-right: auto;\n  background-color: #ff990032;\n  border: 1px solid #ff9900;\n  color: #ff9900;\n}\n\nfooter {\n  color: white;\n  margin: 0 20px;\n  font-size: 20px !important;\n}\n\n#logo {\n  object-position: center;\n  object-fit: cover;\n  width: 40px;\n  display: inline-block;\n  margin-right: 6px;\n  margin-bottom: 4px;\n}\nheader {\n  display: flex;\n  flex-direction: column;\n  h1 {\n    color: #ffffff;\n    display: flex;\n    align-items: center;\n    margin-bottom: 20px;\n  }\n}\n.pack {\n  box-sizing: content-box;\n  border: 1px dotted #00000020;\n  width: 140px;\n  /* transform: scale(0.5); */\n}\n\n#strategyscreen {\n  /* transform: scale(0.5); */\n}\n\n.btn {\n  cursor: pointer;\n  background-color: #000b3435;\n  color: #a7a7ffe5;\n}\n\n.bringFront {\n  z-index: 10;\n}\n\n.active {\n  background-color: #0000ff !important;\n  color: white !important;\n}\n.play {\n  background-color: #008000 !important;\n  border: 1px solid #008000;\n  color: white !important;\n}\n.restart {\n  border: 1px solid #ff0000 !important;\n  color: red !important;\n}\n\n.token {\n  /* position: absolute; */\n  top: 0;\n  left: 0;\n  border: 1px solid #ff99002f;\n  background-color: #ff99008a;\n  box-sizing: border-box;\n  cursor: grab;\n  transform: rotate(0deg);\n}\n.no-scroll {\n  overflow: hidden;\n}\n\n#dialogue {\n  z-index: 10;\n  position: fixed;\n  top: 0;\n  left: 0;\n  width: 100vw;\n  height: 100vh;\n}\n\n.bgImg {\n  background-repeat: no-repeat;\n  background-position: center;\n  background-size: contain;\n  opacity: 0.5;\n  background-color: rgba(255, 157, 0, 0.893) !important;\n  border: rgba(255, 153, 0, 0.506) !important;\n}\n.token.carrier {\n  width: calc(4 * var(--cell-size));\n  height: var(--cell-size);\n}\n.token.carrier.bgImg {\n  background-image: url(\"../asset/images/ships/carrierX.svg\");\n}\n.token.battleship {\n  width: calc(3 * var(--cell-size));\n  height: var(--cell-size);\n}\n.token.battleship.bgImg {\n  background-image: url(\"../asset/images/ships/battleshipX.svg\");\n}\n.token.destroyer {\n  width: calc(2 * var(--cell-size));\n  height: var(--cell-size);\n}\n.token.destroyer.bgImg {\n  background-image: url(\"../asset/images/ships/destroyerX.svg\");\n}\n.token.submarine {\n  width: calc(2 * var(--cell-size));\n  height: var(--cell-size);\n}\n.token.submarine.bgImg {\n  background-image: url(\"../asset/images/ships/submarineX.svg\");\n}\n.token.patrol {\n  width: var(--cell-size);\n  height: var(--cell-size);\n}\n.token.patrol.bgImg {\n  background-image: url(\"../asset/images/ships/patrolX.svg\");\n}\n.token.carrier.vertical {\n  height: calc(4 * var(--cell-size));\n  width: var(--cell-size);\n  transition: ease;\n}\n.token.battleship.vertical {\n  height: calc(3 * var(--cell-size));\n  width: var(--cell-size);\n  transition: ease;\n}\n.token.destroyer.vertical {\n  height: calc(2 * var(--cell-size));\n  width: var(--cell-size);\n  transition: ease;\n}\n.token.submarine.vertical {\n  height: calc(2 * var(--cell-size));\n  width: var(--cell-size);\n  transition: ease;\n}\n.token.patrol.vertical {\n  width: var(--cell-size);\n  height: var(--cell-size);\n  transition: ease;\n}\n\n.token.dragging {\n  opacity: 0.5;\n}\n\n.token.rotate {\n  transform: rotate(90deg);\n  translate: -0% -0%;\n  transition: ease;\n  transition-delay: 3ms;\n  transform-origin: 18px center;\n}\n\n.errorBorder {\n  border: 1px solid red !important;\n  background-color: rgba(255, 0, 0, 0.2) !important;\n}\n\n/* Media query for medium screen sizes (md) and up */\n@media (max-width: 768px) {\n  #field.begin {\n    flex-direction: column !important;\n    align-items: center;\n  }\n}\n"],"sourceRoot":""}]);
+`, "",{"version":3,"sources":["webpack://./node_modules/tailwindcss/base.css","webpack://./node_modules/tailwindcss/utilities.css","webpack://./src/style/style.css"],"names":[],"mappings":"AAAA;;CAAc,CAAd;;;CAAc;;AAAd;;;EAAA,sBAAc,EAAd,MAAc;EAAd,eAAc,EAAd,MAAc;EAAd,mBAAc,EAAd,MAAc;EAAd,qBAAc,EAAd,MAAc;AAAA;;AAAd;;EAAA,gBAAc;AAAA;;AAAd;;;;;;;;CAAc;;AAAd;;EAAA,gBAAc,EAAd,MAAc;EAAd,8BAAc,EAAd,MAAc;EAAd,gBAAc,EAAd,MAAc;EAAd,cAAc;KAAd,WAAc,EAAd,MAAc;EAAd,+HAAc,EAAd,MAAc;EAAd,6BAAc,EAAd,MAAc;EAAd,+BAAc,EAAd,MAAc;EAAd,wCAAc,EAAd,MAAc;AAAA;;AAAd;;;CAAc;;AAAd;EAAA,SAAc,EAAd,MAAc;EAAd,oBAAc,EAAd,MAAc;AAAA;;AAAd;;;;CAAc;;AAAd;EAAA,SAAc,EAAd,MAAc;EAAd,cAAc,EAAd,MAAc;EAAd,qBAAc,EAAd,MAAc;AAAA;;AAAd;;CAAc;;AAAd;EAAA,yCAAc;UAAd,iCAAc;AAAA;;AAAd;;CAAc;;AAAd;;;;;;EAAA,kBAAc;EAAd,oBAAc;AAAA;;AAAd;;CAAc;;AAAd;EAAA,cAAc;EAAd,wBAAc;AAAA;;AAAd;;CAAc;;AAAd;;EAAA,mBAAc;AAAA;;AAAd;;;;;CAAc;;AAAd;;;;EAAA,+GAAc,EAAd,MAAc;EAAd,6BAAc,EAAd,MAAc;EAAd,+BAAc,EAAd,MAAc;EAAd,cAAc,EAAd,MAAc;AAAA;;AAAd;;CAAc;;AAAd;EAAA,cAAc;AAAA;;AAAd;;CAAc;;AAAd;;EAAA,cAAc;EAAd,cAAc;EAAd,kBAAc;EAAd,wBAAc;AAAA;;AAAd;EAAA,eAAc;AAAA;;AAAd;EAAA,WAAc;AAAA;;AAAd;;;;CAAc;;AAAd;EAAA,cAAc,EAAd,MAAc;EAAd,qBAAc,EAAd,MAAc;EAAd,yBAAc,EAAd,MAAc;AAAA;;AAAd;;;;CAAc;;AAAd;;;;;EAAA,oBAAc,EAAd,MAAc;EAAd,8BAAc,EAAd,MAAc;EAAd,gCAAc,EAAd,MAAc;EAAd,eAAc,EAAd,MAAc;EAAd,oBAAc,EAAd,MAAc;EAAd,oBAAc,EAAd,MAAc;EAAd,uBAAc,EAAd,MAAc;EAAd,cAAc,EAAd,MAAc;EAAd,SAAc,EAAd,MAAc;EAAd,UAAc,EAAd,MAAc;AAAA;;AAAd;;CAAc;;AAAd;;EAAA,oBAAc;AAAA;;AAAd;;;CAAc;;AAAd;;;;EAAA,0BAAc,EAAd,MAAc;EAAd,6BAAc,EAAd,MAAc;EAAd,sBAAc,EAAd,MAAc;AAAA;;AAAd;;CAAc;;AAAd;EAAA,aAAc;AAAA;;AAAd;;CAAc;;AAAd;EAAA,gBAAc;AAAA;;AAAd;;CAAc;;AAAd;EAAA,wBAAc;AAAA;;AAAd;;CAAc;;AAAd;;EAAA,YAAc;AAAA;;AAAd;;;CAAc;;AAAd;EAAA,6BAAc,EAAd,MAAc;EAAd,oBAAc,EAAd,MAAc;AAAA;;AAAd;;CAAc;;AAAd;EAAA,wBAAc;AAAA;;AAAd;;;CAAc;;AAAd;EAAA,0BAAc,EAAd,MAAc;EAAd,aAAc,EAAd,MAAc;AAAA;;AAAd;;CAAc;;AAAd;EAAA,kBAAc;AAAA;;AAAd;;CAAc;;AAAd;;;;;;;;;;;;;EAAA,SAAc;AAAA;;AAAd;EAAA,SAAc;EAAd,UAAc;AAAA;;AAAd;EAAA,UAAc;AAAA;;AAAd;;;EAAA,gBAAc;EAAd,SAAc;EAAd,UAAc;AAAA;;AAAd;;CAAc;AAAd;EAAA,UAAc;AAAA;;AAAd;;CAAc;;AAAd;EAAA,gBAAc;AAAA;;AAAd;;;CAAc;;AAAd;EAAA,UAAc,EAAd,MAAc;EAAd,cAAc,EAAd,MAAc;AAAA;;AAAd;;EAAA,UAAc,EAAd,MAAc;EAAd,cAAc,EAAd,MAAc;AAAA;;AAAd;;CAAc;;AAAd;;EAAA,eAAc;AAAA;;AAAd;;CAAc;AAAd;EAAA,eAAc;AAAA;;AAAd;;;;CAAc;;AAAd;;;;;;;;EAAA,cAAc,EAAd,MAAc;EAAd,sBAAc,EAAd,MAAc;AAAA;;AAAd;;CAAc;;AAAd;;EAAA,eAAc;EAAd,YAAc;AAAA;;AAAd,wEAAc;AAAd;EAAA,aAAc;AAAA;;AAAd;EAAA,wBAAc;EAAd,wBAAc;EAAd,mBAAc;EAAd,mBAAc;EAAd,cAAc;EAAd,cAAc;EAAd,cAAc;EAAd,eAAc;EAAd,eAAc;EAAd,aAAc;EAAd,aAAc;EAAd,kBAAc;EAAd,sCAAc;EAAd,8BAAc;EAAd,6BAAc;EAAd,4BAAc;EAAd,eAAc;EAAd,oBAAc;EAAd,sBAAc;EAAd,uBAAc;EAAd,wBAAc;EAAd,kBAAc;EAAd,2BAAc;EAAd,4BAAc;EAAd,sCAAc;EAAd,kCAAc;EAAd,2BAAc;EAAd,sBAAc;EAAd,8BAAc;EAAd,YAAc;EAAd,kBAAc;EAAd,gBAAc;EAAd,iBAAc;EAAd,kBAAc;EAAd,cAAc;EAAd,gBAAc;EAAd,aAAc;EAAd,mBAAc;EAAd,qBAAc;EAAd,2BAAc;EAAd,yBAAc;EAAd,0BAAc;EAAd,2BAAc;EAAd,uBAAc;EAAd,wBAAc;EAAd,yBAAc;EAAd,sBAAc;EAAd,oBAAc;EAAd,sBAAc;EAAd,qBAAc;EAAd;AAAc;;AAAd;EAAA,wBAAc;EAAd,wBAAc;EAAd,mBAAc;EAAd,mBAAc;EAAd,cAAc;EAAd,cAAc;EAAd,cAAc;EAAd,eAAc;EAAd,eAAc;EAAd,aAAc;EAAd,aAAc;EAAd,kBAAc;EAAd,sCAAc;EAAd,8BAAc;EAAd,6BAAc;EAAd,4BAAc;EAAd,eAAc;EAAd,oBAAc;EAAd,sBAAc;EAAd,uBAAc;EAAd,wBAAc;EAAd,kBAAc;EAAd,2BAAc;EAAd,4BAAc;EAAd,sCAAc;EAAd,kCAAc;EAAd,2BAAc;EAAd,sBAAc;EAAd,8BAAc;EAAd,YAAc;EAAd,kBAAc;EAAd,gBAAc;EAAd,iBAAc;EAAd,kBAAc;EAAd,cAAc;EAAd,gBAAc;EAAd,aAAc;EAAd,mBAAc;EAAd,qBAAc;EAAd,2BAAc;EAAd,yBAAc;EAAd,0BAAc;EAAd,2BAAc;EAAd,uBAAc;EAAd,wBAAc;EAAd,yBAAc;EAAd,sBAAc;EAAd,oBAAc;EAAd,sBAAc;EAAd,qBAAc;EAAd;AAAc;ACAd;EAAA;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA,iBAAmB;EAAnB;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA,wBAAmB;EAAnB;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA,uBAAmB;EAAnB;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA,wBAAmB;OAAnB;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA,sBAAmB;EAAnB;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA,sBAAmB;EAAnB;AAAmB;AAAnB;EAAA,sBAAmB;EAAnB;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA,kBAAmB;EAAnB;AAAmB;AAAnB;EAAA,kBAAmB;EAAnB;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA,kBAAmB;EAAnB;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA,kBAAmB;EAAnB;AAAmB;AAAnB;EAAA,qBAAmB;EAAnB;AAAmB;AAAnB;EAAA,oBAAmB;EAAnB;AAAmB;AAAnB;EAAA,oBAAmB;EAAnB;AAAmB;AAAnB;EAAA,mBAAmB;EAAnB;AAAmB;AAAnB;EAAA,oBAAmB;EAAnB;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA,iBAAmB;EAAnB;AAAmB;AAAnB;EAAA,eAAmB;EAAnB;AAAmB;AAAnB;EAAA,mBAAmB;EAAnB;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA,oBAAmB;EAAnB;AAAmB;AAAnB;EAAA,oBAAmB;EAAnB;AAAmB;AAAnB;EAAA,oBAAmB;EAAnB;AAAmB;AAAnB;EAAA,gDAAmB;EAAnB,6DAAmB;EAAnB;AAAmB;AAAnB;EAAA,6EAAmB;EAAnB,iGAAmB;EAAnB;AAAmB;AAAnB;EAAA;AAAmB;ACInB;EACE,iBAAiB;AACnB;AAEA;EACE,yDAAkD;EAClD,8BAA8B;EAC9B,4BAA4B;EAC5B,2BAA2B;EAC3B,0BAAuB;KAAvB,uBAAuB;EACvB,oBAAiB;KAAjB,iBAAiB;EACjB,0BAA0B;EAC1B,yBAAyB;AAC3B;AAEA;EACE,SAAS;EACT,UAAU;EACV;;cAEY;EACZ,mCAAmC;EACnC,kCAAkC;;EAElC,4BAA4B;EAC5B,WAAW;EACX,iBAAiB;EACjB,kBAAkB;EAClB,eAAe;AACjB;AAEA;EACE,2BAA2B;EAC3B,WAAW;EACX,YAAY;EACZ,iBAAiB;EACjB,kBAAkB;EAClB,2BAA2B;EAC3B,yBAAyB;EACzB,cAAc;AAChB;AAEA;EACE,YAAY;EACZ,cAAc;EACd,0BAA0B;AAC5B;AAEA;EACE,0BAAuB;KAAvB,uBAAuB;EACvB,oBAAiB;KAAjB,iBAAiB;EACjB,WAAW;EACX,qBAAqB;EACrB,iBAAiB;EACjB,kBAAkB;AACpB;AACA;EACE,aAAa;EACb,sBAAsB;AAOxB;AANE;IACE,cAAc;IACd,aAAa;IACb,mBAAmB;IACnB,mBAAmB;EACrB;AAEF;EACE,uBAAuB;EACvB,4BAA4B;EAC5B,YAAY;EACZ,2BAA2B;AAC7B;AAEA;EACE,2BAA2B;AAC7B;AAEA;EACE,eAAe;EACf,2BAA2B;EAC3B,gBAAgB;AAClB;AAEA;EACE,WAAW;AACb;AAEA;EACE,oCAAoC;EACpC,uBAAuB;AACzB;AACA;EACE,oCAAoC;EACpC,yBAAyB;EACzB,uBAAuB;AACzB;AACA;EACE,oCAAoC;EACpC,qBAAqB;AACvB;AAEA;EACE,wBAAwB;EACxB,MAAM;EACN,OAAO;EACP,2BAA2B;EAC3B,2BAA2B;EAC3B,sBAAsB;EACtB,YAAY;EACZ,uBAAuB;AACzB;AACA;EACE,gBAAgB;AAClB;AAEA;EACE,WAAW;EACX,eAAe;EACf,MAAM;EACN,OAAO;EACP,YAAY;EACZ,aAAa;AACf;AAEA;EACE,4BAA4B;EAC5B,2BAA2B;EAC3B,wBAAwB;EACxB,YAAY;EACZ,qDAAqD;EACrD,2CAA2C;AAC7C;AACA;EACE,iCAAiC;EACjC,wBAAwB;AAC1B;AACA;EACE,yDAA2D;AAC7D;AACA;EACE,iCAAiC;EACjC,wBAAwB;AAC1B;AACA;EACE,yDAA8D;AAChE;AACA;EACE,iCAAiC;EACjC,wBAAwB;AAC1B;AACA;EACE,yDAA6D;AAC/D;AACA;EACE,iCAAiC;EACjC,wBAAwB;AAC1B;AACA;EACE,yDAA6D;AAC/D;AACA;EACE,uBAAuB;EACvB,wBAAwB;AAC1B;AACA;EACE,yDAA0D;AAC5D;AACA;EACE,kCAAkC;EAClC,uBAAuB;EACvB,gBAAgB;AAClB;AACA;EACE,kCAAkC;EAClC,uBAAuB;EACvB,gBAAgB;AAClB;AACA;EACE,kCAAkC;EAClC,uBAAuB;EACvB,gBAAgB;AAClB;AACA;EACE,kCAAkC;EAClC,uBAAuB;EACvB,gBAAgB;AAClB;AACA;EACE,uBAAuB;EACvB,wBAAwB;EACxB,gBAAgB;AAClB;AAEA;EACE,YAAY;AACd;AAEA;EACE,wBAAwB;EACxB,kBAAkB;EAClB,gBAAgB;EAChB,qBAAqB;EACrB,6BAA6B;AAC/B;AAEA;EACE,gCAAgC;EAChC,iDAAiD;AACnD;AAEA,oDAAoD;AACpD;EACE;IACE,iCAAiC;IACjC,mBAAmB;EACrB;AACF;AA5NA;EAAA,kBA6NA;EA7NA;AA6NA;AA7NA;EAAA,oBA6NA;EA7NA;AA6NA;AA7NA;;EAAA;IAAA;EA6NA;AAAA;AA7NA;;EAAA;IAAA;EA6NA;;EA7NA;IAAA;EA6NA;AAAA;AA7NA;;EAAA;IAAA;EA6NA;AAAA","sourcesContent":["@tailwind base;\n","@tailwind utilities;\n","@import \"tailwindcss/base\";\n@import \"tailwindcss/components\";\n@import \"tailwindcss/utilities\";\n\n:root {\n  --cell-size: 36px;\n}\n\nhtml {\n  background-image: url(\"../asset/images/world.svg\");\n  background-blend-mode: overlay;\n  background-repeat: no-repeat;\n  background-position: center;\n  object-position: center;\n  object-fit: cover;\n  background-size: 100% 100%;\n  background-color: #000e29;\n}\n\nbody {\n  margin: 0;\n  padding: 0;\n  font-family: -apple-system, BlinkMacSystemFont, \"Segoe UI\", \"Roboto\", \"Oxygen\",\n    \"Ubuntu\", \"Cantarell\", \"Fira Sans\", \"Droid Sans\", \"Helvetica Neue\",\n    sans-serif;\n  -webkit-font-smoothing: antialiased;\n  -moz-osx-font-smoothing: grayscale;\n\n  max-width: 1024px !important;\n  width: 100%;\n  margin-left: auto;\n  margin-right: auto;\n  padding: 0 20px;\n}\n\n.screen {\n  max-width: 720px !important;\n  width: 100%;\n  height: 50px;\n  margin-left: auto;\n  margin-right: auto;\n  background-color: #ff990032;\n  border: 1px solid #ff9900;\n  color: #ff9900;\n}\n\nfooter {\n  color: white;\n  margin: 0 20px;\n  font-size: 20px !important;\n}\n\n#logo {\n  object-position: center;\n  object-fit: cover;\n  width: 40px;\n  display: inline-block;\n  margin-right: 6px;\n  margin-bottom: 4px;\n}\nheader {\n  display: flex;\n  flex-direction: column;\n  h1 {\n    color: #ffffff;\n    display: flex;\n    align-items: center;\n    margin-bottom: 20px;\n  }\n}\n.pack {\n  box-sizing: content-box;\n  border: 1px dotted #00000020;\n  width: 140px;\n  /* transform: scale(0.5); */\n}\n\n#strategyscreen {\n  /* transform: scale(0.5); */\n}\n\n.btn {\n  cursor: pointer;\n  background-color: #000b3435;\n  color: #a7a7ffe5;\n}\n\n.bringFront {\n  z-index: 10;\n}\n\n.active {\n  background-color: #0000ff !important;\n  color: white !important;\n}\n.play {\n  background-color: #008000 !important;\n  border: 1px solid #008000;\n  color: white !important;\n}\n.restart {\n  border: 1px solid #ff0000 !important;\n  color: red !important;\n}\n\n.token {\n  /* position: absolute; */\n  top: 0;\n  left: 0;\n  border: 1px solid #ff99002f;\n  background-color: #ff99008a;\n  box-sizing: border-box;\n  cursor: grab;\n  transform: rotate(0deg);\n}\n.no-scroll {\n  overflow: hidden;\n}\n\n#dialogue {\n  z-index: 10;\n  position: fixed;\n  top: 0;\n  left: 0;\n  width: 100vw;\n  height: 100vh;\n}\n\n.bgImg {\n  background-repeat: no-repeat;\n  background-position: center;\n  background-size: contain;\n  opacity: 0.5;\n  background-color: rgba(255, 157, 0, 0.893) !important;\n  border: rgba(255, 153, 0, 0.506) !important;\n}\n.token.carrier {\n  width: calc(4 * var(--cell-size));\n  height: var(--cell-size);\n}\n.token.carrier.bgImg {\n  background-image: url(\"../asset/images/ships/carrierX.svg\");\n}\n.token.battleship {\n  width: calc(3 * var(--cell-size));\n  height: var(--cell-size);\n}\n.token.battleship.bgImg {\n  background-image: url(\"../asset/images/ships/battleshipX.svg\");\n}\n.token.destroyer {\n  width: calc(2 * var(--cell-size));\n  height: var(--cell-size);\n}\n.token.destroyer.bgImg {\n  background-image: url(\"../asset/images/ships/destroyerX.svg\");\n}\n.token.submarine {\n  width: calc(2 * var(--cell-size));\n  height: var(--cell-size);\n}\n.token.submarine.bgImg {\n  background-image: url(\"../asset/images/ships/submarineX.svg\");\n}\n.token.patrol {\n  width: var(--cell-size);\n  height: var(--cell-size);\n}\n.token.patrol.bgImg {\n  background-image: url(\"../asset/images/ships/patrolX.svg\");\n}\n.token.carrier.vertical {\n  height: calc(4 * var(--cell-size));\n  width: var(--cell-size);\n  transition: ease;\n}\n.token.battleship.vertical {\n  height: calc(3 * var(--cell-size));\n  width: var(--cell-size);\n  transition: ease;\n}\n.token.destroyer.vertical {\n  height: calc(2 * var(--cell-size));\n  width: var(--cell-size);\n  transition: ease;\n}\n.token.submarine.vertical {\n  height: calc(2 * var(--cell-size));\n  width: var(--cell-size);\n  transition: ease;\n}\n.token.patrol.vertical {\n  width: var(--cell-size);\n  height: var(--cell-size);\n  transition: ease;\n}\n\n.token.dragging {\n  opacity: 0.5;\n}\n\n.token.rotate {\n  transform: rotate(90deg);\n  translate: -0% -0%;\n  transition: ease;\n  transition-delay: 3ms;\n  transform-origin: 18px center;\n}\n\n.errorBorder {\n  border: 1px solid red !important;\n  background-color: rgba(255, 0, 0, 0.2) !important;\n}\n\n/* Media query for medium screen sizes (md) and up */\n@media (max-width: 768px) {\n  #field.begin {\n    flex-direction: column !important;\n    align-items: center;\n  }\n}\n"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -2082,6 +2132,17 @@ module.exports = __webpack_require__.p + "images/X.png";
 
 "use strict";
 module.exports = __webpack_require__.p + "images/dot.png";
+
+/***/ }),
+
+/***/ "./src/asset/images/dot2.png":
+/*!***********************************!*\
+  !*** ./src/asset/images/dot2.png ***!
+  \***********************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+module.exports = __webpack_require__.p + "images/dot2.png";
 
 /***/ }),
 

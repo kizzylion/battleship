@@ -41,7 +41,7 @@ computerBoard.setOpponentName("Player")
     "All the best with your formation",
   ]
 
-  newMessage(startMessage)
+  newMessage("message", startMessage)
 
   //draw player canvas
   drawCanvas(playerCtx, "#b4b4ff")
@@ -165,8 +165,8 @@ computerBoard.setOpponentName("Player")
       "Not fine with the formation? click Random, else, Start! now",
     ]
 
-    newMessage(randomFormation)
-    console.log(playerboard.board)
+    newMessage("message", randomFormation)
+    // console.log(playerboard.board)
   })
 
   let startBTN = getElementById("startBTN")
@@ -187,7 +187,7 @@ computerBoard.setOpponentName("Player")
         "Remember, Ships are placed Horizontally and Vertically Only",
       ]
 
-      newMessage(startMessage, true)
+      newMessage("message", startMessage, true)
 
       getElementById("playerboard").classList.add("bringFront")
       initializeComputer()

@@ -13,6 +13,7 @@ import { playerboard, computerBoard } from "./playerDom"
 import { getRandomDirection, getRandomNumber, canPlaceShip } from "../bin2/game"
 
 let isHunting = true
+let targetCells = []
 let lastHitCell = null
 
 export function initializeComputer() {
@@ -97,13 +98,12 @@ function placeShipsRandomly(ships) {
     ship.top = newPosition.y * cellSize
     computerBoard.placeShip(ship, newPosition.x, newPosition.y, orientation)
   })
-  console.log(computerBoard.board)
+  // console.log(computerBoard.board)
 }
-
 async function attack(e) {
-  const computerCvs = getElementById("computerboard")
+  const computerCvs = document.getElementById("computerboard")
   const computerCtx = computerCvs.getContext("2d")
-  const playerCvs = getElementById("playerboard")
+  const playerCvs = document.getElementById("playerboard")
   const playerCtx = playerCvs.getContext("2d")
 
   let playerKill = playerShoot(
@@ -112,36 +112,72 @@ async function attack(e) {
     computerCtx,
     cellSize,
     computerBoard.getBoard(),
-    getElementById("attackScreen"),
+    document.getElementById("attackScreen"),
     computerBoard
   )
 
-  if (playerKill) return //player plays again
+  if (playerKill) return // player plays again
 
   computerCvs.removeEventListener("click", attack)
 
   await new Promise((resolve) => setTimeout(resolve, 1500)) // Delay between computer shots
 
-  // if (isHunting){
-  //   let cell = randomCell()
+  let cell
+  let result
 
-  // }
+  do {
+    if (isHunting) {
+      cell = shootCellRandomly(playerboard)
+    } else {
+      cell = targetCells.shift()
+      if (!cell) {
+        isHunting = true
+        cell = shootCellRandomly(playerboard)
+      }
+    }
 
-  let computerKill = computerShoot(
-    playerboard,
-    playerCtx,
-    randomCell(),
-    getElementById("strategyscreen")
-  )
-  while (computerKill) {
-    await new Promise((resolve) => setTimeout(resolve, 1500)) // Delay between computer shots
-    computerKill = computerShoot(
+    result = computerShoot(
       playerboard,
       playerCtx,
-      randomCell(),
-      getElementById("strategyscreen")
+      cell,
+      document.getElementById("strategyscreen")
     )
-  }
+
+    if (result) {
+      lastHitCell = cell
+      isHunting = false
+      targetCells = getTargetCells(cell)
+    }
+
+    await new Promise((resolve) => setTimeout(resolve, 1500)) // Delay between computer shots
+  } while (result) // Continue shooting if hit
 
   computerCvs.addEventListener("click", attack)
+}
+
+function shootCellRandomly(gameBoard) {
+  let cell
+
+  do {
+    cell = randomCell()
+  } while (gameBoard.checkIfPositionHasBeenHit([cell.x, cell.y]))
+
+  return cell
+}
+
+function getTargetCells(cell) {
+  return getAdjacentCells(cell).filter(
+    (c) => !playerboard.checkIfPositionHasBeenHit([c.x, c.y])
+  )
+}
+
+function getAdjacentCells(cell) {
+  let arr = []
+
+  if (cell.x - 1 >= 0) arr.push({ x: cell.x - 1, y: cell.y })
+  if (cell.x + 1 < 10) arr.push({ x: cell.x + 1, y: cell.y })
+  if (cell.y - 1 >= 0) arr.push({ x: cell.x, y: cell.y - 1 })
+  if (cell.y + 1 < 10) arr.push({ x: cell.x, y: cell.y + 1 })
+
+  return arr
 }

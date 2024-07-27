@@ -20,7 +20,7 @@ export function htmlStructure() {
     <footer class=" max-w-7xl w-full mx-auto py-1">
         <p class="text-center text-sm">
            
-            <a href="#"><i class="fa-brands fa-github"></i> Kizzylion</a>
+            <a target="_blank" href="https://github.com/kizzylion/battleship"><i class="fa-brands fa-github"></i> Kizzylion</a>
         </p>
     </footer>
 
