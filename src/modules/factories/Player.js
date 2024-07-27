@@ -1,4 +1,4 @@
-const { Gameboard } = require("./factories/Gameboard")
+const { Gameboard } = require("./Gameboard")
 
 class Player {
   constructor(type = "human") {
