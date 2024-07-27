@@ -113,10 +113,13 @@ header {
   cursor: grab;
   transform: rotate(0deg);
 }
+.no-scroll {
+  overflow: hidden;
+}
 
 #dialogue {
   z-index: 10;
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   width: 100vw;
@@ -128,8 +131,8 @@ header {
   background-position: center;
   background-size: contain;
   opacity: 0.5;
-  background-color: rgba(255, 0, 0, 0.293) !important;
-  border: rgba(255, 0, 0, 0.506) !important;
+  background-color: rgba(255, 157, 0, 0.893) !important;
+  border: rgba(255, 153, 0, 0.506) !important;
 }
 .token.carrier {
   width: calc(4 * var(--cell-size));

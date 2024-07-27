@@ -6,7 +6,6 @@ import hitSoundSrc from "../../asset/sound/hit.mp3"
 import missSoundSrc from "../../asset/sound/miss.mp3"
 import { createTokenDiv } from "../factories/Ship"
 import Typed from "typed.js"
-import { computerBoard } from "../playerDom"
 
 //load x and dot images for canvas
 const xImage = new Image()
@@ -160,7 +159,7 @@ function displayGameOverDialogue(gameboard) {
     "items-center",
     "bg-blue-900/80"
   )
-  document.body.appendChild(dialog)
+  getElementById("body-container").appendChild(dialog)
 
   dialog.innerHTML = `
         <div class="sm:w-3/4 lg:w-3/4 h-fit p-10 bg-gray-900/60 border bottom-1 border-blue-600/50 rounded-2xl shadow-2xl">
@@ -170,12 +169,27 @@ function displayGameOverDialogue(gameboard) {
         </div>
     `
 
+  const winnerMessage = [`${gameboard.getOpponentName()} has won the battle`]
+  newMessage(winnerMessage)
+  document.body.classList.add("no-scroll")
   const restartBtn = getElementById("restartBtn")
   restartBtn.addEventListener("click", () => {
     location.reload()
   })
-  const typed = new Typed(getElementById("message"), {
-    strings: [`${gameboard.getOpponentName()} has won the battle`],
-    typeSpeed: 50,
+}
+
+let typedInstance = null
+export function newMessage(array, loop = false, typeSpeed = 50) {
+  if (typedInstance) {
+    typedInstance.destroy()
+    typedInstance = null
+  }
+
+  typedInstance = new Typed(getElementById("message"), {
+    strings: array,
+    typeSpeed: typeSpeed,
+    backSpeed: 25, // Speed of backspacing
+    backDelay: 3000, // Delay before starting to backspace
+    loop: loop,
   })
 }

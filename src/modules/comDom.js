@@ -12,6 +12,9 @@ import { cellSize, drawCanvas } from "../bin2/domevents"
 import { playerboard, computerBoard } from "./playerDom"
 import { getRandomDirection, getRandomNumber, canPlaceShip } from "../bin2/game"
 
+let isHunting = true
+let lastHitCell = null
+
 export function initializeComputer() {
   getElementById("field").classList.replace("flex-col", "flex-row")
   getElementById("field").classList.add("gap-6", "begin")
@@ -56,7 +59,7 @@ function placeShipsRandomly(ships) {
     let orientation = getRandomDirection()
     ship.direction = orientation
 
-    console.log(ship, length, orientation)
+    // console.log(ship, length, orientation)
 
     let newPosition = {
       x: getRandomNumber(),
@@ -72,7 +75,7 @@ function placeShipsRandomly(ships) {
       cellSize
     )
 
-    console.log(ship, length, newPosition, orientation)
+    // console.log(ship, length, newPosition, orientation)
 
     while (!wellPlaced) {
       newPosition = {
@@ -112,11 +115,17 @@ async function attack(e) {
     getElementById("attackScreen"),
     computerBoard
   )
-  console.log(computerBoard.positionShot)
-  if (playerKill) return
+
+  if (playerKill) return //player plays again
+
   computerCvs.removeEventListener("click", attack)
 
   await new Promise((resolve) => setTimeout(resolve, 1500)) // Delay between computer shots
+
+  // if (isHunting){
+  //   let cell = randomCell()
+
+  // }
 
   let computerKill = computerShoot(
     playerboard,
@@ -125,7 +134,6 @@ async function attack(e) {
     getElementById("strategyscreen")
   )
   while (computerKill) {
-    console.log("position has been hit previously")
     await new Promise((resolve) => setTimeout(resolve, 1500)) // Delay between computer shots
     computerKill = computerShoot(
       playerboard,

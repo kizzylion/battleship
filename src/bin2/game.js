@@ -4,7 +4,7 @@ export function htmlStructure() {
     <Header class="flex items-center max-w-7xl  w-full mx-auto mt-10 mb-4" >
         <h1 id="Logo" class="text-2xl mr-5"><img id="logo"/>Kiz BattleShip </h1>
         <div class="screen flex px-4 py-3 bg-gray-200 text-sm max-w-xl w-full rounded-md">
-            <p>Start editing to see some magic happen </p>
+            <p id="message">Start editing to see some magic happen </p>
         </div>
     </Header>
     

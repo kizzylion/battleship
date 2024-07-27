@@ -16,7 +16,7 @@ class Gameboard {
     this.board = Array(10)
       .fill(null)
       .map(() => Array(10).fill(null))
-    this.buckets = new Array(5).fill(null)
+    this.hitShot = new Set()
   }
 
   setOpponentName(name) {
@@ -77,6 +77,7 @@ class Gameboard {
     const target = this.board[y][x]
     if (target) {
       this.addToPositionShot([x, y])
+      this.hitShot.add([x, y].toString())
       target.hit()
     } else {
       this.missedShots.add([x, y].toString())

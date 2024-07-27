@@ -9,12 +9,13 @@ const {
 } = require("../bin2/game")
 const { drawCanvas, cellSize } = require("../bin2/domevents")
 const { Gameboard } = require("./factories/Gameboard")
-import Typed from "typed.js"
+
 import {
   querySelectorAll,
   getElementById,
   hideElement,
   flexElement,
+  newMessage,
 } from "./DOM/utilities"
 import { initializeComputer } from "./comDom"
 
@@ -33,17 +34,14 @@ computerBoard.setOpponentName("Player")
   const playerCvs = document.getElementById("playerboard")
   const playerCtx = playerCvs.getContext("2d")
 
-  const message = document.querySelector(".screen p")
-  const typed = new Typed(message, {
-    strings: [
-      "Begin by setting up a formation",
-      "Drag and Drop your ships in your country water",
-      "You can arrange your ships in a vertical or horizontal position by using the X axis or Y axis Button",
-      "All the best with your formation",
-    ],
-    typeSpeed: 50,
-    loop: true,
-  })
+  const startMessage = [
+    "Begin by setting up a formation",
+    "Drag and Drop your ships in your country water",
+    "You can arrange your ships in a vertical or horizontal position by using the X axis or Y axis Button",
+    "All the best with your formation",
+  ]
+
+  newMessage(startMessage)
 
   //draw player canvas
   drawCanvas(playerCtx, "#b4b4ff")
@@ -162,6 +160,12 @@ computerBoard.setOpponentName("Player")
         orientation
       )
     })
+    const randomFormation = [
+      "Your Ships have been placed randomly",
+      "Not fine with the formation? click Random, else, Start! now",
+    ]
+
+    newMessage(randomFormation)
     console.log(playerboard.board)
   })
 
@@ -176,6 +180,14 @@ computerBoard.setOpponentName("Player")
       querySelectorAll("token").forEach((token) => {
         removeDragEvents(token)
       })
+
+      const startMessage = [
+        "Fight!!! Now",
+        "Shoot any position on your enemies water to destroy enemies ship",
+        "Remember, Ships are placed Horizontally and Vertically Only",
+      ]
+
+      newMessage(startMessage, true)
 
       getElementById("playerboard").classList.add("bringFront")
       initializeComputer()
