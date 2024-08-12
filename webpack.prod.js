@@ -14,28 +14,19 @@ module.exports = merge(common, {
   },
   plugins: [
     new MiniCssExtractPlugin({
-      filename: "[name].css",
-      chunkFilename: "[id].css",
+      filename: "[name].[contenthash].css",
     }),
   ],
   module: {
     rules: [
       {
         test: /\.css$/i, // Add this rule to handle .css files
-        use: [MiniCssExtractPlugin.loader, "css-loader"],
+        use: [MiniCssExtractPlugin.loader, "css-loader", "postcss-loader"],
       },
       {
         test: /\.s[ac]ss$/i,
-        use: [MiniCssExtractPlugin.loader, "css-loader", "sass-loader"],
+        use: [MiniCssExtractPlugin.loader, "css-loader", "postcss-loader"],
       },
     ],
   },
-  optimization: {
-    minimizer: [new CssMinimizerPlugin()],
-  },
 })
-
-console.log(
-  "Favicon path: ",
-  path.resolve(__dirname, "src/assets/images/logo.png")
-)

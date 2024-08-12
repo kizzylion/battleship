@@ -1,9 +1,10 @@
 // Get the computed style of the :root element
-const rootStyle = getComputedStyle(document.documentElement)
+const bodyStyle = getComputedStyle(document.body)
 
 // Get the value of the --cell-size variable
-const cellSize = parseFloat(rootStyle.getPropertyValue("--cell-size").trim())
+const cellSize = parseFloat(bodyStyle.getPropertyValue("--cell-size").trim())
 
+// test
 console.log("Cell size:", cellSize)
 module.exports = { drawCanvas, cellSize }
 
